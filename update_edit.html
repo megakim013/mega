@@ -1,0 +1,63 @@
+<script>
+let currentId = null;
+
+window.addEventListener("load", () => {
+    document.body.classList.add("loaded");
+    initEdit();
+});
+
+function getQueryId() {
+    const params = new URLSearchParams(location.search);
+    return params.get("id");
+}
+
+function initEdit() {
+    const idStr = getQueryId();
+    if (!idStr) {
+        alert("잘못된 접근입니다.");
+        location.href = "update.html";
+        return;
+    }
+
+    currentId = Number(idStr);
+
+    let list = JSON.parse(localStorage.getItem("updates") || "[]");
+    const u = list.find(x => Number(x.id) === Number(currentId));
+
+    if (!u) {
+        alert("해당 업데이트를 찾을 수 없습니다.");
+        location.href = "update.html";
+        return;
+    }
+
+    document.getElementById("title").value = u.title || "";
+    document.getElementById("content").value = u.content || "";
+}
+
+function saveEdited() {
+    const title = document.getElementById("title").value.trim();
+    const content = document.getElementById("content").value.trim();
+
+    if (!title || !content) {
+        alert("제목과 내용을 입력하세요.");
+        return;
+    }
+
+    let list = JSON.parse(localStorage.getItem("updates") || "[]");
+    const idx = list.findIndex(x => Number(x.id) === Number(currentId));
+
+    if (idx === -1) {
+        alert("데이터를 찾을 수 없습니다.");
+        location.href = "update.html";
+        return;
+    }
+
+    list[idx].title = title;
+    list[idx].content = content;
+
+    localStorage.setItem("updates", JSON.stringify(list));
+
+    alert("수정이 완료되었습니다.");
+    location.href = "update.html";
+}
+</script>

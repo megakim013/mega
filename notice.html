@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>공지사항</title>
+
+<style>
+    /* 🔥 전체 페이지 공통 배경 적용 */
+  html {
+    background: linear-gradient(
+        180deg,
+        #2e2e2e 0%,
+        #1f1f1f 50%,
+        #151515 100%
+    );
+    background-attachment: fixed;
+}
+
+    body {
+        margin: 0;
+        background: transparent; /* body는 투명 */
+        color: #ddd;
+        font-family: "Malgun Gothic", Arial, sans-serif;
+    }
+
+    body.loaded {}
+
+    /* 어두운 오버레이 */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.15);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* 상단 메뉴 */
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.55);
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,0,0,0.25);
+        text-align: center;
+        z-index: 999;
+        backdrop-filter: blur(3px);
+    }
+
+    .navbar a {
+        color: #ddd;
+        margin: 0 28px;
+        font-size: 19px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .navbar a:hover {
+        color: #ff3333;
+        border-bottom: 2px solid #ff3333;
+        text-shadow: 0 0 8px #ff0000;
+    }
+
+    /* 상단 배너 */
+    .header {
+        background-image: url('images/baphomet2.jpg');
+        background-size: cover;
+        background-position: center;
+        height: 520px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .header::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.20);
+    }
+
+    .header::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        width: 100%;
+        height: 350px;
+        background: linear-gradient(
+            to bottom,
+            rgba(0,0,0,0) 0%,
+            rgba(0,0,0,0.25) 30%,
+            rgba(0,0,0,0.55) 65%,
+            rgba(0,0,0,0.90) 100%
+        );
+    }
+
+    .header h1 {
+        position: relative;
+        font-size: 45px;
+        font-weight: bold;
+        letter-spacing: 4px;
+        color: #fff;
+        text-shadow: 0 0 10px #000, 0 0 20px #990000;
+        top: 60px;
+    }
+
+    /* 본문 박스 */
+    .container {
+        width: 860px;
+        margin: 120px auto 70px auto;
+        background: rgba(0,0,0,0.78);
+        padding: 45px 50px;
+        border: 1px solid rgba(255,0,0,0.35);
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(255,0,0,0.25);
+        line-height: 1.65;
+        font-size: 18px;
+        position: relative;
+        z-index: 5;
+    }
+
+    h2 {
+        color: #ff4444;
+        font-size: 26px;
+        margin-top: 40px;
+        margin-bottom: 18px;
+        border-bottom: 1px solid rgba(255,0,0,0.35);
+        padding-bottom: 6px;
+    }
+
+    ul { padding-left: 22px; }
+    li { margin-bottom: 10px; }
+
+    /* 주의 박스 스타일 */
+    .note {
+        margin-top: 8px;
+        margin-bottom: 12px;
+        background: rgba(255, 0, 0, 0.08);
+        border-left: 3px solid rgba(255, 0, 0, 0.45);
+        padding: 10px 12px;
+        border-radius: 6px;
+        color: #ffbbbb;
+        font-size: 15px;
+        line-height: 1.45;
+    }
+
+    /* footer */
+    .footer {
+        margin-top: 60px;
+        padding: 15px 0;
+        font-size: 14px;
+        color: rgba(230,230,230,0.75);
+        text-align: center;
+        line-height: 1.4;
+    }
+</style>
+</head>
+
+<body>
+
+<script>
+window.addEventListener("load", () => {
+    document.body.classList.add("loaded");
+});
+</script>
+
+<!-- 상단 메뉴 -->
+<div class="navbar">
+    <a href="index.html">홈</a>
+    <a href="notice.html">공지사항</a>
+    <a href="info.html">서버정보</a>
+    <a href="update.html">업데이트</a>
+    <a href="boss.html">보스정보</a>
+    <a href="promo.html">홍보안내</a>
+    <a href="service.html">고객센터</a>
+    <a href="download.html">다운로드</a>
+</div>
+
+<!-- 상단 배너 -->
+<div class="header">
+    <h1>공지사항</h1>
+</div>
+
+<!-- 본문 -->
+<div class="container">
+
+    <h2>접속 관련</h2>
+    <ul>
+        <li>IP당 2개의 클라이언트 접속을 허용합니다.</li>
+        <li>접속 오류 발생 시 카카오톡/텔레그램으로 문의해주세요.</li>
+    </ul>
+
+    <h2>채팅 규정</h2>
+    <ul>
+        <li>비방 및 서버 분위기 저해 발언 금지</li>
+        <div class="note">
+            · 1차 제재는 운영자 판단 기준 적용<br>
+            · 유저 간 언쟁은 운영자 판단으로 처리<br>
+            · 채팅 유도 후 신고 시 신고자도 동일 제재 가능
+        </div>
+
+        <li>장애인 비하 발언 금지</li>
+        <li>적혈 도발은 외창으로 간주</li>
+
+        <li>전창·흰창 포함 모든 외창 제재</li>
+        <div class="note">
+            1차 : 60분 금지<br>
+            2차 : 600분 금지<br>
+            3차 : 48시간 정지<br>
+            4차 : 72시간 정지
+        </div>
+
+        <li>보조캐릭·VPN 외창 시 본캐 포함 동일 제재 적용</li>
+        <div class="note">※ 1차 적발 시 바로 해당 차수 제재</div>
+
+        <li>성적 농담 및 성희롱 금지</li>
+
+        <li>사생활·개인정보 언급 또는 조롱 금지</li>
+        <div class="note">
+            1차 : 48시간 정지<br>
+            2차 : 72시간 정지
+        </div>
+    </ul>
+
+    <h2>사기 및 사칭</h2>
+    <ul>
+        <li>유저 사칭하여 아이템 요구 금지</li>
+        <li>운영자 사칭 금지</li>
+        <li>아이템 현금 거래는 운영자 중계만 인정</li>
+    </ul>
+    <div class="note">※ 위반 시 경고 없이 영구 이용 제한</div>
+
+    <h2>버그 악용 및 어뷰징</h2>
+    <ul>
+        <li>버그를 이용한 모든 행위</li>
+        <li>정책 악용 및 비정상적 플레이</li>
+        <li>시스템 목적에 반하는 모든 행동</li>
+    </ul>
+    <div class="note">※ 1차 적발 시 영구 이용 제한</div>
+
+    <h2>이중 혈맹</h2>
+    <ul>
+        <li>본캐와 동일 IP 부캐릭 타 혈맹 가입 금지</li>
+        <li>본캐 라인 / 부캐 중립 상태 사냥 금지</li>
+        <li>적혈 잠입 목적 부캐 운영 금지</li>
+    </ul>
+    <div class="note">※ 위반 시 즉시 벤 처리</div>
+
+    <h2>1:1 문의 안내</h2>
+    <p>
+        문의는 <b>텔레그램</b>이 가장 빠릅니다.<br>
+        게임 내 문의는 <b>메티스</b>에게 편지를 보내주세요.
+    </p>
+
+</div>
+
+<div class="footer">
+    서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
+    게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
+</div>
+
+</body>
+</html>

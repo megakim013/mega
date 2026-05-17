@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>TheLog Server - 업데이트</title>
+
+<style>
+/* ------------------------------
+   전체 배경 통일 (모든 메뉴와 동일)
+------------------------------ */
+  html {
+    background: linear-gradient(
+        180deg,
+        #2e2e2e 0%,
+        #1f1f1f 50%,
+        #151515 100%
+    );
+    background-attachment: fixed;
+}
+body {
+    margin: 0;
+    background: transparent;
+    color: #ddd;
+    font-family: "Malgun Gothic", Arial, sans-serif;
+}
+body::before {
+    content:"";
+    position: fixed;
+    inset:0;
+    background: rgba(0,0,0,0.18);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.footer {
+    margin-top: 60px;
+    padding: 15px 0;
+    font-size: 14px;
+    color: rgba(230, 230, 230, 0.75);
+    text-align: center;
+    line-height: 1.4;
+    position: relative;
+    z-index: 10;
+}
+
+/* ------------------------------
+   상단 메뉴
+------------------------------ */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.55);
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,0,0,0.25);
+    z-index: 1000;
+    text-align: center;
+}
+.navbar a {
+    color: #ddd;
+    margin: 0 28px;
+    font-size: 19px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.navbar a:hover {
+    color: #ff3333;
+    border-bottom: 2px solid #ff3333;
+    text-shadow: 0 0 8px #ff0000;
+}
+
+/* ------------------------------
+   상단 배너
+------------------------------ */
+.header {
+    background-image: url('images/baphomet2.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+}
+.header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+}
+.header::after {
+    content:"";
+    position:absolute;
+    bottom:-1px;
+    width:100%;
+    height:350px;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.25) 30%,
+        rgba(0,0,0,0.55) 65%,
+        rgba(0,0,0,0.9) 100%
+    );
+}
+
+.header h1 {
+    position: relative;
+    font-size: 43px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: #fff;
+    text-shadow: 0 0 10px #000, 0 0 20px #990000;
+    top: 60px;
+    z-index: 10;
+}
+
+/* ------------------------------
+   본문 컨테이너
+------------------------------ */
+.container {
+    width: 1000px;
+    margin: 120px auto 70px auto;
+    padding-bottom: 80px;
+    position: relative;
+    z-index: 10;
+}
+
+h2 {
+    font-size: 32px;
+    color: #ff4444;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #900;
+}
+
+/* ------------------------------
+    검색 영역
+------------------------------ */
+.search-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+.search-box-left {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.search-input {
+    padding: 8px 10px;
+    width: 260px;
+    background: #111;
+    border: 1px solid #555;
+    color: #ddd;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.btn {
+    padding: 8px 14px;
+    background: #660000;
+    color: #fff;
+    border: 1px solid #ff4444;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+.btn:hover {
+    background: #990000;
+    box-shadow: 0 0 10px #ff4444;
+}
+
+/* ------------------------------
+    게시판 테이블
+------------------------------ */
+table.board {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0,0,0,0.65);
+    border: 1px solid rgba(255,30,30,0.4);
+    border-radius: 8px;
+    overflow: hidden;
+}
+table.board thead {
+    background: rgba(60,0,0,0.8);
+}
+table.board th, table.board td {
+    padding: 10px 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    font-size: 15px;
+    text-align: center;
+}
+table.board th:nth-child(2),
+table.board td:nth-child(2) {
+    text-align: left;
+}
+table.board tr:hover td {
+    background: rgba(255,0,0,0.08);
+}
+.title-link {
+    color: #ddd;
+    text-decoration: none;
+}
+.title-link:hover {
+    color: #ffcc00;
+    text-shadow: 0 0 6px #ffcc00;
+}
+
+/* ------------------------------
+   관리 버튼
+------------------------------ */
+.manage-btn {
+    padding: 4px 8px;
+    margin: 1px;
+    background: #444;
+    border-radius: 4px;
+    border: 1px solid #777;
+    font-size: 12px;
+    cursor: pointer;
+    color: #fff;
+}
+.manage-btn.edit {
+    background: #225588;
+    border-color: #5599dd;
+}
+.manage-btn.delete {
+    background: #884444;
+    border-color: #dd7777;
+}
+
+/* ------------------------------
+   페이징
+------------------------------ */
+.pagination {
+    margin-top: 15px;
+    text-align: center;
+}
+.pagination button {
+    background: #222;
+    border: 1px solid #555;
+    color: #ddd;
+    padding: 5px 10px;
+    margin: 0 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.pagination button.active {
+    background: #aa0000;
+    border-color: #ff4444;
+    font-weight: bold;
+}
+.pagination button:hover {
+    background: #444;
+}
+
+/* ------------------------------
+   상세 모달
+------------------------------ */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+.modal {
+    width: 650px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #111;
+    border-radius: 10px;
+    padding: 20px 24px;
+    border: 1px solid #ff4444;
+    box-shadow: 0 0 20px rgba(255,0,0,0.6);
+}
+.modal-title {
+    font-size: 22px;
+    color: #ffcc00;
+    margin-bottom: 5px;
+}
+.modal-date {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+.modal-content {
+    font-size: 16px;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+.modal-close {
+    margin-top: 18px;
+    text-align: right;
+}
+.modal-close button {
+    padding: 7px 14px;
+    background: #660000;
+    border-radius: 6px;
+    border: 1px solid #ff4444;
+    cursor: pointer;
+    color: #fff;
+}
+</style>
+
+<script>
+const PAGE_SIZE = 10;
+let updates = [];      // 전체 데이터
+let filtered = [];     // 검색된 데이터
+let currentPage = 1;
+let adminMode = false;
+
+window.addEventListener("load", () => {
+    loadUpdates();
+});
+
+// ----------------------------------------
+// 업데이트 데이터 로드 + 마이그레이션 + 정렬
+// ----------------------------------------
+function loadUpdates() {
+    let list = JSON.parse(localStorage.getItem("updates") || "[]");
+
+    // ✅ [추가] 처음 접속(데이터 없음)일 때 기본 업데이트 1개 자동 생성
+    if (list.length === 0) {
+        const today = new Date().toISOString().substring(0, 10);
+        list.push({
+            id: Date.now(),
+            title: "업데이트 사항은 서버내 또는 단톡방 참조",
+            content: "업데이트 사항은 서버내 또는 단톡방 참조",
+            date: today,
+            createdAt: today + "T00:00:00"
+        });
+    }
+
+    list.forEach((u, idx) => {
+        if (!u.id) u.id = Date.now() + idx;
+        if (!u.createdAt) {
+            if (u.date && /^\d{4}-\d{2}-\d{2}$/.test(u.date)) {
+                u.createdAt = u.date + "T00:00:00";
+            } else {
+                u.createdAt = new Date().toISOString();
+            }
+        }
+    });
+
+    list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    updates = list;
+    filtered = [...updates];
+
+    localStorage.setItem("updates", JSON.stringify(updates));
+    renderBoard();
+}
+
+// ----------------------------------------
+// 게시판 렌더링
+// ----------------------------------------
+function renderBoard() {
+    const tbody = document.getElementById("boardBody");
+    const pagination = document.getElementById("pagination");
+
+    tbody.innerHTML = "";
+    pagination.innerHTML = "";
+
+    if (filtered.length === 0) {
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 4;
+        td.textContent = "등록된 업데이트가 없습니다.";
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+        return;
+    }
+
+    const total = filtered.length;
+    const totalPages = Math.ceil(total / PAGE_SIZE);
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+    const pageItems = filtered.slice(start, end);
+
+    pageItems.forEach((u, idx) => {
+        const tr = document.createElement("tr");
+
+        // 번호
+        const noTd = document.createElement("td");
+        noTd.textContent = total - (start + idx);
+        tr.appendChild(noTd);
+
+        // 제목
+        const titleTd = document.createElement("td");
+        const a = document.createElement("a");
+        a.className = "title-link";
+        a.textContent = u.title;
+        a.href = "javascript:void(0)";
+        a.onclick = () => openDetail(u.id);
+        titleTd.appendChild(a);
+        tr.appendChild(titleTd);
+
+        // 날짜
+        const dateTd = document.createElement("td");
+        dateTd.textContent = u.date || u.createdAt.substring(0,10);
+        tr.appendChild(dateTd);
+
+        // 관리
+        const manageTd = document.createElement("td");
+        if (adminMode) {
+            const btnEdit = document.createElement("button");
+            btnEdit.className = "manage-btn edit";
+            btnEdit.textContent = "수정";
+            btnEdit.onclick = (e) => {
+                e.stopPropagation();
+                editUpdate(u.id);
+            };
+
+            const btnDelete = document.createElement("button");
+            btnDelete.className = "manage-btn delete";
+            btnDelete.textContent = "삭제";
+            btnDelete.onclick = (e) => {
+                e.stopPropagation();
+                deleteUpdate(u.id);
+            };
+
+            manageTd.appendChild(btnEdit);
+            manageTd.appendChild(btnDelete);
+        } else {
+            manageTd.textContent = "-";
+        }
+        tr.appendChild(manageTd);
+
+        tbody.appendChild(tr);
+    });
+
+    // 페이징 처리
+    const totalPages2 = Math.ceil(filtered.length / PAGE_SIZE);
+
+    if (totalPages2 > 1) {
+        // 이전
+        const prevBtn = document.createElement("button");
+        prevBtn.textContent = "이전";
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => { currentPage--; renderBoard(); };
+        pagination.appendChild(prevBtn);
+
+        // 페이지 번호
+        for (let p = 1; p <= totalPages2; p++) {
+            const btn = document.createElement("button");
+            btn.textContent = p;
+            if (p === currentPage) btn.classList.add("active");
+            btn.onclick = () => { currentPage = p; renderBoard(); };
+            pagination.appendChild(btn);
+        }
+
+        // 다음
+        const nextBtn = document.createElement("button");
+        nextBtn.textContent = "다음";
+        nextBtn.disabled = currentPage === totalPages2;
+        nextBtn.onclick = () => { currentPage++; renderBoard(); };
+        pagination.appendChild(nextBtn);
+    }
+}
+
+// ----------------------------------------
+// 검색 기능
+// ----------------------------------------
+function searchUpdates() {
+    const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+
+    if (!keyword) {
+        filtered = [...updates];
+    } else {
+        filtered = updates.filter(u =>
+            (u.title && u.title.toLowerCase().includes(keyword)) ||
+            (u.content && u.content.toLowerCase().includes(keyword))
+        );
+    }
+
+    currentPage = 1;
+    renderBoard();
+}
+
+// ----------------------------------------
+// 관리자 모드
+// ----------------------------------------
+function enableAdminMode() {
+    if (adminMode) {
+        adminMode = false;
+        alert("관리자 모드 OFF");
+        renderBoard();
+        return;
+    }
+
+    let pw = prompt("관리자 비밀번호를 입력하세요.");
+    let real = atob("d2pkYWxzcnVkMSE="); // wjdalsrud1!
+
+    if (pw !== real) {
+        alert("비밀번호 오류!");
+        return;
+    }
+
+    adminMode = true;
+    alert("관리자 모드 ON");
+    renderBoard();
+}
+
+// ----------------------------------------
+// 글쓰기 이동
+// ----------------------------------------
+function openWritePage() {
+    if (!adminMode) {
+        let pw = prompt("관리자 비밀번호를 입력하세요.");
+        let real = atob("d2pkYWxzcnVkMSE=");
+        if (pw !== real) {
+            alert("비밀번호 오류!");
+            return;
+        }
+        adminMode = true;
+    }
+    location.href = "update_write.html";
+}
+
+// ----------------------------------------
+// 상세보기 모달
+// ----------------------------------------
+function openDetail(id) {
+    const u = updates.find(x => x.id === id);
+    if (!u) return;
+
+    document.getElementById("modalTitle").textContent = u.title;
+    document.getElementById("modalDate").textContent =
+        u.date || u.createdAt.substring(0,10);
+    document.getElementById("modalContent").textContent =
+        u.content || "";
+
+    document.getElementById("modalOverlay").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modalOverlay").style.display = "none";
+}
+
+// ----------------------------------------
+// 수정
+// ----------------------------------------
+function editUpdate(id) {
+    location.href = "update_edit.html?id=" + encodeURIComponent(id);
+}
+
+// ----------------------------------------
+// 삭제
+// ----------------------------------------
+function deleteUpdate(id) {
+    if (!confirm("정말 삭제하시겠습니까?")) return;
+
+    let list = JSON.parse(localStorage.getItem("updates") || "[]");
+    list = list.filter(u => u.id !== id);
+    localStorage.setItem("updates", JSON.stringify(list));
+
+    updates = list;
+    searchUpdates();
+}
+</script>
+</head>
+
+<body>
+
+<!-- 상단 메뉴 -->
+<div class="navbar">
+    <a href="index.html">홈</a>
+    <a href="notice.html">공지사항</a>
+    <a href="info.html">서버정보</a>
+    <a href="update.html" style="color:#ff3333; border-bottom:2px solid #ff3333;">업데이트</a>
+    <a href="boss.html">보스정보</a>
+    <a href="promo.html">홍보안내</a>
+    <a href="service.html">고객센터</a>
+    <a href="download.html">다운로드</a>
+</div>
+
+<!-- 배너 -->
+<div class="header">
+    <h1>UPDATE</h1>
+</div>
+
+<!-- 본문 -->
+<div class="container">
+    <h2>📢 최신 업데이트</h2>
+
+    <div class="search-box">
+        <div class="search-box-left">
+            <input id="searchInput" class="search-input" type="text" placeholder="제목 또는 내용 검색">
+            <button class="btn" onclick="searchUpdates()">검색</button>
+            <button class="btn" onclick="document.getElementById('searchInput').value=''; searchUpdates();">전체보기</button>
+        </div>
+
+        <div>
+            <button class="btn" onclick="openWritePage()">업데이트 작성</button>
+            <button class="btn" onclick="enableAdminMode()">관리자 모드</button>
+        </div>
+    </div>
+
+    <table class="board">
+        <thead>
+            <tr>
+                <th style="width:60px;">번호</th>
+                <th>제목</th>
+                <th style="width:120px;">작성일</th>
+                <th style="width:130px;">관리</th>
+            </tr>
+        </thead>
+        <tbody id="boardBody"></tbody>
+    </table>
+
+    <div id="pagination" class="pagination"></div>
+</div>
+
+<!-- 상세 모달 -->
+<div id="modalOverlay" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-date" id="modalDate"></div>
+        <div class="modal-content" id="modalContent"></div>
+        <div class="modal-close">
+            <button onclick="closeModal()">닫기</button>
+        </div>
+    </div>
+</div>
+
+<!-- 하단 -->
+<div class="footer">
+    서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
+    게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
+</div>
+
+</body>
+</html>
+
+<!-- 수정 모달 (원본에 있던 그대로 유지) -->
+<div id="editModal" class="modal-overlay">
+    <div class="modal">
+        <h2 style="color:#ffcc00; margin-bottom:10px;">업데이트 수정</h2>
+
+        <input type="hidden" id="editId">
+
+        <div>
+            <label style="color:#ccc;">제목</label><br>
+            <input id="editTitle" type="text"
+                   style="width:100%; padding:8px; margin:6px 0; background:#222; border:1px solid #555; color:#fff; border-radius:5px;">
+        </div>
+
+        <div>
+            <label style="color:#ccc;">내용</label><br>
+            <textarea id="editContent"
+                      style="width:100%; height:180px; padding:8px; margin-top:6px; background:#222; border:1px solid #555; color:#fff; border-radius:5px;"></textarea>
+        </div>
+
+        <div class="modal-close" style="margin-top:15px;">
+            <button onclick="saveEdit()">저장</button>
+            <button onclick="closeEditModal()">닫기</button>
+        </div>
+    </div>
+</div>
