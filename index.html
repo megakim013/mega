@@ -5,9 +5,9 @@
 <title>Mega 서버에 오신것을 환영합니다.</title>
 
 <style>
-    /* 🔥 고정 배경 설정 */
+    /* 🔥 고정 배경 설정 (블랙 & 딥블루 그라데이션으로 변경) */
     html {
-        background: linear-gradient(180deg, #2e2e2e 0%, #1f1f1f 50%, #151515 100%);
+        background: linear-gradient(180deg, #1a2636 0%, #111822 50%, #0b0f15 100%);
         background-attachment: fixed;
     }
 
@@ -22,7 +22,7 @@
         content: "";
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.15);
+        background: rgba(0,0,0,0.2);
         pointer-events: none;
         z-index: 0;
     }
@@ -32,42 +32,42 @@
         margin-top: 60px;
         padding: 15px 0;
         font-size: 14px;
-        color: rgba(230,230,230,0.75);
+        color: rgba(200,220,240,0.7);
         text-align: center;
         line-height: 1.4;
     }
 
-    /* 상단 메뉴 (4개로 조정) */
+    /* 상단 메뉴 (파란색 테마로 변경) */
     .navbar {
         position: fixed;
         top: 0;
         width: 100%;
-        background: rgba(0,0,0,0.55);
+        background: rgba(10,16,26,0.65);
         padding: 14px 0;
-        border-bottom: 1px solid rgba(255,0,0,0.25);
+        border-bottom: 1px solid rgba(0,150,255,0.3);
         z-index: 999;
         text-align: center;
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(4px);
     }
 
     .navbar a {
         color: #ddd;
-        /* 메뉴가 4개로 늘어나서 간격을 25px로 소폭 조정했습니다 */
         margin: 0 25px; 
         font-size: 19px;
         font-weight: bold;
         text-decoration: none;
         transition: 0.25s;
     }
+    /* 마우스 올렸을 때 네온 블루 효과 */
     .navbar a:hover {
-        color: #ff3333;
-        border-bottom: 2px solid #ff3333;
-        text-shadow: 0 0 8px #ff0000;
+        color: #33ccff;
+        border-bottom: 2px solid #33ccff;
+        text-shadow: 0 0 10px #0088ff, 0 0 20px #0055ff;
     }
 
     /* 상단 배너 */
     .header {
-        background-image: url('images/megamain.png');
+        background-image: url('images/megamain.png'); /* 💡 여기에 새로 다운받은 파란 드래곤 이미지를 넣으시면 됩니다! */
         background-size: cover;
         background-position: center;
         height: 520px;
@@ -83,9 +83,10 @@
         bottom: -1px;
         width: 100%;
         height: 350px;
-        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.90) 100%);
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(11,15,21,0.95) 100%);
     }
 
+    /* 메인 타이틀에 신비로운 푸른색 그림자 추가 */
     .header h1 {
         position: relative;
         font-size: 43px;
@@ -93,7 +94,7 @@
         letter-spacing: 4px;
         color: #fff;
         top: 60px;
-        text-shadow: 0 0 10px #000, 0 0 20px #990000;
+        text-shadow: 0 0 15px #000, 0 0 25px #0066ff, 0 0 35px #0033aa;
         z-index: 10;
     }
 
@@ -104,7 +105,7 @@
         text-align: center;
     }
 
-    /* 네모 박스 (중앙 버튼) */
+    /* 네모 박스 (중앙 버튼 - 블루 테마로 변경) */
     .img-box {
         width: 100%;
         height: 100px;
@@ -115,22 +116,23 @@
         position: relative;
         overflow: hidden;
         cursor: pointer;
-        border: 1px solid rgba(255,40,40,0.35);
-        box-shadow: 0 0 12px rgba(255,0,0,0.25);
+        border: 1px solid rgba(0,150,255,0.3);
+        box-shadow: 0 0 15px rgba(0,100,255,0.15);
         transition: 0.3s;
     }
 
+    /* 마우스 올렸을 때 푸른색으로 발광하는 효과 */
     .img-box:hover {
         transform: scale(1.02);
-        box-shadow: 0 0 20px rgba(255,0,0,0.55);
-        border-color: rgba(255,80,80,0.9);
+        box-shadow: 0 0 25px rgba(0,150,255,0.6);
+        border-color: rgba(51,204,255,0.9);
     }
 
     .img-box::after {
         content:"";
         position:absolute;
         inset:0;
-        background:rgba(0,0,0,0.45);
+        background:rgba(0,10,20,0.5);
     }
 
     .img-box span {
@@ -142,15 +144,15 @@
         font-size:22px;
         font-weight:bold;
         z-index:5;
-        text-shadow:0 0 8px #000, 0 0 15px #900;
+        text-shadow:0 0 8px #000, 0 0 15px #0066ff;
     }
 
-    /* 팝업 */
+    /* 공지사항 팝업창도 다크 블루&시안 테마로 통일 */
     #popup {
         width: 420px;
-        background: rgba(0,0,0,0.85);
-        border: 2px solid #800000;
-        box-shadow: 0 0 25px rgba(255,0,0,0.4);
+        background: rgba(10,20,30,0.92);
+        border: 2px solid #0055cc;
+        box-shadow: 0 0 30px rgba(0,100,255,0.5);
         color: #fff;
         padding: 20px;
         border-radius: 10px;
@@ -160,9 +162,11 @@
         transform: translate(-50%, -50%);
         z-index: 2000;
         display: none;
+        backdrop-filter: blur(5px);
     }
-    #popup h2 { text-align: center; color: #ff3333; }
-    .close-btn { position: absolute; top: 8px; right: 12px; cursor: pointer; color: #ff5555; font-size: 22px; }
+    #popup h2 { text-align: center; color: #33ccff; text-shadow: 0 0 10px rgba(0,150,255,0.5); }
+    .close-btn { position: absolute; top: 8px; right: 12px; cursor: pointer; color: #33ccff; font-size: 22px; }
+    .close-btn:hover { color: #fff; }
 </style>
 </head>
 
@@ -187,7 +191,6 @@ function closePopup() { document.getElementById("popup").style.display = "none";
     <p></p>
 </div>
 
-<!-- 상단 메뉴 부분: '홍보 문구' 추가 -->
 <div class="navbar">
     <a href="index.html">홈</a>
     <a href="service.html">고객센터</a>
