@@ -2,71 +2,84 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>다운로드 - Casino Server</title>
+<title>다운로드 - Mega Server</title>
 
 <style>
 /* ------------------------------
-   전체 배경 및 기본 스타일
+   좌측 사이드바 메뉴 스타일
 ------------------------------ */
-html {
-    background: linear-gradient(180deg, #2e2e2e 0%, #1f1f1f 50%, #151515 100%);
-    background-attachment: fixed;
-}
-body {
-    margin: 0;
-    background: transparent;
-    color: #ddd;
-    font-family: "Malgun Gothic", Arial, sans-serif;
-}
-
-/* 화면 전체 어두운 레이어 */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.15);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.footer {
-    margin-top: 60px;
-    padding: 15px 0;
-    font-size: 14px;
-    color: rgba(230, 230, 230, 0.75);
-    text-align: center;
-    line-height: 1.4;
-}
-
-/* 상단 메뉴 (3개로 조정) */
-.navbar {
+.sidebar {
     position: fixed;
     top: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.55);
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(255, 0, 0, 0.25);
-    z-index: 999;
-    text-align: center;
-    backdrop-filter: blur(4px);
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
+    border-right: 1px solid rgba(0,150,255,0.25);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
 }
-.navbar a {
-    color: #ddd;
-    margin: 0 35px;
-    font-size: 19px;
+.sidebar-logo {
+    padding: 35px 20px 25px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,150,255,0.15);
+}
+.sidebar-logo h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px #0066ff, 0 0 25px #0033aa;
+}
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 0;
+    flex: 1;
+    overflow-y: auto;
+}
+.sidebar-menu a {
+    color: #ccc;
+    padding: 16px 30px;
+    font-size: 18px;
     font-weight: bold;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 4px solid transparent;
     transition: 0.25s;
 }
-.navbar a:hover {
-    color: #ff3333;
-    border-bottom: 2px solid #ff3333;
-    text-shadow: 0 0 8px red;
+.sidebar-menu a:hover {
+    color: #33ccff;
+    background: rgba(0, 150, 255, 0.08);
+    border-left: 4px solid #33ccff;
+    text-shadow: 0 0 10px #0088ff;
+}
+.sidebar-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+/* 메인 컨텐츠 영역 (사이드바 우측) */
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
 /* 상단 배너 */
 .header {
-    background-image: url('images/baphomet2.jpg');
+    background-image: url('images/megamain.png');
     background-size: cover;
     background-position: center;
     height: 520px;
@@ -90,7 +103,7 @@ body::before {
     letter-spacing: 4px;
     color: #fff;
     top: 60px;
-    text-shadow: 0 0 10px #000, 0 0 20px #990000;
+    text-shadow: 0 0 15px #000, 0 0 25px #0066ff, 0 0 35px #0033aa;
     z-index: 10;
 }
 
@@ -98,11 +111,11 @@ body::before {
 .container {
     width: 860px;
     margin: 120px auto 70px auto;
-    background: rgba(0,0,0,0.78);
+    background: rgba(10,16,26,0.78);
     padding: 45px 50px;
-    border: 1px solid rgba(255,0,0,0.35);
+    border: 1px solid rgba(0,150,255,0.35);
     border-radius: 12px;
-    box-shadow: 0 0 20px rgba(255,0,0,0.25);
+    box-shadow: 0 0 20px rgba(0,150,255,0.25);
     line-height: 1.65;
     font-size: 18px;
     position: relative;
@@ -140,7 +153,7 @@ body::before {
 
 /* 오른쪽 다운로드 버튼 */
 .download-btn {
-    background: #800000;
+    background: #004488;
     padding: 12px 30px;
     color: #fff;
     border-radius: 4px;
@@ -148,12 +161,12 @@ body::before {
     font-weight: bold;
     text-decoration: none;
     transition: 0.2s;
-    border: 1px solid #ff0000;
+    border: 1px solid #0088ff;
     white-space: nowrap;
 }
 .download-btn:hover {
-    background: #ff0000;
-    box-shadow: 0 0 10px #ff0000;
+    background: #0088ff;
+    box-shadow: 0 0 10px #0088ff;
 }
 .line {
     width: 100%;
@@ -166,11 +179,27 @@ body::before {
 
 <body>
 
-<div class="navbar">
-    <a href="index.html">홈</a>
-    <a href="service.html">고객센터</a>
-    <a href="download.html" style="color:#ff3333; border-bottom:2px solid #ff3333;">다운로드</a>
+<div class="sidebar">
+    <div class="sidebar-logo">
+        <h2>MEGA</h2>
+    </div>
+    <div class="sidebar-menu">
+        <a href="index.html">🏠 홈</a>
+        <a href="notice.html">📢 공지사항</a>
+        <a href="info.html">📜 서버정보</a>
+        <a href="update.html">⚡ 업데이트</a>
+        <a href="boss.html">💀 보스정보</a>
+        <a href="feature.html">🎛 간편기능</a>
+        <a href="hunting.html">🗺 레벨별 사냥터</a>
+        <a href="promo.html">📣 홍보안내</a>
+        <a href="service.html">💬 고객센터</a>
+        <a href="download.html">⬇ 다운로드</a>
+    </div>
+    <div class="sidebar-footer">
+        <span>© 2026 Mega Server</span>
+    </div>
 </div>
+<div class="main-content">
 
 <div class="header">
     <h1>DOWNLOAD</h1>
@@ -187,7 +216,7 @@ body::before {
                 압축 해제 후 실행하면 바로 이용 가능합니다.
             </div>
         </div>
-        <a href="https://drive.google.com/file/d/13l4WZp6SSDbRf38tWJPCvxP9dK0y_LGd/view?usp=sharing" class="download-btn" target="_blank">다운로드</a>
+        <a href="https://drive.google.com/file/d/1kM9dk22V3Bu_8I5dE84UagMWtH4a3_0L/view?pli=1" class="download-btn" target="_blank">다운로드</a>
     </div>
 
     <div class="line"></div>
@@ -201,7 +230,7 @@ body::before {
                 파일 내용은 1번 서버와 동일합니다.
             </div>
         </div>
-        <a href="https://drive.google.com/file/d/13l4WZp6SSDbRf38tWJPCvxP9dK0y_LGd/view?usp=sharing" class="download-btn" target="_blank">다운로드</a>
+        <a href="https://drive.google.com/file/d/1kM9dk22V3Bu_8I5dE84UagMWtH4a3_0L/view?pli=1" class="download-btn" target="_blank">다운로드</a>
     </div>
 
     <div class="line"></div>
@@ -215,7 +244,7 @@ body::before {
                 설치에 문제가 있을 시 고객센터로 문의 바랍니다.
             </div>
         </div>
-        <a href="https://drive.google.com/uc?export=download&id=1CgiM5Wu0WSMbf3KclQQ849ROKsoQtz3T" class="download-btn" target="_blank">다운로드</a>
+        <a href="https://drive.google.com/file/d/1kM9dk22V3Bu_8I5dE84UagMWtH4a3_0L/view?pli=1" class="download-btn" target="_blank">다운로드</a>
     </div>
 
 </div>
@@ -224,6 +253,7 @@ body::before {
     서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
     게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
 </div>
+</div><!-- //main-content -->
 
 </body>
 </html>

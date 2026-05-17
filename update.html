@@ -2,78 +2,86 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>TheLog Server - 업데이트</title>
+<title>Mega Server - 업데이트</title>
 
 <style>
 /* ------------------------------
-   전체 배경 통일 (모든 메뉴와 동일)
+   좌측 사이드바 메뉴 스타일
 ------------------------------ */
-  html {
-    background: linear-gradient(
-        180deg,
-        #2e2e2e 0%,
-        #1f1f1f 50%,
-        #151515 100%
-    );
-    background-attachment: fixed;
-}
-body {
-    margin: 0;
-    background: transparent;
-    color: #ddd;
-    font-family: "Malgun Gothic", Arial, sans-serif;
-}
-body::before {
-    content:"";
-    position: fixed;
-    inset:0;
-    background: rgba(0,0,0,0.18);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.footer {
-    margin-top: 60px;
-    padding: 15px 0;
-    font-size: 14px;
-    color: rgba(230, 230, 230, 0.75);
-    text-align: center;
-    line-height: 1.4;
-    position: relative;
-    z-index: 10;
-}
-
-/* ------------------------------
-   상단 메뉴
------------------------------- */
-.navbar {
+.sidebar {
     position: fixed;
     top: 0;
-    width: 100%;
-    background: rgba(0,0,0,0.55);
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(255,0,0,0.25);
-    z-index: 1000;
-    text-align: center;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
+    border-right: 1px solid rgba(0,150,255,0.25);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
 }
-.navbar a {
-    color: #ddd;
-    margin: 0 28px;
-    font-size: 19px;
+.sidebar-logo {
+    padding: 35px 20px 25px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,150,255,0.15);
+}
+.sidebar-logo h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px #0066ff, 0 0 25px #0033aa;
+}
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 0;
+    flex: 1;
+    overflow-y: auto;
+}
+.sidebar-menu a {
+    color: #ccc;
+    padding: 16px 30px;
+    font-size: 18px;
     font-weight: bold;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 4px solid transparent;
+    transition: 0.25s;
 }
-.navbar a:hover {
-    color: #ff3333;
-    border-bottom: 2px solid #ff3333;
-    text-shadow: 0 0 8px #ff0000;
+.sidebar-menu a:hover {
+    color: #33ccff;
+    background: rgba(0, 150, 255, 0.08);
+    border-left: 4px solid #33ccff;
+    text-shadow: 0 0 10px #0088ff;
+}
+.sidebar-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+/* 메인 컨텐츠 영역 (사이드바 우측) */
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
 /* ------------------------------
    상단 배너
 ------------------------------ */
 .header {
-    background-image: url('images/baphomet2.jpg');
+    background-image: url('images/megamain.png');
     background-size: cover;
     background-position: center;
     height: 520px;
@@ -99,7 +107,7 @@ body::before {
         to bottom,
         rgba(0,0,0,0) 0%,
         rgba(0,0,0,0.25) 30%,
-        rgba(0,0,0,0.55) 65%,
+        rgba(10,16,26,0.65) 65%,
         rgba(0,0,0,0.9) 100%
     );
 }
@@ -110,7 +118,7 @@ body::before {
     font-weight: bold;
     letter-spacing: 4px;
     color: #fff;
-    text-shadow: 0 0 10px #000, 0 0 20px #990000;
+    text-shadow: 0 0 15px #000, 0 0 25px #0066ff, 0 0 35px #0033aa;
     top: 60px;
     z-index: 10;
 }
@@ -128,10 +136,10 @@ body::before {
 
 h2 {
     font-size: 32px;
-    color: #ff4444;
+    color: #33ccff;
     text-align: center;
     margin-bottom: 20px;
-    text-shadow: 0 0 10px #900;
+    text-shadow: 0 0 10px #0055ff;
 }
 
 /* ------------------------------
@@ -160,9 +168,9 @@ h2 {
 }
 .btn {
     padding: 8px 14px;
-    background: #660000;
+    background: #0033aa;
     color: #fff;
-    border: 1px solid #ff4444;
+    border: 1px solid #33ccff;
     border-radius: 6px;
     cursor: pointer;
     font-size: 15px;
@@ -170,8 +178,8 @@ h2 {
     white-space: nowrap;
 }
 .btn:hover {
-    background: #990000;
-    box-shadow: 0 0 10px #ff4444;
+    background: #0055ff;
+    box-shadow: 0 0 10px #33ccff;
 }
 
 /* ------------------------------
@@ -181,12 +189,12 @@ table.board {
     width: 100%;
     border-collapse: collapse;
     background: rgba(0,0,0,0.65);
-    border: 1px solid rgba(255,30,30,0.4);
+    border: 1px solid rgba(0,150,255,0.4);
     border-radius: 8px;
     overflow: hidden;
 }
 table.board thead {
-    background: rgba(60,0,0,0.8);
+    background: rgba(0,30,60,0.8);
 }
 table.board th, table.board td {
     padding: 10px 8px;
@@ -199,7 +207,7 @@ table.board td:nth-child(2) {
     text-align: left;
 }
 table.board tr:hover td {
-    background: rgba(255,0,0,0.08);
+    background: rgba(0, 150, 255, 0.08);
 }
 .title-link {
     color: #ddd;
@@ -228,8 +236,8 @@ table.board tr:hover td {
     border-color: #5599dd;
 }
 .manage-btn.delete {
-    background: #884444;
-    border-color: #dd7777;
+    background: #0033aa;
+    border-color: #33ccff;
 }
 
 /* ------------------------------
@@ -250,8 +258,8 @@ table.board tr:hover td {
     font-size: 14px;
 }
 .pagination button.active {
-    background: #aa0000;
-    border-color: #ff4444;
+    background: #004488;
+    border-color: #33ccff;
     font-weight: bold;
 }
 .pagination button:hover {
@@ -277,8 +285,8 @@ table.board tr:hover td {
     background: #111;
     border-radius: 10px;
     padding: 20px 24px;
-    border: 1px solid #ff4444;
-    box-shadow: 0 0 20px rgba(255,0,0,0.6);
+    border: 1px solid #33ccff;
+    box-shadow: 0 0 20px rgba(0,150,255,0.6);
 }
 .modal-title {
     font-size: 22px;
@@ -301,9 +309,9 @@ table.board tr:hover td {
 }
 .modal-close button {
     padding: 7px 14px;
-    background: #660000;
+    background: #0033aa;
     border-radius: 6px;
-    border: 1px solid #ff4444;
+    border: 1px solid #33ccff;
     cursor: pointer;
     color: #fff;
 }
@@ -572,16 +580,27 @@ function deleteUpdate(id) {
 <body>
 
 <!-- 상단 메뉴 -->
-<div class="navbar">
-    <a href="index.html">홈</a>
-    <a href="notice.html">공지사항</a>
-    <a href="info.html">서버정보</a>
-    <a href="update.html" style="color:#ff3333; border-bottom:2px solid #ff3333;">업데이트</a>
-    <a href="boss.html">보스정보</a>
-    <a href="promo.html">홍보안내</a>
-    <a href="service.html">고객센터</a>
-    <a href="download.html">다운로드</a>
+<div class="sidebar">
+    <div class="sidebar-logo">
+        <h2>MEGA</h2>
+    </div>
+    <div class="sidebar-menu">
+        <a href="index.html">🏠 홈</a>
+        <a href="notice.html">📢 공지사항</a>
+        <a href="info.html">📜 서버정보</a>
+        <a href="update.html">⚡ 업데이트</a>
+        <a href="boss.html">💀 보스정보</a>
+        <a href="feature.html">🎛 간편기능</a>
+        <a href="hunting.html">🗺 레벨별 사냥터</a>
+        <a href="promo.html">📣 홍보안내</a>
+        <a href="service.html">💬 고객센터</a>
+        <a href="download.html">⬇ 다운로드</a>
+    </div>
+    <div class="sidebar-footer">
+        <span>© 2026 Mega Server</span>
+    </div>
 </div>
+<div class="main-content">
 
 <!-- 배너 -->
 <div class="header">
@@ -637,6 +656,7 @@ function deleteUpdate(id) {
     서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
     게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
 </div>
+</div><!-- //main-content -->
 
 </body>
 </html>
