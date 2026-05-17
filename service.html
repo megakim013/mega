@@ -5,9 +5,9 @@
 <title>고객센터</title>
 
 <style>
-    /* 🔥 전체 페이지 고정 배경 */
+    /* 🔥 전체 페이지 고정 배경 (블랙 & 딥블루 그라데이션) */
     html {
-        background: linear-gradient(180deg, #2e2e2e 0%, #1f1f1f 50%, #151515 100%);
+        background: linear-gradient(180deg, #1a2636 0%, #111822 50%, #0b0f15 100%);
         background-attachment: fixed;
     }
 
@@ -23,7 +23,7 @@
         content: "";
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.15);
+        background: rgba(0,0,0,0.2);
         pointer-events: none;
         z-index: 0;
     }
@@ -32,19 +32,19 @@
         margin-top: 60px;
         padding: 15px 0;
         font-size: 14px;
-        color: rgba(230, 230, 230, 0.75);
+        color: rgba(200,220,240,0.7);
         text-align: center;
         line-height: 1.4;
     }
 
-    /* 상단 메뉴 (3개로 조정) */
+    /* 상단 메뉴 (파란색 테마) */
     .navbar {
         position: fixed;
         top: 0;
         width: 100%;
-        background: rgba(0, 0, 0, 0.55);
+        background: rgba(10,16,26,0.65);
         padding: 14px 0;
-        border-bottom: 1px solid rgba(255, 0, 0, 0.25);
+        border-bottom: 1px solid rgba(0,150,255,0.3);
         z-index: 999;
         text-align: center;
         backdrop-filter: blur(4px);
@@ -60,14 +60,14 @@
     }
 
     .navbar a:hover {
-        color: #ff3333;
-        border-bottom: 2px solid #ff3333;
-        text-shadow: 0 0 8px #ff0000;
+        color: #33ccff;
+        border-bottom: 2px solid #33ccff;
+        text-shadow: 0 0 10px #0088ff, 0 0 20px #0055ff;
     }
 
-    /* 배너 */
+    /* 배너 (파란 드래곤 이미지 적용) */
     .header {
-        background-image: url('images/baphomet2.jpg');
+        background-image: url('images/megamain.png');
         background-size: cover;
         background-position: center;
         height: 520px;
@@ -83,7 +83,7 @@
         bottom: -1px;
         width: 100%;
         height: 350px;
-        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 100%);
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(11,15,21,0.95) 100%);
     }
 
     .header h1 {
@@ -93,23 +93,24 @@
         letter-spacing: 4px;
         color: #fff;
         top: 60px;
-        text-shadow: 0 0 10px #000, 0 0 20px #990000;
+        text-shadow: 0 0 15px #000, 0 0 25px #0066ff, 0 0 35px #0033aa;
         z-index: 10;
     }
 
-    /* 컨테이너 */
+    /* 컨테이너 (블루 테마 외곽선 및 네온 효과) */
     .container {
         width: 860px;
         margin: 120px auto 70px auto;
-        background: rgba(0,0,0,0.78);
+        background: rgba(10,18,30,0.82);
         padding: 45px 50px;
-        border: 1px solid rgba(255,0,0,0.35);
+        border: 1px solid rgba(0,150,255,0.35);
         border-radius: 12px;
-        box-shadow: 0 0 20px rgba(255,0,0,0.25);
+        box-shadow: 0 0 25px rgba(0,100,255,0.25);
         line-height: 1.65;
         font-size: 18px;
         position: relative;
         z-index: 2;
+        backdrop-filter: blur(5px);
     }
 
     .service-row {
@@ -122,6 +123,7 @@
     .service-icon {
         width: 100px;
         flex-shrink: 0;
+        filter: drop-shadow(0 0 8px rgba(0,150,255,0.4)); /* 텔레그램 아이콘에 은은한 푸른 광원 추가 */
     }
 
     .service-text {
@@ -134,34 +136,38 @@
         font-weight: bold;
         margin-bottom: 8px;
         color: #fff;
+        text-shadow: 0 0 8px rgba(51,204,255,0.3);
     }
 
     .service-text-desc {
         font-size: 16px;
-        color: #ccc;
+        color: #b0c4de;
     }
 
+    /* 버튼 (네온 블루 스타일로 변경) */
     .service-btn {
-        background: #800000; /* 조금 더 강렬한 레드 계열로 변경 */
+        background: #0044aa; 
         padding: 15px 30px;
         color: #fff;
-        border-radius: 4px; /* 각진 느낌 추가 */
+        border-radius: 4px; 
         text-decoration: none;
         font-size: 16px;
         font-weight: bold;
         transition: 0.2s;
-        border: 1px solid #ff0000;
+        border: 1px solid #0088ff;
+        box-shadow: 0 0 8px rgba(0,100,255,0.3);
     }
 
     .service-btn:hover {
-        background: #ff0000;
-        box-shadow: 0 0 10px #ff0000;
+        background: #0066ff;
+        border-color: #33ccff;
+        box-shadow: 0 0 15px #0088ff, 0 0 25px #0044aa;
     }
 
     .service-line {
         width: 100%;
         height: 1px;
-        background: rgba(255,255,255,0.1);
+        background: rgba(0,150,255,0.15);
         margin: 10px 0;
     }
 </style>
@@ -171,7 +177,7 @@
 
 <div class="navbar">
     <a href="index.html">홈</a>
-    <a href="service.html" style="color:#ff3333; border-bottom:2px solid #ff3333;">고객센터</a>
+    <a href="service.html" style="color:#33ccff; border-bottom:2px solid #33ccff; text-shadow: 0 0 10px #0088ff;">고객센터</a>
     <a href="download.html">다운로드</a>
 </div>
 
@@ -184,7 +190,7 @@
     <div class="service-row">
         <img src="images/telegram.png" class="service-icon" alt="Telegram">
         <div class="service-text">
-            <div class="service-text-title">카지노 서버 텔레방</div>
+            <div class="service-text-title">메가 서버 텔레방</div>
             <div class="service-text-desc">
                 다양한 소식을 공지방에서 확인하세요.<br>
                 * 해당 링크 클릭 시 텔레그램으로 이동합니다.
