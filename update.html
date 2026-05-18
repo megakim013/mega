@@ -219,28 +219,6 @@ table.board tr:hover td {
 }
 
 /* ------------------------------
-   관리 버튼
------------------------------- */
-.manage-btn {
-    padding: 4px 8px;
-    margin: 1px;
-    background: #444;
-    border-radius: 4px;
-    border: 1px solid #777;
-    font-size: 12px;
-    cursor: pointer;
-    color: #fff;
-}
-.manage-btn.edit {
-    background: #225588;
-    border-color: #5599dd;
-}
-.manage-btn.delete {
-    background: #0033aa;
-    border-color: #33ccff;
-}
-
-/* ------------------------------
    페이징
 ------------------------------ */
 .pagination {
@@ -319,51 +297,56 @@ table.board tr:hover td {
 
 <script>
 const PAGE_SIZE = 10;
-let updates = [];      // 전체 데이터
-let filtered = [];     // 검색된 데이터
+let updates = [];
+let filtered = [];
 let currentPage = 1;
-let adminMode = false;
 
 window.addEventListener("load", () => {
     loadUpdates();
 });
 
 // ----------------------------------------
-// 업데이트 데이터 로드 + 마이그레이션 + 정렬
+// updates/data.txt 에서 데이터 불러오기
+// ----------------------------------------
+// 📌 data.txt 작성법:
+//   1번째 줄: 제목
+//   2번째 줄: 날짜 (예: 2026-05-18)
+//   3번째 줄~: 내용
+//   --- 로 구분하여 여러 업데이트 작성
 // ----------------------------------------
 function loadUpdates() {
-    let list = JSON.parse(localStorage.getItem("updates") || "[]");
+    fetch("updates/data.txt?t=" + Date.now())
+        .then(res => {
+            if (!res.ok) throw new Error("파일 로드 실패");
+            return res.text();
+        })
+        .then(text => {
+            const blocks = text.split("---").map(b => b.trim()).filter(b => b.length > 0);
+            const list = [];
 
-    // ✅ [추가] 처음 접속(데이터 없음)일 때 기본 업데이트 1개 자동 생성
-    if (list.length === 0) {
-        const today = new Date().toISOString().substring(0, 10);
-        list.push({
-            id: Date.now(),
-            title: "업데이트 사항은 서버내 또는 단톡방 참조",
-            content: "업데이트 사항은 서버내 또는 단톡방 참조",
-            date: today,
-            createdAt: today + "T00:00:00"
+            blocks.forEach((block, idx) => {
+                const lines = block.split("\n");
+                if (lines.length < 2) return;
+
+                const title = lines[0].trim();
+                const date = lines[1].trim();
+                const content = lines.slice(2).join("\n").trim();
+
+                list.push({ id: idx + 1, title, date, content });
+            });
+
+            list.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            updates = list;
+            filtered = [...updates];
+            renderBoard();
+        })
+        .catch(err => {
+            console.error("업데이트 데이터 로드 실패:", err);
+            updates = [];
+            filtered = [];
+            renderBoard();
         });
-    }
-
-    list.forEach((u, idx) => {
-        if (!u.id) u.id = Date.now() + idx;
-        if (!u.createdAt) {
-            if (u.date && /^\d{4}-\d{2}-\d{2}$/.test(u.date)) {
-                u.createdAt = u.date + "T00:00:00";
-            } else {
-                u.createdAt = new Date().toISOString();
-            }
-        }
-    });
-
-    list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-    updates = list;
-    filtered = [...updates];
-
-    localStorage.setItem("updates", JSON.stringify(updates));
-    renderBoard();
 }
 
 // ----------------------------------------
@@ -379,7 +362,7 @@ function renderBoard() {
     if (filtered.length === 0) {
         const tr = document.createElement("tr");
         const td = document.createElement("td");
-        td.colSpan = 4;
+        td.colSpan = 3;
         td.textContent = "등록된 업데이트가 없습니다.";
         tr.appendChild(td);
         tbody.appendChild(tr);
@@ -414,50 +397,22 @@ function renderBoard() {
 
         // 날짜
         const dateTd = document.createElement("td");
-        dateTd.textContent = u.date || u.createdAt.substring(0,10);
+        dateTd.textContent = u.date;
         tr.appendChild(dateTd);
-
-        // 관리
-        const manageTd = document.createElement("td");
-        if (adminMode) {
-            const btnEdit = document.createElement("button");
-            btnEdit.className = "manage-btn edit";
-            btnEdit.textContent = "수정";
-            btnEdit.onclick = (e) => {
-                e.stopPropagation();
-                editUpdate(u.id);
-            };
-
-            const btnDelete = document.createElement("button");
-            btnDelete.className = "manage-btn delete";
-            btnDelete.textContent = "삭제";
-            btnDelete.onclick = (e) => {
-                e.stopPropagation();
-                deleteUpdate(u.id);
-            };
-
-            manageTd.appendChild(btnEdit);
-            manageTd.appendChild(btnDelete);
-        } else {
-            manageTd.textContent = "-";
-        }
-        tr.appendChild(manageTd);
 
         tbody.appendChild(tr);
     });
 
-    // 페이징 처리
+    // 페이징
     const totalPages2 = Math.ceil(filtered.length / PAGE_SIZE);
 
     if (totalPages2 > 1) {
-        // 이전
         const prevBtn = document.createElement("button");
         prevBtn.textContent = "이전";
         prevBtn.disabled = currentPage === 1;
         prevBtn.onclick = () => { currentPage--; renderBoard(); };
         pagination.appendChild(prevBtn);
 
-        // 페이지 번호
         for (let p = 1; p <= totalPages2; p++) {
             const btn = document.createElement("button");
             btn.textContent = p;
@@ -466,7 +421,6 @@ function renderBoard() {
             pagination.appendChild(btn);
         }
 
-        // 다음
         const nextBtn = document.createElement("button");
         nextBtn.textContent = "다음";
         nextBtn.disabled = currentPage === totalPages2;
@@ -495,46 +449,6 @@ function searchUpdates() {
 }
 
 // ----------------------------------------
-// 관리자 모드
-// ----------------------------------------
-function enableAdminMode() {
-    if (adminMode) {
-        adminMode = false;
-        alert("관리자 모드 OFF");
-        renderBoard();
-        return;
-    }
-
-    let pw = prompt("관리자 비밀번호를 입력하세요.");
-    let real = atob("d2pkYWxzcnVkMSE="); // wjdalsrud1!
-
-    if (pw !== real) {
-        alert("비밀번호 오류!");
-        return;
-    }
-
-    adminMode = true;
-    alert("관리자 모드 ON");
-    renderBoard();
-}
-
-// ----------------------------------------
-// 글쓰기 이동
-// ----------------------------------------
-function openWritePage() {
-    if (!adminMode) {
-        let pw = prompt("관리자 비밀번호를 입력하세요.");
-        let real = atob("d2pkYWxzcnVkMSE=");
-        if (pw !== real) {
-            alert("비밀번호 오류!");
-            return;
-        }
-        adminMode = true;
-    }
-    location.href = "update_write.html";
-}
-
-// ----------------------------------------
 // 상세보기 모달
 // ----------------------------------------
 function openDetail(id) {
@@ -542,37 +456,14 @@ function openDetail(id) {
     if (!u) return;
 
     document.getElementById("modalTitle").textContent = u.title;
-    document.getElementById("modalDate").textContent =
-        u.date || u.createdAt.substring(0,10);
-    document.getElementById("modalContent").textContent =
-        u.content || "";
+    document.getElementById("modalDate").textContent = u.date;
+    document.getElementById("modalContent").textContent = u.content || "";
 
     document.getElementById("modalOverlay").style.display = "flex";
 }
 
 function closeModal() {
     document.getElementById("modalOverlay").style.display = "none";
-}
-
-// ----------------------------------------
-// 수정
-// ----------------------------------------
-function editUpdate(id) {
-    location.href = "update_edit.html?id=" + encodeURIComponent(id);
-}
-
-// ----------------------------------------
-// 삭제
-// ----------------------------------------
-function deleteUpdate(id) {
-    if (!confirm("정말 삭제하시겠습니까?")) return;
-
-    let list = JSON.parse(localStorage.getItem("updates") || "[]");
-    list = list.filter(u => u.id !== id);
-    localStorage.setItem("updates", JSON.stringify(list));
-
-    updates = list;
-    searchUpdates();
 }
 </script>
 </head>
@@ -617,11 +508,6 @@ function deleteUpdate(id) {
             <button class="btn" onclick="searchUpdates()">검색</button>
             <button class="btn" onclick="document.getElementById('searchInput').value=''; searchUpdates();">전체보기</button>
         </div>
-
-        <div>
-            <button class="btn" onclick="openWritePage()">업데이트 작성</button>
-            <button class="btn" onclick="enableAdminMode()">관리자 모드</button>
-        </div>
     </div>
 
     <table class="board">
@@ -630,7 +516,6 @@ function deleteUpdate(id) {
                 <th style="width:60px;">번호</th>
                 <th>제목</th>
                 <th style="width:120px;">작성일</th>
-                <th style="width:130px;">관리</th>
             </tr>
         </thead>
         <tbody id="boardBody"></tbody>
@@ -660,29 +545,3 @@ function deleteUpdate(id) {
 
 </body>
 </html>
-
-<!-- 수정 모달 (원본에 있던 그대로 유지) -->
-<div id="editModal" class="modal-overlay">
-    <div class="modal">
-        <h2 style="color:#ffcc00; margin-bottom:10px;">업데이트 수정</h2>
-
-        <input type="hidden" id="editId">
-
-        <div>
-            <label style="color:#ccc;">제목</label><br>
-            <input id="editTitle" type="text"
-                   style="width:100%; padding:8px; margin:6px 0; background:#222; border:1px solid #555; color:#fff; border-radius:5px;">
-        </div>
-
-        <div>
-            <label style="color:#ccc;">내용</label><br>
-            <textarea id="editContent"
-                      style="width:100%; height:180px; padding:8px; margin-top:6px; background:#222; border:1px solid #555; color:#fff; border-radius:5px;"></textarea>
-        </div>
-
-        <div class="modal-close" style="margin-top:15px;">
-            <button onclick="saveEdit()">저장</button>
-            <button onclick="closeEditModal()">닫기</button>
-        </div>
-    </div>
-</div>
