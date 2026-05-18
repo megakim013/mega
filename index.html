@@ -15,7 +15,7 @@
     width: 250px;
     height: 100vh;
     background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
-    border-right: 1px solid rgba(0,150,255,0.25);
+    border-right: 1px solid rgba(0,255,128,0.25);
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@
 .sidebar-logo {
     padding: 35px 20px 25px 20px;
     text-align: center;
-    border-bottom: 1px solid rgba(0,150,255,0.15);
+    border-bottom: 1px solid rgba(0,255,128,0.15);
 }
 .sidebar-logo h2 {
     margin: 0;
@@ -33,7 +33,7 @@
     font-size: 26px;
     font-weight: 900;
     letter-spacing: 3px;
-    text-shadow: 0 0 15px #0066ff, 0 0 25px #0033aa;
+    text-shadow: 0 0 15px #00cc66, 0 0 25px #006633;
 }
 .sidebar-menu {
     display: flex;
@@ -55,10 +55,10 @@
     transition: 0.25s;
 }
 .sidebar-menu a:hover {
-    color: #33ccff;
-    background: rgba(0, 150, 255, 0.08);
-    border-left: 4px solid #33ccff;
-    text-shadow: 0 0 10px #0088ff;
+    color: #33ff99;
+    background: rgba(0, 255, 128, 0.08);
+    border-left: 4px solid #33ff99;
+    text-shadow: 0 0 10px #00ee77;
 }
 .sidebar-footer {
     padding: 20px;
@@ -106,7 +106,7 @@
         letter-spacing: 4px;
         color: #fff;
         top: 60px;
-        text-shadow: 0 0 15px #000, 0 0 25px #0066ff, 0 0 35px #0033aa;
+        text-shadow: 0 0 15px #000, 0 0 25px #00cc66, 0 0 35px #006633;
         z-index: 10;
     }
 
@@ -128,7 +128,7 @@
         position: relative;
         overflow: hidden;
         cursor: pointer;
-        border: 1px solid rgba(0,150,255,0.3);
+        border: 1px solid rgba(0,255,128,0.3);
         box-shadow: 0 0 15px rgba(0,100,255,0.15);
         transition: 0.3s;
     }
@@ -136,8 +136,8 @@
     /* 마우스 올렸을 때 푸른색으로 발광하는 효과 */
     .img-box:hover {
         transform: scale(1.02);
-        box-shadow: 0 0 25px rgba(0,150,255,0.6);
-        border-color: rgba(51,204,255,0.9);
+        box-shadow: 0 0 25px rgba(0,255,128,0.6);
+        border-color: rgba(51,255,153,0.9);
     }
 
     .img-box::after {
@@ -156,14 +156,14 @@
         font-size:22px;
         font-weight:bold;
         z-index:5;
-        text-shadow:0 0 8px #000, 0 0 15px #0066ff;
+        text-shadow:0 0 8px #000, 0 0 15px #00cc66;
     }
 
     /* 공지사항 팝업창도 다크 블루&시안 테마로 통일 */
     #popup {
         width: 420px;
         background: rgba(10,20,30,0.92);
-        border: 2px solid #0055cc;
+        border: 2px solid #00aa55;
         box-shadow: 0 0 30px rgba(0,100,255,0.5);
         color: #fff;
         padding: 20px;
@@ -176,8 +176,8 @@
         display: none;
         backdrop-filter: blur(5px);
     }
-    #popup h2 { text-align: center; color: #33ccff; text-shadow: 0 0 10px rgba(0,150,255,0.5); }
-    .close-btn { position: absolute; top: 8px; right: 12px; cursor: pointer; color: #33ccff; font-size: 22px; }
+    #popup h2 { text-align: center; color: #33ff99; text-shadow: 0 0 10px rgba(0,255,128,0.5); }
+    .close-btn { position: absolute; top: 8px; right: 12px; cursor: pointer; color: #33ff99; font-size: 22px; }
     .close-btn:hover { color: #fff; }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -195,7 +195,7 @@ function closePopup() { document.getElementById("popup").style.display = "none";
     <div class="close-btn" onclick="closePopup()">✖</div>
     <h2>📢📢 2.0 메가 서버 공지 📢📢</h2>
     <p style="text-align:center; color:#ffcc00; font-size:16px; font-weight:bold; margin-top:5px;">📢 5월 17일 오후 5시부터 오픈대기 1시간 📢</p>
-    <hr style="border:0; border-top:1px solid rgba(0,150,255,0.3); margin:15px 0;">
+    <hr style="border:0; border-top:1px solid rgba(0,255,128,0.3); margin:15px 0;">
     <div style="line-height:2.0; font-size:15px; color:#ddd; padding:0 10px;">
         1. 장기 노초기화 서버<br>
         2. 클래식 감성 그대로 유지<br>
