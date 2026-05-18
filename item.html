@@ -1,0 +1,1030 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mega Server - 아이템 정보</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mobile.css">
+    <style>
+        /* ------------------------------
+           전체 레이아웃 및 바디 배경 지정
+        ------------------------------ */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #070c14;
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+
+        /* ------------------------------
+           좌측 사이드바 메뉴 스타일
+        ------------------------------ */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(10, 16, 26, 0.95) 0%, rgba(7, 12, 20, 0.95) 100%);
+            border-right: 1px solid rgba(0, 255, 128, 0.25);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-logo {
+            padding: 35px 20px 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 255, 128, 0.15);
+        }
+
+        .sidebar-logo h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px #00cc66, 0 0 25px #006633;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            padding: 25px 0;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .sidebar-menu a {
+            color: #ccc;
+            padding: 16px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 4px solid transparent;
+            transition: 0.25s;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            color: #33ff99;
+            background: rgba(0, 255, 128, 0.08);
+            border-left: 4px solid #33ff99;
+            text-shadow: 0 0 10px #00ee77;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* 메인 컨텐츠 영역 (사이드바 우측) */
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        /* 상단 배너 */
+        .header {
+            background-image: url('images/megamain.png');
+            background-size: cover;
+            background-position: center;
+            height: 520px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.38);
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0) 0%,
+                    rgba(0, 0, 0, 0.25) 30%,
+                    rgba(10, 16, 26, 0.65) 65%,
+                    rgba(0, 0, 0, 0.90) 100%);
+        }
+
+        .header h1 {
+            position: relative;
+            font-size: 45px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 0 0 15px #000, 0 0 25px #00cc66, 0 0 35px #006633;
+            top: 60px;
+        }
+
+        /* 본문 박스 */
+        .container {
+            width: 920px;
+            margin: 120px auto 70px auto;
+            background: rgba(10, 16, 26, 0.85);
+            padding: 50px 60px;
+            border: 1px solid rgba(0, 255, 128, 0.35);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 255, 128, 0.25);
+            line-height: 1.7;
+            font-size: 16px;
+            color: #e0e6ed;
+            position: relative;
+            z-index: 5;
+            box-sizing: border-box;
+        }
+
+        .container h2 {
+            color: #33ff99;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            font-size: 26px;
+            border-bottom: 1px solid rgba(0, 255, 128, 0.35);
+            padding-bottom: 8px;
+            text-shadow: 0 0 10px rgba(51, 255, 153, 0.3);
+        }
+
+        .container h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .container h3 {
+            color: #00ee77;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 테이블 공통 스타일 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 35px 0;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 128, 0.2);
+        }
+
+        th {
+            background: linear-gradient(180deg, rgba(0, 204, 102, 0.3) 0%, rgba(0, 102, 51, 0.5) 100%);
+            color: #33ff99;
+            padding: 14px 16px;
+            font-size: 16px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 255, 128, 0.3);
+            font-weight: bold;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e0e6ed;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(0, 255, 128, 0.08);
+            color: #fff;
+        }
+
+        .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        .mint {
+            color: #33ff99;
+            font-weight: bold;
+        }
+
+        /* 안내 및 예외 룰 박스 */
+        .notice-box {
+            background: rgba(0, 255, 128, 0.05);
+            border-left: 4px solid #33ff99;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .notice-box h4 {
+            color: #33ff99;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notice-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .notice-box li {
+            margin-bottom: 8px;
+        }
+
+        .notice-box li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 카드 그리드 스타일 (세트 아이템용) */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .item-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 255, 128, 0.2);
+            border-radius: 8px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .item-card:hover {
+            border-color: #33ff99;
+            box-shadow: 0 0 15px rgba(0, 255, 128, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .item-card h4 {
+            color: #ffcc00;
+            font-size: 20px;
+            margin: 0 0 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .item-card p {
+            margin: 8px 0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .item-card p span {
+            color: #33ff99;
+            font-weight: bold;
+        }
+
+        /* 미출시 영역 음영 처리 스타일 */
+        .unreleased-section {
+            opacity: 0.45;
+            filter: grayscale(60%);
+            position: relative;
+            transition: 0.3s;
+            background: rgba(5, 8, 14, 0.6);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            padding: 25px 30px;
+            border-radius: 10px;
+            margin: 35px 0;
+        }
+
+        .unreleased-section:hover {
+            opacity: 0.85;
+            filter: grayscale(0%);
+            border-color: rgba(0, 255, 128, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 128, 0.1);
+        }
+
+        .badge-unreleased {
+            display: inline-block;
+            background: #444;
+            color: #ccc;
+            font-size: 14px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-left: 12px;
+            vertical-align: middle;
+            border: 1px solid #666;
+            font-weight: normal;
+            text-shadow: none;
+        }
+
+        /* footer */
+        .footer {
+            margin-top: 60px;
+            padding: 20px 0;
+            font-size: 13px;
+            color: rgba(230, 230, 230, 0.45);
+            text-align: center;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        window.addEventListener("load", () => {
+            document.body.classList.add("loaded");
+        });
+    </script>
+
+    <!-- 좌측 메뉴 (보스 -> 인형 -> 아이템 순서로 변경) -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <h2>MEGA</h2>
+        </div>
+        <div class="sidebar-menu">
+            <a href="index.html">🏠 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;홈&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a href="notice.html">📢 공&nbsp;&nbsp;지&nbsp;&nbsp;사&nbsp;&nbsp;항</a>
+            <a href="info.html">📜 서&nbsp;&nbsp;버&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+            <a href="update.html">⚡ 업&nbsp;&nbsp;데&nbsp;&nbsp;이&nbsp;&nbsp;트</a>
+            <a href="boss.html">💀 보&nbsp;&nbsp;스&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+            <a href="doll.html">🧸 마&nbsp;&nbsp;법&nbsp;&nbsp;인&nbsp;&nbsp;형</a>
+            <a href="item.html" class="active">💎 아&nbsp;이&nbsp;템&nbsp;정&nbsp;보</a>
+            <a href="feature.html">⚙️ 간&nbsp;&nbsp;편&nbsp;&nbsp;기&nbsp;&nbsp;능</a>
+            <a href="hunting.html">🚩 레벨별 사냥터</a>
+            <a href="promo.html">📣 홍&nbsp;&nbsp;보&nbsp;&nbsp;안&nbsp;&nbsp;내</a>
+            <a href="service.html">💬 고&nbsp;&nbsp;객&nbsp;&nbsp;센&nbsp;&nbsp;터</a>
+            <a href="download.html">⬇ 다&nbsp;&nbsp;운&nbsp;&nbsp;로&nbsp;&nbsp;드</a>
+        </div>
+        <div class="sidebar-footer">
+            <span>© 2026 Mega Server</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+
+        <!-- 헤더 -->
+        <div class="header">
+            <h1>💎 아&nbsp;이&nbsp;템&nbsp;정&nbsp;보</h1>
+        </div>
+
+        <!-- 본문 -->
+        <div class="container">
+
+            <!-- [신규 최상단] 1. 인챈트 +7 이상 무기 추가 대미지 -->
+            <h2>🌟 인챈트 +7 이상 무기 추가 대미지 <span style="font-size:18px; color:#aaa; font-weight:normal;">(인챈당 추타)</span></h2>
+            <p>기본 추가 타격, HP 흡수, MP 흡수 보너스 외에, 고인챈트 달성 시 무기에 부여되는 강력한 대미지 증가 배율입니다.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>무기 인챈트 수치</th>
+                        <th>추가 대미지 증가 배율</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="highlight">+7 인챈트 무기</td>
+                        <td class="mint">추가 대미지 1.4배 증가</td>
+                        <td>고인챈트 보너스 시작</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">+8 인챈트 무기</td>
+                        <td class="mint">추가 대미지 1.8배 증가</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">+9 인챈트 무기</td>
+                        <td class="mint">추가 대미지 2.1배 증가</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">+10 인챈트 무기</td>
+                        <td class="mint">추가 대미지 2.5배 증가</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">+11 인챈트 무기 이상</td>
+                        <td class="mint">추가 대미지 3.0배 증가 (MAX)</td>
+                        <td>최상위 인챈트 보너스</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 2. 7셋 / 8셋 / 9셋 방어구 세트 효과 -->
+            <h2>🌟 7셋 / 8셋 / 9셋 방어구 세트 효과</h2>
+            <p>방어구 6부위(투구, 티셔츠, 갑옷, 망토, 장갑, 부츠)를 모두 착용했을 때 발동되는 인챈트 세트 효과입니다. (높은 단계 달성 시 하위 단계 효과는 대체됩니다.)</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>세트 단계</th>
+                        <th>발동 효과</th>
+                        <th>서버 안내 메시지</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="highlight">+7셋</td>
+                        <td>대미지 감소 +5</td>
+                        <td class="mint">+7 방어구 세트 효과 적용: 댐감+5</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">+8셋</td>
+                        <td>대미지 감소 +10<br>치명타 +2% (근거리/원거리/마법)</td>
+                        <td class="mint">+8 방어구 세트 효과 적용: 댐감+10, 치명+2</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">+9셋</td>
+                        <td>대미지 감소 +15</td>
+                        <td class="mint">+9 방어구 세트 효과 적용: 대미지 감소+15</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="notice-box">
+                <h4>💡 [부위별 세트 인정 기준 (예외 룰)]</h4>
+                <ul>
+                    <li><b>일반 장비</b> : +7강 이상(7셋), +8강 이상(8셋), +9강 이상(9셋)</li>
+                    <li><b>안전인챈트 6 장비 (요정족 등)</b> : +9강(7셋 인정), +10강 이상(8셋 및 9셋 인정)</li>
+                    <li><b>리자드맨 영웅의 장갑</b> : +5강 이상이면 7/8/9셋 조건 모두 충족 인정</li>
+                    <li><b>고대의 / 멸마의 방어구</b> : +0강 이상이어도 7/8/9셋 조건 모두 충족 인정</li>
+                </ul>
+            </div>
+
+            <!-- 3. 축복받은 장비 세트 효과 -->
+            <h2>✨ 축복받은 장비 세트 효과 (풀축복 세트)</h2>
+            <p>착용 중인 장비가 모두 [축복받은] 상태일 때 추가로 부여되는 강력한 세트 보너스입니다.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>세트 구분</th>
+                        <th>필요 착용 부위 (전부 축복)</th>
+                        <th>발동 세트 효과</th>
+                        <th>서버 안내 메시지</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="highlight">방어구 축복 세트</td>
+                        <td>투구, 티셔츠, 갑옷, 망토, 장갑, 부츠 (6부위)</td>
+                        <td>AC -5 (방어력 5 증가)</td>
+                        <td class="mint">축복받은 방어구 세트 효과 적용: AC-5</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">장신구 축복 세트</td>
+                        <td>목걸이, 왼쪽 반지, 오른쪽 반지, 벨트 (4부위)</td>
+                        <td>대미지 감소 +2<br>MR +5</td>
+                        <td class="mint">축복받은 장신구 세트 효과 적용: 대미지 감소+2, mr+5</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 4. 각 무기 / 방어구 / 장신구 개별 축복 효과 -->
+            <h2>💎 각 무기 / 방어구 / 장신구 개별 축복 효과</h2>
+            <p>단일 장비가 [축복받은] 상태일 때 부위별로 즉시 적용되는 개별 스탯 보너스입니다.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>장비 분류</th>
+                        <th>개별 축복 보너스 효과</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="highlight">무기류</td>
+                        <td>근거리 대미지 +1, 원거리 대미지 +1, SP +1</td>
+                        <td>전 직업 공통 적용</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">방어구류</td>
+                        <td>부위당 HP +30</td>
+                        <td>착용 부위마다 개별 누적 증가</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">장신구류</td>
+                        <td>근/원거리 대미지 +1, 근/원거리 명중 +1, SP +1</td>
+                        <td>스냅퍼 반지 제외 (별도 축복 테이블 적용)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 5. 악세사리 종류별 강화 효과 -->
+            <h2>💍 악세사리 종류별 강화 (인챈트) 효과</h2>
+
+            <h3>① 목걸이 / 일반 반지 / 벨트 강화 효과</h3>
+            <p>스냅퍼 반지를 제외한 일반 장신구(목걸이, 반지, 벨트)는 인챈트 수치에 따라 동일한 공식이 적용됩니다.<br>
+            <b>기본 강화 공식</b> : HP + (인챈트 × 10), MR + (인챈트 × 3)</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>인챈트 수치</th>
+                        <th>HP 증가</th>
+                        <th>MR 증가</th>
+                        <th>대미지 (근/원)</th>
+                        <th>SP 증가</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>+1강 ~ +2강</td>
+                        <td>+10 ~ +20</td>
+                        <td>+3 ~ +6</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>+3강 ~ +4강</td>
+                        <td>+30 ~ +40</td>
+                        <td>+9 ~ +12</td>
+                        <td class="mint">+1</td>
+                        <td class="mint">+1</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">+5강 이상</td>
+                        <td class="highlight">+50 이상</td>
+                        <td class="highlight">+15 이상</td>
+                        <td class="mint">+2</td>
+                        <td class="mint">+2</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>② 일반 귀걸이 강화 효과 (룸티스 제외)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>인챈트</th>
+                        <th>추가 효과</th>
+                        <th>인챈트</th>
+                        <th>추가 효과</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>+1강</td>
+                        <td>HP +5</td>
+                        <td>+6강</td>
+                        <td>HP +40, <span class="mint">PVP 대미지 감소 +2</span></td>
+                    </tr>
+                    <tr>
+                        <td>+2강</td>
+                        <td>HP +10</td>
+                        <td>+7강</td>
+                        <td>HP +50, <span class="mint">PVP 대미지 감소 +3</span></td>
+                    </tr>
+                    <tr>
+                        <td>+3강</td>
+                        <td>HP +20</td>
+                        <td>+8강</td>
+                        <td>HP +50, <span class="mint">PVP 대미지 감소 +4</span></td>
+                    </tr>
+                    <tr>
+                        <td>+4강</td>
+                        <td>HP +30</td>
+                        <td>+9강</td>
+                        <td>HP +60, <span class="mint">PVP 대미지 감소 +5</span></td>
+                    </tr>
+                    <tr>
+                        <td>+5강</td>
+                        <td>HP +40, <span class="mint">PVP 대미지 감소 +1</span></td>
+                        <td class="highlight">+10강</td>
+                        <td class="highlight">HP +70, <span class="mint">PVP 대미지 감소 +6</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>③ 룸티스 귀걸이 강화 효과 (forthe.conf 기준)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>인챈트</th>
+                        <th>🖤 검은빛 (축복)</th>
+                        <th>🖤 검은빛 (일반)</th>
+                        <th>❤️ 붉은빛 (축복)</th>
+                        <th>❤️ 붉은빛 (일반)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>+0강</td>
+                        <td>AC -1</td>
+                        <td>AC 0</td>
+                        <td>HP +20</td>
+                        <td>HP +10</td>
+                    </tr>
+                    <tr>
+                        <td>+1강</td>
+                        <td>AC -2, 댐감+1, 스턴내성+1%</td>
+                        <td>AC -1</td>
+                        <td>HP +30, 대미지+1, 명중+1, PVP댐+1</td>
+                        <td>HP +20</td>
+                    </tr>
+                    <tr>
+                        <td>+2강</td>
+                        <td>AC -3, 댐감+2, 스턴내성+2%</td>
+                        <td>AC -2</td>
+                        <td>HP +40, 대미지+2, 명중+2, PVP댐+2</td>
+                        <td>HP +30</td>
+                    </tr>
+                    <tr>
+                        <td>+3강</td>
+                        <td>AC -4, 댐감+3, 스턴내성+3%</td>
+                        <td>AC -3</td>
+                        <td>HP +50, 대미지+3, 명중+3, PVP댐+3</td>
+                        <td>HP +40</td>
+                    </tr>
+                    <tr>
+                        <td>+4강</td>
+                        <td>AC -5, 댐감+4, 스턴내성+4%</td>
+                        <td>AC -4</td>
+                        <td>HP +60, 대미지+4, 명중+3, PVP댐+4</td>
+                        <td>HP +50</td>
+                    </tr>
+                    <tr>
+                        <td>+5강</td>
+                        <td>AC -6, 댐감+1</td>
+                        <td>AC -5</td>
+                        <td>HP +70, 대미지+2, 명중+1</td>
+                        <td>HP +60, 대미지+1</td>
+                    </tr>
+                    <tr>
+                        <td>+6강</td>
+                        <td>AC -7, 댐감+2</td>
+                        <td>AC -6, 댐감+1</td>
+                        <td>HP +80, 대미지+3, 명중+2</td>
+                        <td>HP +70, 대미지+2</td>
+                    </tr>
+                    <tr>
+                        <td>+7강</td>
+                        <td>AC -8, 댐감+3, 스턴내성+1%</td>
+                        <td>AC -7, 댐감+2</td>
+                        <td>HP +90, 대미지+4, 명중+3, PVP댐+1</td>
+                        <td>HP +80, 대미지+3, 명중+1</td>
+                    </tr>
+                    <tr>
+                        <td>+8강</td>
+                        <td>AC -9, 댐감+4, 스턴내성+2%</td>
+                        <td>AC -8, 댐감+3</td>
+                        <td>HP +100, 대미지+5, 명중+4, PVP댐+2</td>
+                        <td>HP +90, 대미지+4, 명중+2</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">+9강</td>
+                        <td class="mint">AC -10, 댐감+5, 스턴내성+3%</td>
+                        <td>AC -9, 댐감+4</td>
+                        <td class="mint">HP +110, 대미지+6, 명중+5, PVP댐+3</td>
+                        <td>HP +100, 대미지+5, 명중+3</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>인챈트</th>
+                        <th>💜 보랏빛 (축복)</th>
+                        <th>💜 보랏빛 (일반)</th>
+                        <th>💙 푸른빛 (축복)</th>
+                        <th>💙 푸른빛 (일반)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>+0강</td>
+                        <td>MP +20</td>
+                        <td>MP +10</td>
+                        <td>물약회복 +4%</td>
+                        <td>물약회복 +2%</td>
+                    </tr>
+                    <tr>
+                        <td>+1강</td>
+                        <td>MP +30, SP+1, 마법적중+1</td>
+                        <td>MP +20</td>
+                        <td>물약회복 +8%, 댐감+1</td>
+                        <td>물약회복 +4%</td>
+                    </tr>
+                    <tr>
+                        <td>+2강</td>
+                        <td>MP +40, SP+2, 마법적중+2</td>
+                        <td>MP +30</td>
+                        <td>물약회복 +16%, 댐감+2</td>
+                        <td>물약회복 +8%</td>
+                    </tr>
+                    <tr>
+                        <td>+3강</td>
+                        <td>MP +50, SP+3, 마법적중+3</td>
+                        <td>MP +40</td>
+                        <td>물약회복 +20%, 댐감+3, AC-1</td>
+                        <td>물약회복 +10%, 댐감+1</td>
+                    </tr>
+                    <tr>
+                        <td>+4강</td>
+                        <td>MP +60, SP+4, 마법적중+4</td>
+                        <td>MP +50</td>
+                        <td>물약회복 +30%, 댐감+4, AC-2</td>
+                        <td>물약회복 +15%, 댐감+2</td>
+                    </tr>
+                    <tr>
+                        <td>+5강</td>
+                        <td>MP +70, SP+2</td>
+                        <td>MP +60, SP+1</td>
+                        <td>물약회복 +16%, 댐감+2, AC-3</td>
+                        <td>물약회복 +14%, 댐감+2, AC-1</td>
+                    </tr>
+                    <tr>
+                        <td>+6강</td>
+                        <td>MP +80, SP+3</td>
+                        <td>MP +70, SP+2</td>
+                        <td>물약회복 +18%, 댐감+2, AC-4</td>
+                        <td>물약회복 +16%, 댐감+2, AC-1</td>
+                    </tr>
+                    <tr>
+                        <td>+7강</td>
+                        <td>MP +90, SP+4, 마법적중+1</td>
+                        <td>MP +80, SP+3</td>
+                        <td>물약회복 +23%, 댐감+2, AC-5</td>
+                        <td>물약회복 +18%, 댐감+2, AC-2</td>
+                    </tr>
+                    <tr>
+                        <td>+8강</td>
+                        <td>MP +100, SP+5, 마법적중+2</td>
+                        <td>MP +90, SP+4</td>
+                        <td>물약회복 +28%, 댐감+2, AC-6</td>
+                        <td>물약회복 +22%, 댐감+2, AC-3</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">+9강</td>
+                        <td class="mint">MP +110, SP+6, 마법적중+3</td>
+                        <td>MP +100, SP+5</td>
+                        <td class="mint">물약회복 +33%, 댐감+2, AC-8</td>
+                        <td>물약회복 +25%, 댐감+2, AC-5</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>④ 스냅퍼 반지 강화 효과 (대표 수치 요약)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>반지 종류</th>
+                        <th>+3강 효과</th>
+                        <th>+5강 효과</th>
+                        <th>+7강 효과</th>
+                        <th>+9강 효과 (MAX)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="highlight">지혜 반지 (축)</td>
+                        <td>HP+20, AC-4</td>
+                        <td>HP+30, SP+2, AC-5</td>
+                        <td>HP+40, SP+4, MP+15, AC-7</td>
+                        <td class="mint">HP+60, SP+9, MP+65, AC-12</td>
+                    </tr>
+                    <tr>
+                        <td>지혜 반지 (일반)</td>
+                        <td>HP+15, AC-3</td>
+                        <td>HP+25, SP+1, AC-4</td>
+                        <td>HP+35, SP+3, AC-5</td>
+                        <td>HP+50, SP+7, MP+55, AC-9</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">용사 반지 (축)</td>
+                        <td>HP+10, AC-5</td>
+                        <td>HP+20, 댐+2, 명중+2, AC-6</td>
+                        <td>HP+30, 댐+4, 명중+4, AC-7, 댐감+2</td>
+                        <td class="mint">HP+50, 댐+8, 명중+8, AC-12, 댐감+5</td>
+                    </tr>
+                    <tr>
+                        <td>용사 반지 (일반)</td>
+                        <td>HP+5, AC-4</td>
+                        <td>HP+15, 댐+1, 명중+1, AC-5</td>
+                        <td>HP+25, 댐+3, 명중+3, AC-5</td>
+                        <td>HP+40, 댐+7, 명중+7, AC-9</td>
+                    </tr>
+                    <tr>
+                        <td class="highlight">체력 반지 (축)</td>
+                        <td>HP+30, AC-4</td>
+                        <td>HP+40, 댐+2, AC-6</td>
+                        <td>HP+55, 댐+4, AC-7, 댐감+2</td>
+                        <td class="mint">HP+75, 댐+9, AC-12, 댐감+7</td>
+                    </tr>
+                    <tr>
+                        <td>체력 반지 (일반)</td>
+                        <td>HP+25, AC-3</td>
+                        <td>HP+35, 댐+1, AC-4</td>
+                        <td>HP+45, 댐+3, AC-5, 댐감+1</td>
+                        <td>HP+55, 댐+7, AC-9, 댐감+5</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>⑤ 가더류 강화 효과</h3>
+            <div class="card-grid">
+                <div class="item-card">
+                    <h4>🛡️ 수호의 가더</h4>
+                    <p>+1강당 <b>대미지 감소 +1</b> 증가</p>
+                    <p><span>(+6강 달성 시 댐감 +6)</span></p>
+                </div>
+                <div class="item-card">
+                    <h4>🔮 마법사의 가더</h4>
+                    <p>+1강당 <b>SP +1</b> 증가</p>
+                    <p><span>(+6강 달성 시 SP +6)</span></p>
+                </div>
+                <div class="item-card">
+                    <h4>⚔️ 고대 투사의 가더</h4>
+                    <p>+1강당 <b>근거리 대미지 +1</b> 증가</p>
+                    <p><span>(+6강 달성 시 근댐 +6)</span></p>
+                </div>
+                <div class="item-card">
+                    <h4>🏹 고대 명궁의 가더</h4>
+                    <p>+1강당 <b>원거리 대미지 +1</b> 증가</p>
+                    <p><span>(+6강 달성 시 원댐 +6)</span></p>
+                </div>
+            </div>
+
+            <!-- [이동 및 미출시 음영] 무기 단계별 옵션 -->
+            <div class="unreleased-section">
+                <h2 style="margin-top: 0;">⚔️ 무기 단계별 (1~5단계) 옵션 <span class="badge-unreleased">미출시</span></h2>
+                <p>무기 인챈트/승급 단계에 따라 부여되는 추가 스탯 및 발동 효과입니다. (추후 업데이트 예정)</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>무기 단계</th>
+                            <th>HP / MP</th>
+                            <th>리덕션</th>
+                            <th>대미지</th>
+                            <th>SP</th>
+                            <th>경험치 보너스</th>
+                            <th>💥 특수 발동 효과 (확률 대미지)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="highlight">1단계</td>
+                            <td>HP +20 / MP +10</td>
+                            <td>+1</td>
+                            <td>+1</td>
+                            <td>+1</td>
+                            <td>+5%</td>
+                            <td class="mint">2% 확률로 대미지 1.3배</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">2단계</td>
+                            <td>HP +40 / MP +20</td>
+                            <td>+2</td>
+                            <td>+2</td>
+                            <td>+2</td>
+                            <td>+10%</td>
+                            <td class="mint">3% 확률로 대미지 1.6배</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">3단계</td>
+                            <td>HP +60 / MP +30</td>
+                            <td>+3</td>
+                            <td>+3</td>
+                            <td>+3</td>
+                            <td>+15%</td>
+                            <td class="mint">3% 확률로 대미지 1.9배</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">4단계</td>
+                            <td>HP +80 / MP +40</td>
+                            <td>+4</td>
+                            <td>+4</td>
+                            <td>+4</td>
+                            <td>+20%</td>
+                            <td class="mint">4% 확률로 대미지 2.2배</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">5단계</td>
+                            <td>HP +100 / MP +50</td>
+                            <td>+5</td>
+                            <td>+5</td>
+                            <td>+5</td>
+                            <td>+25%</td>
+                            <td class="mint">5% 확률로 대미지 2.5배</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- [미출시 음영] 4대 속성 가더 -->
+            <div class="unreleased-section">
+                <h2 style="margin-top: 0;">🛡️ 4대 속성 가더 강화 효과 <span class="badge-unreleased">미출시</span></h2>
+                <p>지령, 풍령, 수령, 화령의 가더 인챈트 수치별 발동 옵션입니다. (추후 업데이트 예정)</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>가더 속성</th>
+                            <th>+6강 효과</th>
+                            <th>+7강 효과</th>
+                            <th>+8강 효과</th>
+                            <th>+9강 효과</th>
+                            <th>+10강 효과 (MAX)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="highlight">🪨 지령의 가더</td>
+                            <td>댐감+1</td>
+                            <td>댐감+2</td>
+                            <td>MR+3, 댐감+3</td>
+                            <td>MR+4, 댐감+4</td>
+                            <td class="mint">MR+5, 댐감+5</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">💨 풍령의 가더</td>
+                            <td>원명+1</td>
+                            <td>원명+2, 스턴내성+1%</td>
+                            <td>원명+3, 원댐+2, 스턴내성+2%</td>
+                            <td>원명+4, 원댐+2, 스턴내성+3%</td>
+                            <td class="mint">원명+5, 원댐+3, 스턴내성+4%</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">💧 수령의 가더</td>
+                            <td>마적+1</td>
+                            <td>마적+2, 스턴내성+1%</td>
+                            <td>마적+3, SP+1, 스턴내성+2%</td>
+                            <td>마적+4, SP+2, 스턴내성+3%</td>
+                            <td class="mint">마적+5, SP+3, 스턴내성+4%</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">🔥 화령의 가더</td>
+                            <td>근명+1</td>
+                            <td>근명+2, 스턴내성+1%</td>
+                            <td>근명+3, 근댐+2, 스턴내성+2%</td>
+                            <td>근명+4, 근댐+2, 스턴내성+3%</td>
+                            <td class="mint">근명+5, 근댐+3, 스턴내성+4%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- [미출시 음영] 6. 각종 세트 아이템 구성 및 효과 -->
+            <div class="unreleased-section">
+                <h2 style="margin-top: 0;">🎽 각종 세트 아이템 구성 및 효과 <span class="badge-unreleased">미출시</span></h2>
+                <p>서버의 세트 아이템 시스템은 DB(`item_setoption` 테이블)에서 동적으로 옵션을 불러와 인벤토리 착용 부위 개수(count)를 충족할 때 즉시 발동하는 시스템입니다. (추후 업데이트 예정)</p>
+
+                <div class="card-grid" style="grid-template-columns: 1fr; gap: 25px;">
+                    <div class="item-card">
+                        <h4>🪨 고대 암석 세트 <span>(고대 암석 망토 + 장갑 + 부츠)</span></h4>
+                        <p><b>개별 장비 효과</b> : 인챈트 수치당 PVP 대미지 감소 +1 증가</p>
+                        <p><b>세트 발동 효과</b> : 추가 대미지 감소 및 최대 HP 증가 보너스</p>
+                    </div>
+                    <div class="item-card">
+                        <h4>👿 고대 마물 세트 <span>(고대 마물의 망토 + 장갑 + 부츠)</span></h4>
+                        <p><b>개별 장비 효과</b> : 인챈트 수치당 PVP 추가 대미지 +1 증가</p>
+                        <p><b>세트 발동 효과</b> : 추가 대미지 및 스탯 보너스</p>
+                    </div>
+                    <div class="item-card">
+                        <h4>💀 데스나이트 세트 <span>(데스나이트 투구 + 갑옷 + 장갑 + 부츠)</span></h4>
+                        <p><b>세트 발동 효과</b> : 데스나이트 전용 외형 변신(Polymorph) 발동, 추가 근거리 대미지, 명중, AC 보너스 대폭 증가</p>
+                    </div>
+                    <div class="item-card">
+                        <h4>👹 커츠 / 데몬 / 바포메트 세트</h4>
+                        <p><b>세트 발동 효과</b> : 각 보스 전용 외형 변신 발동, 직업별 특화 스탯 (기사: STR/댐감, 마법사: INT/SP 등) 대폭 증가</p>
+                    </div>
+                    <div class="item-card" style="border-color: #33ff99; box-shadow: 0 0 15px rgba(0, 255, 128, 0.2);">
+                        <h4>👑 진명황 세트 <span>(진명황 투구 + 갑옷 + 망토 + 장갑 + 부츠)</span></h4>
+                        <p><b>개별 장비 효과</b> : +3강부터 근/원거리 대미지 및 명중, SP, 마법적중, 리덕션 대폭 증가</p>
+                        <p><b>세트 발동 효과</b> : 최상위 스탯 (올스탯, AC, 대미지 감소, HP/MP 대폭 증가) 부여</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- footer -->
+        <div class="footer">
+            서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
+            게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
+        </div>
+    </div><!-- //main-content -->
+
+</body>
+
+</html>

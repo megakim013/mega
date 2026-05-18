@@ -1,4 +1,4 @@
-/* mobile.css - 메가 서버 모바일 반응형 전용 스타일 */
+﻿/* mobile.css - 메가 서버 모바일 반응형 전용 스타일 */
 @media screen and (max-width: 768px) {
     /* 1. 사이드바 -> 상단 고정 네비게이션 바 변환 */
     .sidebar {
@@ -10,7 +10,7 @@
         flex-direction: row !important;
         align-items: center !important;
         border-right: none !important;
-        border-bottom: 1px solid rgba(0,150,255,0.3) !important;
+        border-bottom: 1px solid rgba(0,255,128,0.3) !important;
         padding: 0 !important;
         background: rgba(10,16,26,0.98) !important;
         z-index: 9999 !important;
@@ -19,7 +19,7 @@
     .sidebar-logo {
         padding: 0 15px !important;
         border-bottom: none !important;
-        border-right: 1px solid rgba(0,150,255,0.2) !important;
+        border-right: 1px solid rgba(0,255,128,0.2) !important;
         height: 55px !important;
         display: flex !important;
         align-items: center !important;
@@ -56,9 +56,9 @@
         box-sizing: border-box !important;
     }
     .sidebar-menu a:hover, .sidebar-menu a.active {
-        background: rgba(0, 150, 255, 0.1) !important;
+        background: rgba(0, 255, 128, 0.1) !important;
         border-left: none !important;
-        border-bottom: 3px solid #33ccff !important;
+        border-bottom: 3px solid #33ff99 !important;
     }
     .sidebar-footer {
         display: none !important; /* 모바일 상단바에서는 푸터 문구 숨김 */
