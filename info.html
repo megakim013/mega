@@ -2,80 +2,91 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title> 정보</title>
+<title>서버 정보</title>
 
 <style>
     /* ------------------------------
-   좌측 사이드바 메뉴 스타일
------------------------------- */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100vh;
-    background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
-    border-right: 1px solid rgba(0,150,255,0.25);
-    z-index: 2000;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 5px 0 25px rgba(0,0,0,0.6);
-    backdrop-filter: blur(10px);
-}
-.sidebar-logo {
-    padding: 35px 20px 25px 20px;
-    text-align: center;
-    border-bottom: 1px solid rgba(0,150,255,0.15);
-}
-.sidebar-logo h2 {
-    margin: 0;
-    color: #fff;
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    text-shadow: 0 0 15px #0066ff, 0 0 25px #0033aa;
-}
-.sidebar-menu {
-    display: flex;
-    flex-direction: column;
-    padding: 25px 0;
-    flex: 1;
-    overflow-y: auto;
-}
-.sidebar-menu a {
-    color: #ccc;
-    padding: 16px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    border-left: 4px solid transparent;
-    transition: 0.25s;
-}
-.sidebar-menu a:hover {
-    color: #33ccff;
-    background: rgba(0, 150, 255, 0.08);
-    border-left: 4px solid #33ccff;
-    text-shadow: 0 0 10px #0088ff;
-}
-.sidebar-footer {
-    padding: 20px;
-    text-align: center;
-    font-size: 13px;
-    color: #666;
-    border-top: 1px solid rgba(255,255,255,0.05);
-}
-/* 메인 컨텐츠 영역 (사이드바 우측) */
-.main-content {
-    margin-left: 250px;
-    width: calc(100% - 250px);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-}
+       전체 레이아웃 및 바디 배경 지정
+    ------------------------------ */
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #070c14; /* 전체 배경을 어두운 톤으로 고정 */
+        font-family: 'Malgun Gothic', sans-serif;
+    }
+
+    /* ------------------------------
+       좌측 사이드바 메뉴 스타일
+    ------------------------------ */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
+        border-right: 1px solid rgba(0,150,255,0.25);
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 5px 0 25px rgba(0,0,0,0.6);
+        backdrop-filter: blur(10px);
+    }
+    .sidebar-logo {
+        padding: 35px 20px 25px 20px;
+        text-align: center;
+        border-bottom: 1px solid rgba(0,150,255,0.15);
+    }
+    .sidebar-logo h2 {
+        margin: 0;
+        color: #fff;
+        font-size: 26px;
+        font-weight: 900;
+        letter-spacing: 3px;
+        text-shadow: 0 0 15px #0066ff, 0 0 25px #0033aa;
+    }
+    .sidebar-menu {
+        display: flex;
+        flex-direction: column;
+        padding: 25px 0;
+        flex: 1;
+        overflow-y: auto;
+    }
+    .sidebar-menu a {
+        color: #ccc;
+        padding: 16px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-left: 4px solid transparent;
+        transition: 0.25s;
+    }
+    .sidebar-menu a:hover {
+        color: #33ccff;
+        background: rgba(0, 150, 255, 0.08);
+        border-left: 4px solid #33ccff;
+        text-shadow: 0 0 10px #0088ff;
+    }
+    .sidebar-footer {
+        padding: 20px;
+        text-align: center;
+        font-size: 13px;
+        color: #666;
+        border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* 메인 컨텐츠 영역 (사이드바 우측) */
+    .main-content {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
 
     /* 서버정보 배너 */
     .header {
@@ -126,41 +137,49 @@
     .container {
         width: 860px;
         margin: 120px auto 70px auto;
-        background: rgba(10,16,26,0.78);
+        background: rgba(10,16,26,0.85); /* 약간 더 불투명하게 조정 */
         padding: 45px 50px;
         border: 1px solid rgba(0,150,255,0.35);
         border-radius: 12px;
         box-shadow: 0 0 20px rgba(0,150,255,0.25);
         line-height: 1.7;
-        font-size: 18px;
+        font-size: 17px;
+        color: #e0e6ed; /* 기본 글자색을 밝은 회색빛으로 변경 */
         position: relative;
         z-index: 5;
     }
 
-    h2 {
+    .container h2 {
         color: #33ccff;
         margin-top: 40px;
         margin-bottom: 16px;
         font-size: 26px;
         border-bottom: 1px solid rgba(0,150,255,0.35);
         padding-bottom: 6px;
+        text-shadow: 0 0 8px rgba(51,204,255,0.3);
     }
 
     ul { padding-left: 22px; }
-    li { margin-bottom: 10px; }
+    li { margin-bottom: 12px; }
 
     p {
         margin-bottom: 18px;
         line-height: 1.75;
     }
 
+    /* 강조 텍스트 */
+    .container b {
+        color: #ffcc00; /* 주요 강조 키워드 칼라 변경 */
+    }
+
+    /* footer */
     .footer {
         margin-top: 60px;
-        padding: 15px 0;
-        font-size: 14px;
-        color: rgba(230, 230, 230, 0.75);
+        padding: 20px 0;
+        font-size: 13px;
+        color: rgba(230, 230, 230, 0.45); /* 푸터 가독성 조절 */
         text-align: center;
-        line-height: 1.4;
+        line-height: 1.5;
     }
 </style>
 </head>
@@ -173,6 +192,7 @@ window.addEventListener("load", () => {
 });
 </script>
 
+<!-- 좌측 메뉴 -->
 <div class="sidebar">
     <div class="sidebar-logo">
         <h2>MEGA</h2>
@@ -193,11 +213,12 @@ window.addEventListener("load", () => {
         <span>© 2026 Mega Server</span>
     </div>
 </div>
+
 <div class="main-content">
 
 <!-- 헤더 -->
 <div class="header">
-    <h1>⚔정보</h1>
+    <h1>⚔ 서버정보</h1>
 </div>
 
 <!-- 본문 -->
@@ -205,7 +226,7 @@ window.addEventListener("load", () => {
 
     <h2>안내사항</h2>
     <p>
-        저희 서버는 <b>누구나 접근이 쉬운 반하자 서버’</b>로 운영되며,<br>
+        저희 서버는 <b>'누구나 접근이 쉬운 반하자 서버'</b>로 운영되며,<br>
         초반 사냥 및 보스 공략에서 난이도와 불편함이 있을 수 있습니다.
     </p>
     <p>
@@ -224,7 +245,7 @@ window.addEventListener("load", () => {
         <li>4. 드랍 : 2.0배</li>
         <li>5. 경험치 : 2.0배</li>
         <li>6. 아데나 : 3.0배</li>
-        <li>3. 파티 : 1.2배</li>
+        <li>7. 파티 : 1.2배</li>
     </ul>
 
     <h2>서버 지원 기능</h2>
