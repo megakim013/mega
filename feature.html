@@ -280,6 +280,7 @@
         <a href="info.html">📜 서버정보</a>
         <a href="update.html">⚡ 업데이트</a>
         <a href="boss.html">💀 보스정보</a>
+        <a href="doll.html">🧸 마법인형</a>
         <a href="feature.html" class="active">🎛 간편기능</a>
         <a href="hunting.html">🗺 레벨별 사냥터</a>
         <a href="promo.html">📣 홍보안내</a>
@@ -351,13 +352,13 @@
 
         <!-- 3. 거래소 사용법 -->
         <div class="feature-card">
-            <!-- 💡 동영상 등록 방법: 아래 video 태그의 src 속성에 촬영하신 영상 경로(예: videos/market.mp4)를 넣어주세요 -->
+            <!-- 💡 동영상 등록 방법: 아래 iframe 태그의 src 속성에 구글 드라이브 preview 링크를 넣어주세요 -->
             <div class="video-box" onclick="playVideo(this)">
-                <video src="" controls preload="metadata"></video>
+                <iframe src="https://drive.google.com/file/d/18BomXazAFT9VB6HLRUZxnbv09Z7fjTiY/preview?autoplay=1" allow="autoplay"></iframe>
                 <div class="video-overlay">
                     <div class="play-btn"></div>
                     <div class="overlay-text">거래소 사용법 보기</div>
-                    <div class="overlay-subtext">클릭 시 영상 재생 (현재 영상 준비 중)</div>
+                    <div class="overlay-subtext">클릭 시 영상 재생 (구글 드라이브 연동 완료)</div>
                 </div>
             </div>
             <div class="feature-info">
@@ -367,7 +368,7 @@
                 </div>
                 <div class="feature-footer">
                     <span>#통합거래소 #원격거래</span>
-                    <span class="status-badge">영상 준비중</span>
+                    <span class="status-badge" style="background:rgba(0,255,200,0.15); color:#00ffcc; border-color:rgba(0,255,200,0.3);">영상 등록완료</span>
                 </div>
             </div>
         </div>

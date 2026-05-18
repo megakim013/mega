@@ -1,319 +1,339 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>공지사항</title>
 
-<style>
-    /* ------------------------------
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항</title>
+
+    <style>
+        /* ------------------------------
        전체 레이아웃 및 바디 배경 지정
     ------------------------------ */
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: #070c14; /* 전체 배경을 어두운 톤으로 고정 */
-        font-family: 'Malgun Gothic', sans-serif;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #070c14;
+            /* 전체 배경을 어두운 톤으로 고정 */
+            font-family: 'Malgun Gothic', sans-serif;
+        }
 
-    /* ------------------------------
+        /* ------------------------------
        좌측 사이드바 메뉴 스타일
     ------------------------------ */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 250px;
-        height: 100vh;
-        background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
-        border-right: 1px solid rgba(0,150,255,0.25);
-        z-index: 2000;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 5px 0 25px rgba(0,0,0,0.6);
-        backdrop-filter: blur(10px);
-    }
-    .sidebar-logo {
-        padding: 35px 20px 25px 20px;
-        text-align: center;
-        border-bottom: 1px solid rgba(0,150,255,0.15);
-    }
-    .sidebar-logo h2 {
-        margin: 0;
-        color: #fff;
-        font-size: 26px;
-        font-weight: 900;
-        letter-spacing: 3px;
-        text-shadow: 0 0 15px #0066ff, 0 0 25px #0033aa;
-    }
-    .sidebar-menu {
-        display: flex;
-        flex-direction: column;
-        padding: 25px 0;
-        flex: 1;
-        overflow-y: auto;
-    }
-    .sidebar-menu a {
-        color: #ccc;
-        padding: 16px 30px;
-        font-size: 18px;
-        font-weight: bold;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        border-left: 4px solid transparent;
-        transition: 0.25s;
-    }
-    .sidebar-menu a:hover {
-        color: #33ccff;
-        background: rgba(0, 150, 255, 0.08);
-        border-left: 4px solid #33ccff;
-        text-shadow: 0 0 10px #0088ff;
-    }
-    .sidebar-footer {
-        padding: 20px;
-        text-align: center;
-        font-size: 13px;
-        color: #666;
-        border-top: 1px solid rgba(255,255,255,0.05);
-    }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(10, 16, 26, 0.95) 0%, rgba(7, 12, 20, 0.95) 100%);
+            border-right: 1px solid rgba(0, 150, 255, 0.25);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
 
-    /* 메인 컨텐츠 영역 (사이드바 우측) */
-    .main-content {
-        margin-left: 250px;
-        width: calc(100% - 250px);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-    }
+        .sidebar-logo {
+            padding: 35px 20px 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 150, 255, 0.15);
+        }
 
-    /* 상단 배너 */
-    .header {
-        background-image: url('images/megamain.png');
-        background-size: cover;
-        background-position: center;
-        height: 520px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-    }
+        .sidebar-logo h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px #0066ff, 0 0 25px #0033aa;
+        }
 
-    .header::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(0,0,0,0.20);
-    }
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            padding: 25px 0;
+            flex: 1;
+            overflow-y: auto;
+        }
 
-    .header::after {
-        content: "";
-        position: absolute;
-        bottom: -1px;
-        width: 100%;
-        height: 350px;
-        background: linear-gradient(
-            to bottom,
-            rgba(0,0,0,0) 0%,
-            rgba(0,0,0,0.25) 30%,
-            rgba(10,16,26,0.65) 65%,
-            rgba(0,0,0,0.90) 100%
-        );
-    }
+        .sidebar-menu a {
+            color: #ccc;
+            padding: 16px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 4px solid transparent;
+            transition: 0.25s;
+        }
 
-    .header h1 {
-        position: relative;
-        font-size: 45px;
-        font-weight: bold;
-        letter-spacing: 4px;
-        color: #fff;
-        text-shadow: 0 0 15px #000, 0 0 25px #0066ff, 0 0 35px #0033aa;
-        top: 60px;
-    }
+        .sidebar-menu a:hover {
+            color: #33ccff;
+            background: rgba(0, 150, 255, 0.08);
+            border-left: 4px solid #33ccff;
+            text-shadow: 0 0 10px #0088ff;
+        }
 
-    /* 본문 박스 */
-    .container {
-        width: 860px;
-        margin: 120px auto 70px auto;
-        background: rgba(10,16,26,0.85); /* 약간 더 불투명하게 조정 */
-        padding: 45px 50px;
-        border: 1px solid rgba(0,150,255,0.35);
-        border-radius: 12px;
-        box-shadow: 0 0 20px rgba(0,150,255,0.25);
-        line-height: 1.7;
-        font-size: 17px;
-        color: #e0e6ed; /* 기본 글자색을 밝은 회색빛으로 변경 (가독성 확보) */
-        position: relative;
-        z-index: 5;
-    }
+        .sidebar-footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-    .container h2 {
-        color: #33ccff;
-        font-size: 26px;
-        margin-top: 40px;
-        margin-bottom: 18px;
-        border-bottom: 1px solid rgba(0,150,255,0.35);
-        padding-bottom: 6px;
-        text-shadow: 0 0 8px rgba(51,204,255,0.3);
-    }
+        /* 메인 컨텐츠 영역 (사이드바 우측) */
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
 
-    ul { padding-left: 22px; }
-    li { margin-bottom: 12px; }
-    
-    /* 강조 텍스트 */
-    .container b {
-        color: #ffcc00; /* 주요 강조는 노란색 계열로 눈에 띄게 */
-    }
+        /* 상단 배너 */
+        .header {
+            background-image: url('images/megamain.png');
+            background-size: cover;
+            background-position: center;
+            height: 520px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
 
-    /* 주의 박스 스타일 */
-    .note {
-        margin-top: 8px;
-        margin-bottom: 15px;
-        background: rgba(0, 30, 60, 0.6); /* 배경을 더 어둡고 묵직하게 변경 */
-        border-left: 4px solid #33ccff; /* 선막대를 더 뚜렷하게 */
-        padding: 12px 16px;
-        border-radius: 0 6px 6px 0;
-        color: #a3d2ff; /* 글자색을 밝고 선명한 하늘색으로 변경 */
-        font-size: 15px;
-        line-height: 1.55;
-    }
+        .header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.20);
+        }
 
-    /* footer */
-    .footer {
-        margin-top: 60px;
-        padding: 20px 0;
-        font-size: 13px;
-        color: rgba(230,230,230,0.45); /* 가독성을 위해 푸터는 살짝 톤다운 */
-        text-align: center;
-        line-height: 1.5;
-    }
-</style>
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0) 0%,
+                    rgba(0, 0, 0, 0.25) 30%,
+                    rgba(10, 16, 26, 0.65) 65%,
+                    rgba(0, 0, 0, 0.90) 100%);
+        }
+
+        .header h1 {
+            position: relative;
+            font-size: 45px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 0 0 15px #000, 0 0 25px #0066ff, 0 0 35px #0033aa;
+            top: 60px;
+        }
+
+        /* 본문 박스 */
+        .container {
+            width: 860px;
+            margin: 120px auto 70px auto;
+            background: rgba(10, 16, 26, 0.85);
+            /* 약간 더 불투명하게 조정 */
+            padding: 45px 50px;
+            border: 1px solid rgba(0, 150, 255, 0.35);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.25);
+            line-height: 1.7;
+            font-size: 17px;
+            color: #e0e6ed;
+            /* 기본 글자색을 밝은 회색빛으로 변경 (가독성 확보) */
+            position: relative;
+            z-index: 5;
+        }
+
+        .container h2 {
+            color: #33ccff;
+            font-size: 26px;
+            margin-top: 40px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid rgba(0, 150, 255, 0.35);
+            padding-bottom: 6px;
+            text-shadow: 0 0 8px rgba(51, 204, 255, 0.3);
+        }
+
+        ul {
+            padding-left: 22px;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        /* 강조 텍스트 */
+        .container b {
+            color: #ffcc00;
+            /* 주요 강조는 노란색 계열로 눈에 띄게 */
+        }
+
+        /* 주의 박스 스타일 */
+        .note {
+            margin-top: 8px;
+            margin-bottom: 15px;
+            background: rgba(0, 30, 60, 0.6);
+            /* 배경을 더 어둡고 묵직하게 변경 */
+            border-left: 4px solid #33ccff;
+            /* 선막대를 더 뚜렷하게 */
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            color: #a3d2ff;
+            /* 글자색을 밝고 선명한 하늘색으로 변경 */
+            font-size: 15px;
+            line-height: 1.55;
+        }
+
+        /* footer */
+        .footer {
+            margin-top: 60px;
+            padding: 20px 0;
+            font-size: 13px;
+            color: rgba(230, 230, 230, 0.45);
+            /* 가독성을 위해 푸터는 살짝 톤다운 */
+            text-align: center;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 
 <body>
 
-<script>
-window.addEventListener("load", () => {
-    document.body.classList.add("loaded");
-});
-</script>
+    <script>
+        window.addEventListener("load", () => {
+            document.body.classList.add("loaded");
+        });
+    </script>
 
-<!-- 좌측 메뉴 -->
-<div class="sidebar">
-    <div class="sidebar-logo">
-        <h2>MEGA</h2>
+    <!-- 좌측 메뉴 -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <h2>MEGA</h2>
+        </div>
+        <div class="sidebar-menu">
+            <a href="index.html">🏠 홈</a>
+            <a href="notice.html">📢 공지사항</a>
+            <a href="info.html">📜 서버정보</a>
+            <a href="update.html">⚡ 업데이트</a>
+            <a href="boss.html">💀 보스정보</a>
+            <a href="doll.html">🧸 마법인형</a>
+            <a href="feature.html">🎛 간편기능</a>
+            <a href="hunting.html">🗺 레벨별 사냥터</a>
+            <a href="promo.html">📣 홍보안내</a>
+            <a href="service.html">💬 고객센터</a>
+            <a href="download.html">⬇ 다운로드</a>
+        </div>
+        <div class="sidebar-footer">
+            <span>© 2026 Mega Server</span>
+        </div>
     </div>
-    <div class="sidebar-menu">
-        <a href="index.html">🏠 홈</a>
-        <a href="notice.html">📢 공지사항</a>
-        <a href="info.html">📜 서버정보</a>
-        <a href="update.html">⚡ 업데이트</a>
-        <a href="boss.html">💀 보스정보</a>
-        <a href="feature.html">🎛 간편기능</a>
-        <a href="hunting.html">🗺 레벨별 사냥터</a>
-        <a href="promo.html">📣 홍보안내</a>
-        <a href="service.html">💬 고객센터</a>
-        <a href="download.html">⬇ 다운로드</a>
-    </div>
-    <div class="sidebar-footer">
-        <span>© 2026 Mega Server</span>
-    </div>
-</div>
 
-<div class="main-content">
+    <div class="main-content">
 
-<!-- 상단 배너 -->
-<div class="header">
-    <h1>공지사항</h1>
-</div>
+        <!-- 상단 배너 -->
+        <div class="header">
+            <h1>공지사항</h1>
+        </div>
 
-<!-- 본문 -->
-<div class="container">
+        <!-- 본문 -->
+        <div class="container">
 
-    <h2>접속 관련</h2>
-    <ul>
-        <li>IP당 2개의 클라이언트 접속을 허용합니다.</li>
-        <li>접속 오류 발생 시 카카오톡/텔레그램으로 문의해주세요.</li>
-    </ul>
+            <h2>접속 관련</h2>
+            <ul>
+                <li>IP당 2개의 클라이언트 접속을 허용합니다.</li>
+                <li>접속 오류 발생 시 카카오톡/텔레그램으로 문의해주세요.</li>
+            </ul>
 
-    <h2>채팅 규정</h2>
-    <ul>
-        <li>
-            비방 및 서버 분위기 저해 발언 금지
-            <div class="note">
-                · 1차 제재는 운영자 판단 기준 적용<br>
-                · 유저 간 언쟁은 운영자 판단으로 처리<br>
-                · 채팅 유도 후 신고 시 신고자도 동일 제재 가능
-            </div>
-        </li>
+            <h2>채팅 규정</h2>
+            <ul>
+                <li>
+                    비방 및 서버 분위기 저해 발언 금지
+                    <div class="note">
+                        · 1차 제재는 운영자 판단 기준 적용<br>
+                        · 유저 간 언쟁은 운영자 판단으로 처리<br>
+                        · 채팅 유도 후 신고 시 신고자도 동일 제재 가능
+                    </div>
+                </li>
 
-        <li>장애인 비하 발언 금지</li>
-        <li>적혈 도발은 외창으로 간주</li>
+                <li>장애인 비하 발언 금지</li>
+                <li>적혈 도발은 외창으로 간주</li>
 
-        <li>
-            전창·흰창 포함 모든 외창 제재
-            <div class="note">
-                1차 : 60분 금지<br>
-                2차 : 600분 금지<br>
-                3차 : 48시간 정지<br>
-                4차 : 72시간 정지
-            </div>
-        </li>
+                <li>
+                    전창·흰창 포함 모든 외창 제재
+                    <div class="note">
+                        1차 : 60분 금지<br>
+                        2차 : 600분 금지<br>
+                        3차 : 48시간 정지<br>
+                        4차 : 72시간 정지
+                    </div>
+                </li>
 
-        <li>
-            보조캐릭·VPN 외창 시 본캐 포함 동일 제재 적용
-            <div class="note">※ 1차 적발 시 바로 해당 차수 제재</div>
-        </li>
+                <li>
+                    보조캐릭·VPN 외창 시 본캐 포함 동일 제재 적용
+                    <div class="note">※ 1차 적발 시 바로 해당 차수 제재</div>
+                </li>
 
-        <li>성적 농담 및 성희롱 금지</li>
+                <li>성적 농담 및 성희롱 금지</li>
 
-        <li>
-            사생활·개인정보 언급 또는 조롱 금지
-            <div class="note">
-                1차 : 48시간 정지<br>
-                2차 : 72시간 정지
-            </div>
-        </li>
-    </ul>
+                <li>
+                    사생활·개인정보 언급 또는 조롱 금지
+                    <div class="note">
+                        1차 : 48시간 정지<br>
+                        2차 : 72시간 정지
+                    </div>
+                </li>
+            </ul>
 
-    <h2>사기 및 사칭</h2>
-    <ul>
-        <li>유저 사칭하여 아이템 요구 금지</li>
-        <li>운영자 사칭 금지</li>
-        <li>아이템 현금 거래는 운영자 중계만 인정</li>
-    </ul>
-    <div class="note">※ 위반 시 경고 없이 영구 이용 제한</div>
+            <h2>사기 및 사칭</h2>
+            <ul>
+                <li>유저 사칭하여 아이템 요구 금지</li>
+                <li>운영자 사칭 금지</li>
+                <li>아이템 현금 거래는 운영자 중계만 인정</li>
+            </ul>
+            <div class="note">※ 위반 시 경고 없이 영구 이용 제한</div>
 
-    <h2>버그 악용 및 어뷰징</h2>
-    <ul>
-        <li>버그를 이용한 모든 행위</li>
-        <li>정책 악용 및 비정상적 플레이</li>
-        <li>시스템 목적에 반하는 모든 행동</li>
-    </ul>
-    <div class="note">※ 1차 적발 시 영구 이용 제한</div>
+            <h2>버그 악용 및 어뷰징</h2>
+            <ul>
+                <li>버그를 이용한 모든 행위</li>
+                <li>정책 악용 및 비정상적 플레이</li>
+                <li>시스템 목적에 반하는 모든 행동</li>
+            </ul>
+            <div class="note">※ 1차 적발 시 영구 이용 제한</div>
 
-    <h2>이중 혈맹</h2>
-    <ul>
-        <li>본캐와 동일 IP 부캐릭 타 혈맹 가입 금지</li>
-        <li>본캐 라인 / 부캐 중립 상태 사냥 금지</li>
-        <li>적혈 잠입 목적 부캐 운영 금지</li>
-    </ul>
-    <div class="note">※ 위반 시 즉시 벤 처리</div>
+            <h2>이중 혈맹</h2>
+            <ul>
+                <li>본캐와 동일 IP 부캐릭 타 혈맹 가입 금지</li>
+                <li>본캐 라인 / 부캐 중립 상태 사냥 금지</li>
+                <li>적혈 잠입 목적 부캐 운영 금지</li>
+            </ul>
+            <div class="note">※ 위반 시 즉시 벤 처리</div>
 
-    <h2>1:1 문의 안내</h2>
-    <p>
-        문의는 <b>텔레그램</b>이 가장 빠릅니다.<br>
-        게임 내 문의는 <b>메티스</b>에게 편지를 보내주세요.
-    </p>
+            <h2>1:1 문의 안내</h2>
+            <p>
+                문의는 <b>텔레그램</b>이 가장 빠릅니다.<br>
+                게임 내 문의는 <b>메티스</b>에게 편지를 보내주세요.
+            </p>
 
-</div>
+        </div>
 
-<div class="footer">
-    서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
-    게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
-</div>
-</div><!-- //main-content -->
+        <div class="footer">
+            서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
+            게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
+        </div>
+    </div><!-- //main-content -->
 
 </body>
+
 </html>

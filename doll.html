@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Mega Server - 마법인형 정보</title>
+<style>
+.sidebar{position:fixed;top:0;left:0;width:250px;height:100vh;background:linear-gradient(180deg,rgba(10,16,26,0.95) 0%,rgba(7,12,20,0.95) 100%);border-right:1px solid rgba(0,150,255,0.25);z-index:2000;display:flex;flex-direction:column;box-shadow:5px 0 25px rgba(0,0,0,0.6);backdrop-filter:blur(10px)}
+.sidebar-logo{padding:35px 20px 25px 20px;text-align:center;border-bottom:1px solid rgba(0,150,255,0.15)}
+.sidebar-logo h2{margin:0;color:#fff;font-size:26px;font-weight:900;letter-spacing:3px;text-shadow:0 0 15px #0066ff,0 0 25px #0033aa}
+.sidebar-menu{display:flex;flex-direction:column;padding:25px 0;flex:1;overflow-y:auto}
+.sidebar-menu a{color:#ccc;padding:16px 30px;font-size:18px;font-weight:bold;text-decoration:none;display:flex;align-items:center;gap:15px;border-left:4px solid transparent;transition:0.25s}
+.sidebar-menu a:hover,.sidebar-menu a.active{color:#33ccff;background:rgba(0,150,255,0.08);border-left:4px solid #33ccff;text-shadow:0 0 10px #0088ff}
+.sidebar-footer{padding:20px;text-align:center;font-size:13px;color:#666;border-top:1px solid rgba(255,255,255,0.05)}
+.main-content{margin-left:250px;width:calc(100% - 250px);min-height:100vh;display:flex;flex-direction:column;box-sizing:border-box}
+.header{background-image:url('images/megamain.png');background-size:cover;background-position:center;height:520px;display:flex;justify-content:center;align-items:center;position:relative}
+.header::after{content:"";position:absolute;bottom:-1px;width:100%;height:350px;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(11,15,21,0.95) 100%)}
+.header h1{position:relative;font-size:43px;font-weight:bold;letter-spacing:4px;color:#fff;text-shadow:0 0 15px #000,0 0 25px #0066ff,0 0 35px #0033aa;top:60px;z-index:10}
+
+.container{width:1100px;margin:120px auto 80px auto;background:rgba(10,16,26,0.78);padding:40px;border:1px solid rgba(0,150,255,0.35);box-shadow:0 0 20px rgba(0,150,255,0.25);border-radius:10px;position:relative;z-index:5}
+
+/* 단계 섹션 제목 */
+.tier-title{font-size:28px;font-weight:bold;color:#33ccff;margin:50px 0 20px 0;padding-bottom:10px;border-bottom:2px solid rgba(0,150,255,0.3);text-shadow:0 0 10px rgba(51,204,255,0.4);display:flex;align-items:center;gap:12px}
+.tier-title:first-child{margin-top:0}
+.tier-badge{background:rgba(0,100,255,0.25);border:1px solid rgba(0,150,255,0.5);padding:4px 14px;border-radius:20px;font-size:14px;color:#66ddff}
+
+/* 인형 카드 그리드 */
+.doll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:10px}
+
+.doll-card{background:rgba(0,10,25,0.6);border:1px solid rgba(0,150,255,0.25);border-radius:10px;padding:20px;display:flex;gap:18px;align-items:flex-start;transition:0.3s}
+.doll-card:hover{border-color:#33ccff;box-shadow:0 5px 20px rgba(0,150,255,0.2);transform:translateY(-3px)}
+
+.doll-img{width:64px;height:64px;object-fit:contain;border-radius:8px;border:1px solid rgba(0,100,255,0.4);box-shadow:0 0 10px rgba(0,100,255,0.3);flex-shrink:0;background:rgba(0,0,0,0.4)}
+
+.doll-info{flex:1;min-width:0}
+.doll-name{font-size:18px;font-weight:bold;color:#fff;margin-bottom:8px;text-shadow:0 0 6px rgba(51,204,255,0.3)}
+.doll-stats{font-size:14px;color:#b0c4de;line-height:1.7}
+.doll-stats span{display:block}
+.stat-highlight{color:#ffcc00;font-weight:bold}
+.stat-warning{color:#ff6666;font-size:13px;margin-top:4px}
+
+/* 5단계 특별 스타일 */
+.doll-card.tier5{border-color:rgba(255,180,0,0.4);background:rgba(20,15,5,0.6)}
+.doll-card.tier5:hover{border-color:#ffcc00;box-shadow:0 5px 20px rgba(255,200,0,0.2)}
+.doll-card.tier5 .doll-img{border-color:rgba(255,180,0,0.5);box-shadow:0 0 10px rgba(255,180,0,0.3)}
+
+.footer{margin-top:auto;padding:25px 0;font-size:14px;text-align:center;color:rgba(230,230,230,0.45);border-top:1px solid rgba(255,255,255,0.05)}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo"><h2>MEGA</h2></div>
+    <div class="sidebar-menu">
+        <a href="index.html">🏠 홈</a>
+        <a href="notice.html">📢 공지사항</a>
+        <a href="info.html">📜 서버정보</a>
+        <a href="update.html">⚡ 업데이트</a>
+        <a href="boss.html">💀 보스정보</a>
+        <a href="doll.html" class="active">🧸 마법인형</a>
+        <a href="feature.html">🎛 간편기능</a>
+        <a href="hunting.html">🗺 레벨별 사냥터</a>
+        <a href="promo.html">📣 홍보안내</a>
+        <a href="service.html">💬 고객센터</a>
+        <a href="download.html">⬇ 다운로드</a>
+    </div>
+    <div class="sidebar-footer"><span>© 2026 Mega Server</span></div>
+</div>
+
+<div class="main-content">
+<div class="header"><h1>마법인형 정보</h1></div>
+
+<div class="container">
+
+<!-- ========== 1단계 ========== -->
+<div class="tier-title">⭐ 1단계 마법인형 <span class="tier-badge">Tier 1</span></div>
+<div class="doll-grid">
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/1단계 돌골렘.png" alt="돌 골렘">
+        <div class="doll-info">
+            <div class="doll-name">돌 골렘</div>
+            <div class="doll-stats"><span class="stat-highlight">대미지 감소 +1</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/1단계 늑대인간.png" alt="늑대인간">
+        <div class="doll-info">
+            <div class="doll-name">늑대인간</div>
+            <div class="doll-stats"><span class="stat-highlight">근거리 공격 시 일정 확률로 추가 대미지 +15</span><span>(안내 메시지 출력)</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/1단계 버그베어.png" alt="버그베어">
+        <div class="doll-info">
+            <div class="doll-name">버그베어</div>
+            <div class="doll-stats"><span class="stat-highlight">소지 무게 증가 +500</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/1단계 크러스트시안.png" alt="크러스트시안">
+        <div class="doll-info">
+            <div class="doll-name">크러스트시안</div>
+            <div class="doll-stats"><span class="stat-highlight">원거리 공격 시 일정 확률로 추가 대미지 +15</span><span>(안내 메시지 출력)</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/1단계 에티.png" alt="에티">
+        <div class="doll-info">
+            <div class="doll-name">에티</div>
+            <div class="doll-stats"><span class="stat-highlight">AC -3, 마법 치명타 +1%</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/1단계 목각.png" alt="목각">
+        <div class="doll-info">
+            <div class="doll-name">목각</div>
+            <div class="doll-stats"><span class="stat-highlight">최대 HP +50</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== 2단계 ========== -->
+<div class="tier-title">⭐⭐ 2단계 마법인형 <span class="tier-badge">Tier 2</span></div>
+<div class="doll-grid">
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/2단계 서큐버스.png" alt="서큐버스">
+        <div class="doll-info">
+            <div class="doll-name">서큐버스</div>
+            <div class="doll-stats"><span class="stat-highlight">64초당 MP 회복 +15</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/2단계 장로.png" alt="장로">
+        <div class="doll-info">
+            <div class="doll-name">장로</div>
+            <div class="doll-stats"><span class="stat-highlight">64초당 MP 회복 +15</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/2단계 코카트리스.png" alt="코카트리스">
+        <div class="doll-info">
+            <div class="doll-name">코카트리스</div>
+            <div class="doll-stats"><span class="stat-highlight">원거리 대미지 +1, 원거리 명중 +1</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/2단계 눈사람.png" alt="눈사람">
+        <div class="doll-info">
+            <div class="doll-name">눈사람</div>
+            <div class="doll-stats"><span class="stat-highlight">근거리 대미지 +1, 근거리 명중 +1</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/2단계 인어.png" alt="인어">
+        <div class="doll-info">
+            <div class="doll-name">인어</div>
+            <div class="doll-stats"><span class="stat-highlight">경험치 보너스 +5%</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/2단계 라바골렘.png" alt="라바 골렘">
+        <div class="doll-info">
+            <div class="doll-name">라바 골렘</div>
+            <div class="doll-stats"><span class="stat-highlight">근거리 대미지 +1, 대미지 감소 +1</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== 3단계 ========== -->
+<div class="tier-title">⭐⭐⭐ 3단계 마법인형 <span class="tier-badge">Tier 3</span></div>
+<div class="doll-grid">
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/3단계 자이언트.png" alt="자이언트">
+        <div class="doll-info">
+            <div class="doll-name">자이언트</div>
+            <div class="doll-stats"><span class="stat-highlight">경험치 보너스 +10%, 대미지 감소 +1</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/3단계 흑장로.png" alt="흑장로">
+        <div class="doll-info">
+            <div class="doll-name">흑장로</div>
+            <div class="doll-stats"><span class="stat-highlight">64초당 MP 회복 +15</span><span>일정 확률로 콜 라이트닝 발동</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/3단계 서큐버스퀸.png" alt="서큐버스 퀸">
+        <div class="doll-info">
+            <div class="doll-name">서큐버스 퀸</div>
+            <div class="doll-stats"><span class="stat-highlight">64초당 MP 회복 +15, SP +1</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/3단계 드레이크.png" alt="드레이크">
+        <div class="doll-info">
+            <div class="doll-name">드레이크</div>
+            <div class="doll-stats"><span class="stat-highlight">원거리 대미지 +2, 64초당 MP 회복 +6</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/3단계 킹버그베어.png" alt="킹 버그베어">
+        <div class="doll-info">
+            <div class="doll-name">킹 버그베어</div>
+            <div class="doll-stats"><span class="stat-highlight">스턴 내성 +8%, 64초당 MP 회복 +10</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/3단계 다이아몬드골렘.png" alt="다이아몬드 골렘">
+        <div class="doll-info">
+            <div class="doll-name">다이아몬드 골렘</div>
+            <div class="doll-stats"><span class="stat-highlight">대미지 감소 +2, PvP 대미지 감소 +1</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== 4단계 ========== -->
+<div class="tier-title">⭐⭐⭐⭐ 4단계 마법인형 <span class="tier-badge">Tier 4</span></div>
+<div class="doll-grid">
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/4단계 리치.png" alt="리치">
+        <div class="doll-info">
+            <div class="doll-name">리치</div>
+            <div class="doll-stats"><span class="stat-highlight">SP +5, 최대 HP +80</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/4단계 사이클롭스.png" alt="사이클롭스">
+        <div class="doll-info">
+            <div class="doll-name">사이클롭스</div>
+            <div class="doll-stats"><span class="stat-highlight">근거리 대미지 +2, 근거리 명중 +2</span><span class="stat-highlight">스턴 내성 +12%</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/4단계 나이트발드.png" alt="나이트발드">
+        <div class="doll-info">
+            <div class="doll-name">나이트발드</div>
+            <div class="doll-stats"><span class="stat-highlight">근거리 대미지 +2, 근거리 명중 +2</span><span class="stat-highlight">스턴 명중 +5%</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/4단계 시어.png" alt="시어">
+        <div class="doll-info">
+            <div class="doll-name">시어</div>
+            <div class="doll-stats"><span class="stat-highlight">원거리 대미지 +5, 32초당 HP 회복 +30</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/4단계 아이리스.png" alt="아이리스">
+        <div class="doll-info">
+            <div class="doll-name">아이리스</div>
+            <div class="doll-stats"><span class="stat-highlight">PvP 대미지 +5, 대미지 감소 +3</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/4단계 뱀파이어.png" alt="뱀파이어">
+        <div class="doll-info">
+            <div class="doll-name">뱀파이어</div>
+            <div class="doll-stats"><span class="stat-highlight">PvP 대미지 +3, 32초당 HP 회복 +30</span></div>
+        </div>
+    </div>
+    <div class="doll-card">
+        <img class="doll-img" src="images/doll/4단계 머미로드.png" alt="머미로드">
+        <div class="doll-info">
+            <div class="doll-name">머미로드</div>
+            <div class="doll-stats"><span class="stat-highlight">대미지 감소 +2, 경험치 보너스 +15%</span><span class="stat-highlight">64초당 MP 회복 +15</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== 5단계 ========== -->
+<div class="tier-title" style="color:#ffcc00;border-color:rgba(255,180,0,0.4)">🌟🌟🌟🌟🌟 5단계 마법인형 <span class="tier-badge" style="background:rgba(255,180,0,0.2);border-color:rgba(255,180,0,0.5);color:#ffdd66">Tier 5</span></div>
+<div class="doll-grid">
+    <div class="doll-card tier5">
+        <img class="doll-img" src="images/doll/5단계 데몬.png" alt="데몬">
+        <div class="doll-info">
+            <div class="doll-name">데몬</div>
+            <div class="doll-stats"><span class="stat-highlight">스턴 명중 +10%, 스턴 내성 +12%</span><span class="stat-highlight">경험치 보너스 +15%</span></div>
+        </div>
+    </div>
+    <div class="doll-card tier5">
+        <img class="doll-img" src="images/doll/5단계 데스나이트.png" alt="데스나이트">
+        <div class="doll-info">
+            <div class="doll-name">데스나이트</div>
+            <div class="doll-stats"><span class="stat-highlight">대미지 감소 +7, 경험치 보너스 +20%</span><span>일정 확률로 헬파이어 발동</span><span class="stat-warning">※ 해제 시 오타로 인해 경험치 -25% 차감 주의</span></div>
+        </div>
+    </div>
+    <div class="doll-card tier5">
+        <img class="doll-img" src="images/doll/5단계 바란카.png" alt="바란카">
+        <div class="doll-info">
+            <div class="doll-name">바란카</div>
+            <div class="doll-stats"><span class="stat-highlight">스턴 내성 +10%, 근/원거리 치명타 +10%</span><span class="stat-highlight">PvP 대미지 +5, PvP 대미지 감소 +3</span><span class="stat-highlight">경험치 보너스 +15%</span></div>
+        </div>
+    </div>
+    <div class="doll-card tier5">
+        <img class="doll-img" src="images/doll/5단계 타락.png" alt="타락">
+        <div class="doll-info">
+            <div class="doll-name">타락</div>
+            <div class="doll-stats"><span class="stat-highlight">스턴 내성 +10%, SP +3</span><span class="stat-highlight">마법 명중 +5, 경험치 보너스 +15%</span></div>
+        </div>
+    </div>
+    <div class="doll-card tier5">
+        <img class="doll-img" src="images/doll/5단계 바포메트.png" alt="바포메트">
+        <div class="doll-info">
+            <div class="doll-name">바포메트</div>
+            <div class="doll-stats"><span class="stat-highlight">스턴 내성 +10%, 마법 치명타 +5%</span><span class="stat-highlight">마법 대미지 +2, 경험치 보너스 +15%</span></div>
+        </div>
+    </div>
+    <div class="doll-card tier5">
+        <img class="doll-img" src="images/doll/5단계 얼음여왕.png" alt="얼음여왕">
+        <div class="doll-info">
+            <div class="doll-name">얼음여왕</div>
+            <div class="doll-stats"><span class="stat-highlight">원거리 대미지 +5, 원거리 명중 +5</span><span class="stat-highlight">스턴 내성 +10%, 경험치 보너스 +15%</span></div>
+        </div>
+    </div>
+    <div class="doll-card tier5">
+        <img class="doll-img" src="images/doll/5단계 커츠.png" alt="커츠">
+        <div class="doll-info">
+            <div class="doll-name">커츠</div>
+            <div class="doll-stats"><span class="stat-highlight">추가 대미지 +5, 대미지 감소 +3</span><span class="stat-highlight">스턴 내성 +10%, 경험치 보너스 +15%</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== 용인형 (미공개) ========== -->
+<div class="tier-title" style="color:#ff4444;border-color:rgba(255,50,50,0.3)">🐉 용인형 <span class="tier-badge" style="background:rgba(255,50,50,0.15);border-color:rgba(255,50,50,0.4);color:#ff6666">미공개</span></div>
+<div class="doll-grid">
+    <div class="doll-card" style="border-color:rgba(255,255,255,0.1);opacity:0.5;border-style:dashed">
+        <div class="doll-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;color:#555">?</div>
+        <div class="doll-info">
+            <div class="doll-name" style="color:#777">[미공개] 안타라스</div>
+            <div class="doll-stats"><span style="color:#666">스턴 내성 +5%, 대미지 감소 +8</span><span style="color:#666">경험치 보너스 +35%, 64초당 MP 회복 +20</span></div>
+        </div>
+    </div>
+    <div class="doll-card" style="border-color:rgba(255,255,255,0.1);opacity:0.5;border-style:dashed">
+        <div class="doll-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;color:#555">?</div>
+        <div class="doll-info">
+            <div class="doll-name" style="color:#777">[미공개] 파푸리온</div>
+            <div class="doll-stats"><span style="color:#666">SP +8, 마법 명중 +8, 마법 치명타 +5%</span><span style="color:#666">스턴 내성 +8%, 경험치 보너스 +20%</span><span style="color:#666">64초당 MP 회복 +20</span></div>
+        </div>
+    </div>
+    <div class="doll-card" style="border-color:rgba(255,255,255,0.1);opacity:0.5;border-style:dashed">
+        <div class="doll-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;color:#555">?</div>
+        <div class="doll-info">
+            <div class="doll-name" style="color:#777">[미공개] 린드비오르</div>
+            <div class="doll-stats"><span style="color:#666">원거리 대미지 +8, 원거리 명중 +8</span><span style="color:#666">원거리 치명타 +5%, 스턴 내성 +8%</span><span style="color:#666">경험치 보너스 +20%, 64초당 MP 회복 +15</span></div>
+        </div>
+    </div>
+    <div class="doll-card" style="border-color:rgba(255,255,255,0.1);opacity:0.5;border-style:dashed">
+        <div class="doll-img" style="display:flex;align-items:center;justify-content:center;font-size:28px;color:#555">?</div>
+        <div class="doll-info">
+            <div class="doll-name" style="color:#777">[미공개] 발라카스</div>
+            <div class="doll-stats"><span style="color:#666">근거리 대미지 +8, 근거리 명중 +8</span><span style="color:#666">근거리 치명타 +5%, 스턴 명중 +10%</span><span style="color:#666">경험치 보너스 +20%, 64초당 MP 회복 +15</span></div>
+        </div>
+    </div>
+</div>
+
+</div><!-- container -->
+
+<div class="footer">
+    서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
+    게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
+</div>
+</div><!-- main-content -->
+
+</body>
+</html>
