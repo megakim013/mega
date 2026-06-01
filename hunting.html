@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -147,11 +147,24 @@
     cursor: pointer;
     box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
 }
-.video-box video {
+.video-box video, .video-box iframe {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: none; /* 영상 재생 전에는 썸네일/안내문 표시 */
+}
+.video-box.vertical {
+    aspect-ratio: 9 / 16;
+    max-width: 250px;
+    margin: 0 auto;
+}
+@media screen and (max-width: 768px) {
+    .video-box.vertical {
+        width: 100% !important;
+        max-width: 200px !important;
+        height: 356px !important;
+        margin: 0 auto !important;
+    }
 }
 
 /* 동영상 썸네일 오버레이 (재생 버튼 및 안내) */
@@ -304,34 +317,51 @@
     <!-- 바둑판식 그리드 컨테이너 -->
     <div class="grid-container">
 
-        <!-- 1. 초보자 사냥터 -->
+        <!-- 0. 사냥전 필수 시청 초보자 가이드 -->
         <div class="feature-card">
-            <!-- 💡 동영상 등록 방법: 아래 video 태그의 src 속성에 촬영하신 영상 경로(예: videos/lv1_50.mp4)를 넣어주세요 -->
-            <div class="video-box" onclick="playVideo(this)">
-                <video src="" controls preload="metadata"></video>
+            <div class="video-box" onclick="playVideo(this)" data-video-id="1AZ7IHjHLiOvAcOW4d9ACYvEE6f42tmUJ">
                 <div class="video-overlay">
                     <div class="play-btn"></div>
-                    <div class="overlay-text">초보자 사냥터 가이드 보기</div>
-                    <div class="overlay-subtext">클릭 시 영상 재생 (현재 영상 준비 중)</div>
+                    <div class="overlay-text">초보자 가이드 영상 보기</div>
+                    <div class="overlay-subtext">클릭 시 영상 재생 (가이드 영상)</div>
                 </div>
             </div>
             <div class="feature-info">
-                <div class="feature-title">[Lv.1 ~ 50] 초보자 사냥터</div>
+                <div class="feature-title" style="color: #33ff99;">[사냥 준비] 초보자 가이드</div>
                 <div class="feature-desc">
-                    캐릭터 생성 후 초반 빠른 레벨업과 기초 장비(기사단 세트), 초기 정착금 아데나를 획득할 수 있는 안전하고 쾌적한 초보자 전용 육성 사냥터(말하는 섬 등)입니다.
+                    메가 서버에서 본격적인 사냥에 나서기 전 반드시 알아야 할 게임 내 필수 초기 설정, 버프 구매, 소모품 세팅 및 사냥 전 꿀팁들을 쉽고 상세하게 설명해 드리는 준비용 가이드 영상입니다.
                 </div>
                 <div class="feature-footer">
-                    <span>#초보육성 #기사단장비 #빠른레벨업</span>
-                    <span class="status-badge">영상 준비중</span>
+                    <span>#사냥전필수 #초보자가이드 #준비영상</span>
+                    <span class="status-badge">가이드 영상</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. 초보자 사냥터 -->
+        <div class="feature-card">
+            <div class="video-box vertical" onclick="playVideo(this)" data-video-id="119BQCjAhnt79yWtDzr1pp4_jlMmCnwBi">
+                <div class="video-overlay">
+                    <div class="play-btn"></div>
+                    <div class="overlay-text">추억의 개미굴 사냥 보기</div>
+                    <div class="overlay-subtext">클릭 시 영상 재생 (세로 모드)</div>
+                </div>
+            </div>
+            <div class="feature-info">
+                <div class="feature-title">[Lv.1 ~ 50] 초보자 사냥터 (개미굴)</div>
+                <div class="feature-desc">
+                    추억의 향수가 가득한 개미굴 던전 사냥 모습입니다. 캐릭터 생성 후 초반 빠른 레벨업과 기사단 장비를 세팅하며 아데나를 수월하게 획득할 수 있는 초반 핵심 육성 코스입니다.
+                </div>
+                <div class="feature-footer">
+                    <span>#추억의개미굴 #초반성장 #아데나파밍</span>
+                    <span class="status-badge">Shorts 영상</span>
                 </div>
             </div>
         </div>
 
         <!-- 2. 중급자 사냥터 -->
         <div class="feature-card">
-            <!-- 💡 동영상 등록 방법: 아래 video 태그의 src 속성에 촬영하신 영상 경로(예: videos/lv51_70.mp4)를 넣어주세요 -->
             <div class="video-box" onclick="playVideo(this)">
-                <video src="" controls preload="metadata"></video>
                 <div class="video-overlay">
                     <div class="play-btn"></div>
                     <div class="overlay-text">중급자 사냥터 가이드 보기</div>
@@ -352,32 +382,28 @@
 
         <!-- 3. 상급 파밍 던전 -->
         <div class="feature-card">
-            <!-- 💡 동영상 등록 방법: 아래 video 태그의 src 속성에 촬영하신 영상 경로(예: videos/lv71_80.mp4)를 넣어주세요 -->
-            <div class="video-box" onclick="playVideo(this)">
-                <video src="" controls preload="metadata"></video>
+            <div class="video-box vertical" onclick="playVideo(this)" data-video-id="1JAEpqglUnnpuvfHwD0yj0Evf5z8tP9SK">
                 <div class="video-overlay">
                     <div class="play-btn"></div>
-                    <div class="overlay-text">상급 파밍 던전 가이드 보기</div>
-                    <div class="overlay-subtext">클릭 시 영상 재생 (현재 영상 준비 중)</div>
+                    <div class="overlay-text">오만의 탑 2층 몰이 사냥 보기</div>
+                    <div class="overlay-subtext">클릭 시 영상 재생 (세로 모드)</div>
                 </div>
             </div>
             <div class="feature-info">
-                <div class="feature-title">[Lv.71 ~ 80] 상급 파밍 던전</div>
+                <div class="feature-title">[Lv.71 ~ 80] 상급 파밍 던전 (오만의 탑 2층)</div>
                 <div class="feature-desc">
-                    높은 경험치 효율과 함께 희귀 아이템, 보스 레이드 기회, 각종 제작 조각 및 봉인된 아이템을 노릴 수 있는 상급자 전용 주요 던전(오만의 탑 1~5층, 화룡의 둥지 등)입니다.
+                    오만의 탑 2층에서 펼쳐지는 상급자들의 강력한 몬스터 몰이 사냥 방식입니다. 높은 경험치 효율과 함께 희귀 등급의 아이템 및 다양한 강화 주문서 파밍 노하우를 확인해보세요.
                 </div>
                 <div class="feature-footer">
-                    <span>#고효율경험치 #희귀템 #오만의탑</span>
-                    <span class="status-badge">영상 준비중</span>
+                    <span>#오만의탑 #몰이사냥 #상급파밍</span>
+                    <span class="status-badge">Shorts 영상</span>
                 </div>
             </div>
         </div>
 
         <!-- 4. 최상급 격전지 -->
         <div class="feature-card">
-            <!-- 💡 동영상 등록 방법: 아래 video 태그의 src 속성에 촬영하신 영상 경로(예: videos/lv81_plus.mp4)를 넣어주세요 -->
             <div class="video-box" onclick="playVideo(this)">
-                <video src="" controls preload="metadata"></video>
                 <div class="video-overlay">
                     <div class="play-btn"></div>
                     <div class="overlay-text">최상급 격전지 가이드 보기</div>
@@ -398,22 +424,21 @@
 
         <!-- 5. 특수 던전 -->
         <div class="feature-card" style="border-style: dashed; opacity: 0.9;">
-            <div class="video-box" onclick="playVideo(this)">
-                <video src="" controls preload="metadata"></video>
+            <div class="video-box vertical" onclick="playVideo(this)" data-video-id="1lUtAP4B_d1b2VPtMbKE4lfRsgenoC1HD">
                 <div class="video-overlay" style="background: rgba(10,15,25,0.85);">
                     <div class="play-btn" style="background: rgba(200, 150, 0, 0.8); border-color: #ffcc00; box-shadow: 0 0 20px rgba(255,204,0,0.6);"></div>
-                    <div class="overlay-text" style="color:#ffcc00; text-shadow: 0 0 10px rgba(255,204,0,0.5);">특수 던전 파밍법 보기</div>
-                    <div class="overlay-subtext">클릭 시 영상 재생 (현재 영상 준비 중)</div>
+                    <div class="overlay-text" style="color:#ffcc00; text-shadow: 0 0 10px rgba(255,204,0,0.5);">잊혀진 섬 버그베어밭 몰이 보기</div>
+                    <div class="overlay-subtext">클릭 시 영상 재생 (세로 모드)</div>
                 </div>
             </div>
             <div class="feature-info">
-                <div class="feature-title" style="color:#ffcc00;">[특수 던전] 몽환의 섬 / 잊혀진 섬</div>
+                <div class="feature-title" style="color:#ffcc00;">[특수 던전] 잊혀진 섬 (버그베어밭 몰이)</div>
                 <div class="feature-desc">
-                    특정 시간이나 전용 입장권을 통해 진입할 수 있는 특수 던전으로, 아데나 대박과 퓨어 엘릭서, 무기/방어구 마법 주문서를 집중적으로 획득할 수 있는 스페셜 파밍 구역입니다.
+                    잊혀진 섬 내 최고의 인기 몰이 구역인 버그베어밭에서의 몰이 사냥 영상입니다. 막대한 아데나 대박과 고대의 무기/방어구 주문서 등을 파밍하기 위한 최적의 사냥 방식을 확인해 보세요.
                 </div>
                 <div class="feature-footer">
-                    <span>#특수던전 #엘릭서 #대박파밍</span>
-                    <span class="status-badge" style="background:rgba(255,204,0,0.15); color:#ffcc00; border-color:rgba(255,204,0,0.3);">영상 준비중</span>
+                    <span>#잊혀진섬 #버그베어밭몰이 #특수던전</span>
+                    <span class="status-badge" style="background:rgba(255,204,0,0.15); color:#ffcc00; border-color:rgba(255,204,0,0.3);">Shorts 영상</span>
                 </div>
             </div>
         </div>
@@ -429,25 +454,32 @@
 </div>
 
 <script>
-/* 🔥 동영상 재생 제어 스크립트 */
+/* 🔥 동영상 재생 제어 스크립트 (구글 드라이브 지연 로딩 임베드 방식) */
 function playVideo(boxElement) {
-    const video = boxElement.querySelector('video');
+    const videoId = boxElement.getAttribute('data-video-id');
     const overlay = boxElement.querySelector('.video-overlay');
 
-    // src 속성이 비어있는 경우 (아직 동영상이 등록되지 않음)
-    if (!video.getAttribute('src') || video.getAttribute('src').trim() === '') {
+    if (!videoId || videoId.trim() === '') {
         alert('현재 동영상 촬영 및 편집 중입니다.\n영상이 준비되는 대로 즉시 시청하실 수 있습니다!');
         return;
     }
 
-    // 영상이 등록된 경우 오버레이 숨기고 영상 재생
-    if (video.paused) {
-        overlay.style.display = 'none';
-        video.style.display = 'block';
-        video.play();
-    } else {
-        video.pause();
+    // 이미 iframe이 존재한다면 추가로 삽입하지 않음
+    let iframe = boxElement.querySelector('iframe');
+    if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.src = 'https://drive.google.com/file/d/' + videoId + '/preview';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.setAttribute('allow', 'autoplay; encrypted-media');
+        iframe.setAttribute('allowfullscreen', 'true');
+        boxElement.appendChild(iframe);
     }
+
+    // 오버레이 숨기고 비디오 표시
+    overlay.style.display = 'none';
+    iframe.style.display = 'block';
 }
 </script>
 
