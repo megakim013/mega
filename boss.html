@@ -232,22 +232,28 @@
             cursor: pointer;
             box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
         }
-        .video-box video, .video-box iframe {
+        .video-box video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: none;
         }
+        .video-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
         .video-box.vertical {
             aspect-ratio: 9 / 16;
-            max-width: 250px;
+            max-width: 320px;
             margin: 0 auto;
         }
         @media screen and (max-width: 768px) {
-            .video-box.vertical {
+            .main-content .video-box.vertical {
                 width: 100% !important;
-                max-width: 200px !important;
-                height: 356px !important;
+                max-width: 300px !important;
+                height: 533px !important;
                 margin: 0 auto !important;
             }
             .video-card-container {
