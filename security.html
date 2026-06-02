@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Mega Server - 보안 설정 가이드</title>
+<style>
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
+    border-right: 1px solid rgba(0,255,128,0.25);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+}
+.sidebar-logo {
+    padding: 35px 20px 25px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,255,128,0.15);
+}
+.sidebar-logo h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px #00cc66, 0 0 25px #006633;
+}
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 0;
+    flex: 1;
+    overflow-y: auto;
+}
+.sidebar-menu a {
+    color: #ccc;
+    padding: 16px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 4px solid transparent;
+    transition: 0.25s;
+}
+.sidebar-menu a:hover, .sidebar-menu a.active {
+    color: #33ff99;
+    background: rgba(0, 255, 128, 0.08);
+    border-left: 4px solid #33ff99;
+    text-shadow: 0 0 10px #00ee77;
+}
+.sidebar-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #111822 0%, #0b0f15 100%);
+    color: #ddd;
+    font-family: "Malgun Gothic", Arial, sans-serif;
+}
+.header {
+    background-image: url('images/megamain.png');
+    background-size: cover;
+    background-position: center;
+    height: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.header::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(11, 15, 21, 0.95) 100%);
+}
+.header h1 {
+    position: relative;
+    font-size: 43px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: #fff;
+    text-shadow: 0 0 15px #000, 0 0 25px #00cc66, 0 0 35px #006633;
+    top: 60px;
+    z-index: 10;
+}
+
+.container {
+    width: 1000px;
+    margin: 120px auto 80px auto;
+    background: rgba(10, 16, 26, 0.78);
+    padding: 40px;
+    border: 1px solid rgba(0, 255, 128, 0.35);
+    box-shadow: 0 0 20px rgba(0, 255, 128, 0.25);
+    border-radius: 10px;
+    position: relative;
+    z-index: 5;
+    box-sizing: border-box;
+}
+
+/* 안내문 경고 박스 */
+.warning-box {
+    background: rgba(255, 68, 68, 0.08);
+    border: 1px solid rgba(255, 68, 68, 0.35);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+.warning-box h3 {
+    margin: 0 0 10px 0;
+    color: #ff6666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+}
+.warning-box p {
+    margin: 0;
+    font-size: 15px;
+    color: #e0e0e0;
+}
+
+/* 가이드 스텝 영역 */
+.step-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.step-card {
+    background: rgba(15, 23, 36, 0.75);
+    border: 1px solid rgba(0, 255, 128, 0.25);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+}
+.step-card:hover {
+    border-color: #33ff99;
+    box-shadow: 0 12px 30px rgba(0, 255, 128, 0.2);
+}
+.step-header {
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.step-num {
+    background: #00cc66;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    box-shadow: 0 0 10px #33ff99;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+.step-desc {
+    width: 100%;
+    font-size: 16px;
+    color: #b0c4de;
+    line-height: 1.6;
+}
+.step-desc strong {
+    color: #33ff99;
+}
+.step-img-box {
+    width: 100%;
+    max-width: 800px;
+    border: 1px solid rgba(0, 255, 128, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    background: #050a12;
+}
+.step-img-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.footer {
+    margin-top: auto;
+    padding: 25px 0;
+    font-size: 14px;
+    text-align: center;
+    color: rgba(230,230,230,0.45);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    background: rgba(7, 12, 20, 0.8);
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo"><h2>MEGA</h2></div>
+    <div class="sidebar-menu">
+        <a href="index.html">🏠 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;홈&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        <a href="notice.html">📢 공&nbsp;&nbsp;지&nbsp;&nbsp;사&nbsp;&nbsp;항</a>
+        <a href="info.html">📜 서&nbsp;&nbsp;버&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="update.html">⚡ 업&nbsp;&nbsp;데&nbsp;&nbsp;이&nbsp;&nbsp;트</a>
+        <a href="boss.html">💀 보&nbsp;&nbsp;스&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="doll.html">🧸 마&nbsp;&nbsp;법&nbsp;&nbsp;인&nbsp;&nbsp;형</a>
+        <a href="maan.html">👁️ 마&nbsp;&nbsp;안&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="item.html">💎 아&nbsp;이&nbsp;템&nbsp;정&nbsp;보</a>
+        <a href="feature.html">⚙️ 간&nbsp;&nbsp;편&nbsp;&nbsp;기&nbsp;&nbsp;능</a>
+        <a href="hunting.html">🚩 레벨별 사냥터</a>
+        <a href="promo.html">📣 홍&nbsp;&nbsp;보&nbsp;&nbsp;안&nbsp;&nbsp;내</a>
+        <a href="service.html">💬 고&nbsp;&nbsp;객&nbsp;&nbsp;센&nbsp;&nbsp;터</a>
+        <a href="security.html" class="active">🛡️ 보안 설정(필수)</a>
+        <a href="download.html">⬇ 다&nbsp;&nbsp;운&nbsp;&nbsp;로&nbsp;&nbsp;드</a>
+    </div>
+    <div class="sidebar-footer"><span>© 2026 Mega Server</span></div>
+</div>
+
+<div class="main-content">
+<div class="header"><h1>보안 설정 가이드</h1></div>
+
+<div class="container">
+
+    <!-- ========== 경고 안내 박스 ========== -->
+    <div class="warning-box">
+        <h3>⚠️ 게임 실행 전 보안 예외 설정 안내 (필수)</h3>
+        <p>
+            저희 클라이언트는 악성코드를 포함하고 있지 않으나, 백신 프로그램(Windows Defender 등)에서 사설 서버 접속 전용 런처를 <strong>바이러스로 오진</strong>하여 실행 파일을 강제로 삭제하는 경우가 매우 흔히 발생합니다.<br>
+            원활한 게임 접속을 위해 <strong>클라이언트 다운로드 및 압축 해제 후, 반드시 아래 가이드에 따라 백신의 제외 폴더 설정</strong>을 마친 뒤 게임을 실행해 주시기 바랍니다.
+        </p>
+    </div>
+
+    <!-- ========== 가이드 스텝 리스트 ========== -->
+    <div class="step-container">
+
+        <!-- 1단계 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-num">1</div>
+                <div>Windows 보안 센터 실행</div>
+            </div>
+            <div class="step-desc">
+                작업 표시줄 우측 하단의 숨겨진 아이콘 표시(▲)를 클릭한 뒤, 방패 모양의 <strong>Windows 보안 아이콘</strong>을 더블클릭하여 실행하거나 Windows 시작 메뉴에서 <strong>'Windows 보안'</strong>을 검색하여 실행합니다.
+            </div>
+            <div class="step-img-box">
+                <img src="images/보안/1.jpg" alt="1단계 가이드 이미지">
+            </div>
+        </div>
+
+        <!-- 2단계 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-num">2</div>
+                <div>바이러스 및 위협 방지 메뉴 이동</div>
+            </div>
+            <div class="step-desc">
+                Windows 보안 홈 화면이 열리면 왼쪽 메뉴 또는 중앙 아이콘 중 <strong>'바이러스 및 위협 방지'</strong> 항목을 선택하여 클릭합니다.
+            </div>
+            <div class="step-img-box">
+                <img src="images/보안/2.jpg" alt="2단계 가이드 이미지">
+            </div>
+        </div>
+
+        <!-- 3단계 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-num">3</div>
+                <div>설정 관리 페이지 이동</div>
+            </div>
+            <div class="step-desc">
+                바이러스 및 위협 방지 화면 중간 부분에 있는 '바이러스 및 위협 방지 설정' 아래의 <strong>'설정 관리'</strong> 링크를 클릭합니다.
+            </div>
+            <div class="step-img-box">
+                <img src="images/보안/3.jpg" alt="3단계 가이드 이미지">
+            </div>
+        </div>
+
+        <!-- 4단계 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-num">4</div>
+                <div>제외 항목 설정 진입</div>
+            </div>
+            <div class="step-desc">
+                설정 관리 화면을 아래쪽으로 쭉 스크롤하여 제외 항목 아래에 위치한 <strong>'제외 추가 또는 제거'</strong> 링크를 클릭합니다.
+            </div>
+            <div class="step-img-box">
+                <img src="images/보안/4.jpg" alt="4단계 가이드 이미지">
+            </div>
+        </div>
+
+        <!-- 5단계 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-num">5</div>
+                <div>제외 추가에서 '폴더' 선택</div>
+            </div>
+            <div class="step-desc">
+                상단의 <strong>'+ 제외 추가'</strong> 버튼을 클릭한 후, 펼쳐지는 선택 메뉴에서 <strong>'폴더'</strong>를 클릭합니다.
+            </div>
+            <div class="step-img-box">
+                <img src="images/보안/5.jpg" alt="5단계 가이드 이미지">
+            </div>
+        </div>
+
+        <!-- 6단계 -->
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-num">6</div>
+                <div>게임 설치 폴더 지정 및 완료</div>
+            </div>
+            <div class="step-desc">
+                폴더 선택 창이 열리면 다운로드받아 압축을 풀어둔 <strong>게임 클라이언트 폴더(설치 폴더)</strong>를 선택한 뒤, 아래의 <strong>'폴더 선택'</strong> 버튼을 누르면 모든 예외 설정이 완료됩니다. 이제 백신 오진 걱정 없이 안전하게 접속하실 수 있습니다.
+            </div>
+            <div class="step-img-box">
+                <img src="images/보안/6.png" alt="6단계 가이드 이미지">
+            </div>
+        </div>
+
+    </div>
+
+</div><!-- container -->
+
+<div class="footer">
+    서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
+    게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
+</div>
+</div><!-- main-content -->
+
+</body>
+</html>

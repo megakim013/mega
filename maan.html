@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Mega Server - 마안 정보</title>
+<style>
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
+    border-right: 1px solid rgba(0,255,128,0.25);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+}
+.sidebar-logo {
+    padding: 35px 20px 25px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,255,128,0.15);
+}
+.sidebar-logo h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px #00cc66, 0 0 25px #006633;
+}
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 0;
+    flex: 1;
+    overflow-y: auto;
+}
+.sidebar-menu a {
+    color: #ccc;
+    padding: 16px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 4px solid transparent;
+    transition: 0.25s;
+}
+.sidebar-menu a:hover, .sidebar-menu a.active {
+    color: #33ff99;
+    background: rgba(0, 255, 128, 0.08);
+    border-left: 4px solid #33ff99;
+    text-shadow: 0 0 10px #00ee77;
+}
+.sidebar-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #111822 0%, #0b0f15 100%);
+    color: #ddd;
+    font-family: "Malgun Gothic", Arial, sans-serif;
+}
+.header {
+    background-image: url('images/megamain.png');
+    background-size: cover;
+    background-position: center;
+    height: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.header::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(11, 15, 21, 0.95) 100%);
+}
+.header h1 {
+    position: relative;
+    font-size: 43px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: #fff;
+    text-shadow: 0 0 15px #000, 0 0 25px #00cc66, 0 0 35px #006633;
+    top: 60px;
+    z-index: 10;
+}
+
+.container {
+    width: 1100px;
+    margin: 120px auto 80px auto;
+    background: rgba(10, 16, 26, 0.78);
+    padding: 40px;
+    border: 1px solid rgba(0, 255, 128, 0.35);
+    box-shadow: 0 0 20px rgba(0, 255, 128, 0.25);
+    border-radius: 10px;
+    position: relative;
+    z-index: 5;
+    box-sizing: border-box;
+}
+
+/* 마안 섹션 공통 제목 */
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #33ff99;
+    margin: 50px 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(0, 255, 128, 0.3);
+    text-shadow: 0 0 10px rgba(51, 255, 153, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.section-title:first-child {
+    margin-top: 0;
+}
+
+/* 마안 합성 흐름도 스타일 */
+.flow-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: rgba(0, 10, 25, 0.5);
+    border: 1px dashed rgba(0, 255, 128, 0.3);
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+.flow-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #33ff99;
+    margin-bottom: 5px;
+    text-shadow: 0 0 8px rgba(51, 255, 153, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.flow-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.flow-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(15, 23, 36, 0.85);
+    border: 1px solid rgba(0, 255, 128, 0.25);
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: 0.3s;
+    min-width: 150px;
+}
+.flow-step:hover {
+    border-color: #33ff99;
+    box-shadow: 0 0 15px rgba(0, 255, 128, 0.3);
+    transform: translateY(-2px);
+}
+.flow-step img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    background: rgba(0,0,0,0.3);
+    border-radius: 4px;
+}
+.flow-step span {
+    font-weight: bold;
+    font-size: 15px;
+    color: #fff;
+}
+.flow-operator {
+    font-size: 22px;
+    font-weight: bold;
+    color: #8899aa;
+    text-shadow: 0 0 5px rgba(255,255,255,0.1);
+}
+.flow-arrow {
+    color: #33ff99;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 0 8px #00ff80;
+    margin: 0 5px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0.6; transform: scale(1); }
+}
+
+/* 마안 정보 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #eee;
+    font-size: 16px;
+    margin-top: 20px;
+}
+thead th {
+    background: rgba(0, 30, 60, 0.8);
+    padding: 15px;
+    border: 1px solid rgba(0, 255, 128, 0.3);
+    color: #33ff99;
+    font-size: 17px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(51, 255, 153, 0.4);
+}
+tbody td {
+    padding: 15px;
+    border: 1px solid rgba(0, 255, 128, 0.2);
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.6;
+}
+tbody tr {
+    background: rgba(0, 0, 0, 0.4);
+    transition: 0.2s;
+}
+tbody tr:nth-child(even) {
+    background: rgba(0, 10, 20, 0.5);
+}
+tbody tr:hover {
+    background: rgba(0, 255, 128, 0.1);
+}
+td img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 128, 0.35);
+    box-shadow: 0 0 8px rgba(0, 255, 128, 0.25);
+    background: rgba(0,0,0,0.5);
+}
+
+/* 유틸리티 텍스트 스타일 */
+.stat-highlight {
+    color: #ffcc00;
+    font-weight: bold;
+}
+.stat-special {
+    color: #00ccff;
+    font-weight: bold;
+}
+.stat-dim {
+    color: #778899;
+    font-style: italic;
+}
+.badge-dragon {
+    background: rgba(255, 68, 68, 0.15);
+    color: #ff6666;
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.badge-composite {
+    background: rgba(0, 170, 255, 0.15);
+    color: #66ccff;
+    border: 1px solid rgba(0, 170, 255, 0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.badge-danger {
+    background: rgba(255, 68, 68, 0.15);
+    color: #ff6666;
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.badge-safe {
+    background: rgba(0, 255, 128, 0.15);
+    color: #33ff99;
+    border: 1px solid rgba(0, 255, 128, 0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.footer {
+    margin-top: auto;
+    padding: 25px 0;
+    font-size: 14px;
+    text-align: center;
+    color: rgba(230,230,230,0.45);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    background: rgba(7, 12, 20, 0.8);
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo"><h2>MEGA</h2></div>
+    <div class="sidebar-menu">
+        <!-- 스크립트로 메뉴를 자동 주입할 영역입니다 -->
+        <a href="index.html">🏠 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;홈&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        <a href="notice.html">📢 공&nbsp;&nbsp;지&nbsp;&nbsp;사&nbsp;&nbsp;항</a>
+        <a href="info.html">📜 서&nbsp;&nbsp;버&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="update.html">⚡ 업&nbsp;&nbsp;데&nbsp;&nbsp;이&nbsp;&nbsp;트</a>
+        <a href="boss.html">💀 보&nbsp;&nbsp;스&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="doll.html">🧸 마&nbsp;&nbsp;법&nbsp;&nbsp;인&nbsp;&nbsp;형</a>
+        <a href="maan.html" class="active">👁️ 마&nbsp;&nbsp;안&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="item.html">💎 아&nbsp;이&nbsp;템&nbsp;정&nbsp;보</a>
+        <a href="feature.html">⚙️ 간&nbsp;&nbsp;편&nbsp;&nbsp;기&nbsp;&nbsp;능</a>
+        <a href="hunting.html">🚩 레벨별 사냥터</a>
+        <a href="promo.html">📣 홍&nbsp;&nbsp;보&nbsp;&nbsp;안&nbsp;&nbsp;내</a>
+        <a href="service.html">💬 고&nbsp;&nbsp;객&nbsp;&nbsp;센&nbsp;&nbsp;터</a>
+        <a href="security.html">🛡️ 보안 설정(필수)</a>
+        <a href="download.html">⬇ 다&nbsp;&nbsp;운&nbsp;&nbsp;로&nbsp;&nbsp;드</a>
+    </div>
+    <div class="sidebar-footer"><span>© 2026 Mega Server</span></div>
+</div>
+
+<div class="main-content">
+<div class="header"><h1>마안 정보</h1></div>
+
+<div class="container">
+
+    <!-- ========== 마안 제작 및 승계 흐름도 ========== -->
+    <div class="section-title">🔮 마안 합성 및 제작 관계도</div>
+    <div class="flow-container">
+        
+        <!-- 0. 사대 용의 마안 제작 -->
+        <div class="flow-title">⭐ 사대 용의 마안 제작 (지룡/수룡/풍룡/화룡)</div>
+        <div class="flow-row">
+            <div class="flow-step" style="border-color: #ffaa00; min-width: 110px;">
+                <span style="font-size: 18px; margin-right: 5px;">🪙</span>
+                <span>아데나 소모</span>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step">
+                <img src="images/maan/earth_maan.png" alt="지룡의 마안">
+                <span>지룡 / 수룡 / 풍룡 / 화룡의 마안 (택 1)</span>
+            </div>
+        </div>
+        
+        <hr style="border:0; border-top:1px solid rgba(0,255,128,0.15); margin: 25px 0;">
+        
+        <!-- 1. 탄생의 마안 제작 -->
+        <div class="flow-title">⭐ 탄생의 마안 제작 <span class="badge-danger" style="margin-left: 10px;">⚠️ 실패 시 재료 마안 4종 소멸(증발)</span></div>
+        <div class="flow-row">
+            <div class="flow-step">
+                <img src="images/maan/earth_maan.png" alt="지룡의 마안">
+                <span>지룡의 마안</span>
+            </div>
+            <div class="flow-operator">+</div>
+            <div class="flow-step">
+                <img src="images/maan/water_maan.png" alt="수룡의 마안">
+                <span>수룡의 마안</span>
+            </div>
+            <div class="flow-operator">+</div>
+            <div class="flow-step">
+                <img src="images/maan/wind_maan.png" alt="풍룡의 마안">
+                <span>풍룡의 마안</span>
+            </div>
+            <div class="flow-operator">+</div>
+            <div class="flow-step">
+                <img src="images/maan/fire_maan.png" alt="화룡의 마안">
+                <span>화룡의 마안</span>
+            </div>
+            <div class="flow-operator">+</div>
+            <div class="flow-step" style="border-color: #ffaa00; min-width: 110px;">
+                <span style="font-size: 18px; margin-right: 5px;">🪙</span>
+                <span>아데나 소모</span>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step" style="border-color: #ffcc00;">
+                <img src="images/maan/birth_maan.png" alt="탄생의 마안">
+                <span style="color: #ffcc00;">탄생의 마안</span>
+            </div>
+        </div>
+        
+        <hr style="border:0; border-top:1px solid rgba(0,255,128,0.15); margin: 25px 0;">
+        
+        <!-- 2. 형상의 마안 제작 -->
+        <div class="flow-title">⭐ 형상의 마안 제작 <span class="badge-safe" style="margin-left: 10px;">🛡️ 실패 시 아데나만 소모 (마안 보존)</span></div>
+        <div class="flow-row">
+            <div class="flow-step" style="border-color: #ffcc00;">
+                <img src="images/maan/birth_maan.png" alt="탄생의 마안">
+                <span style="color: #ffcc00;">탄생의 마안 (1개)</span>
+            </div>
+            <div class="flow-operator">+</div>
+            <div class="flow-step" style="border-color: #ffaa00; min-width: 110px;">
+                <span style="font-size: 18px; margin-right: 5px;">🪙</span>
+                <span>아데나 소모</span>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step" style="border-color: #ff55ff;">
+                <img src="images/maan/shape_maan.png" alt="형상의 마안">
+                <span style="color: #ff55ff;">형상의 마안</span>
+            </div>
+        </div>
+        
+        <hr style="border:0; border-top:1px solid rgba(0,255,128,0.15); margin: 25px 0;">
+        
+        <!-- 3. 생명의 마안 제작 -->
+        <div class="flow-title">⭐ 생명의 마안 제작 (최종) <span class="badge-safe" style="margin-left: 10px;">🛡️ 실패 시 아데나만 소모 (마안 보존)</span></div>
+        <div class="flow-row">
+            <div class="flow-step" style="border-color: #ff55ff;">
+                <img src="images/maan/shape_maan.png" alt="형상의 마안">
+                <span style="color: #ff55ff;">형상의 마안 (1개)</span>
+            </div>
+            <div class="flow-operator">+</div>
+            <div class="flow-step" style="border-color: #ffaa00; min-width: 110px;">
+                <span style="font-size: 18px; margin-right: 5px;">🪙</span>
+                <span>아데나 소모</span>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-step" style="border-color: #ff4444; box-shadow: 0 0 15px rgba(255,68,68,0.35);">
+                <img src="images/maan/life_maan.png" alt="생명의 마안">
+                <span style="color: #ff6666;">생명의 마안 (최종)</span>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- ========== 마안 세부 능력치 테이블 ========== -->
+    <div class="section-title">📊 마안 세부 능력치 및 특수 효과</div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 10%;">이미지</th>
+                <th style="width: 18%;">마안 이름</th>
+                <th style="width: 32%;">기본 능력치 (스탯)</th>
+                <th style="width: 25%;">특수 효과 (확률 발동)</th>
+                <th style="width: 15%;">비고 (승계 관계)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 1. 지룡의 마안 -->
+            <tr>
+                <td><img src="images/maan/earth_maan.png" alt="지룡의 마안"></td>
+                <td><strong>지룡의 마안</strong><br><span class="badge-dragon">사대용</span></td>
+                <td class="stat-dim">없음</td>
+                <td><span class="stat-special">물리 공격 회피</span><br><span>(10% 확률)</span></td>
+                <td>물리 회피의 모태</td>
+            </tr>
+            <!-- 2. 수룡의 마안 -->
+            <tr>
+                <td><img src="images/maan/water_maan.png" alt="수룡의 마안"></td>
+                <td><strong>수룡의 마안</strong><br><span class="badge-dragon">사대용</span></td>
+                <td>정령 내성 <span class="stat-highlight">+5%</span></td>
+                <td><span class="stat-special">마법 대미지 50% 감소</span><br><span>(6% 확률)</span></td>
+                <td>마법 감소 및<br>정령 내성의 모태</td>
+            </tr>
+            <!-- 3. 풍룡의 마안 -->
+            <tr>
+                <td><img src="images/maan/wind_maan.png" alt="풍룡의 마안"></td>
+                <td><strong>풍룡의 마안</strong><br><span class="badge-dragon">사대용</span></td>
+                <td>원거리 치명타 <span class="stat-highlight">+2%</span><br>원거리 회피력 (ER) <span class="stat-highlight">+10</span></td>
+                <td class="stat-dim">없음</td>
+                <td>원거리 특화 마안</td>
+            </tr>
+            <!-- 4. 화룡의 마안 -->
+            <tr>
+                <td><img src="images/maan/fire_maan.png" alt="화룡의 마안"></td>
+                <td><strong>화룡의 마안</strong><br><span class="badge-dragon">사대용</span></td>
+                <td>스턴 내성 <span class="stat-highlight">+5%</span></td>
+                <td class="stat-dim">없음</td>
+                <td>스턴 내성 마안</td>
+            </tr>
+            <!-- 5. 탄생의 마안 -->
+            <tr>
+                <td><img src="images/maan/birth_maan.png" alt="탄생의 마안"></td>
+                <td><strong style="color: #ffcc00;">탄생의 마안</strong><br><span class="badge-composite">합성 마안</span></td>
+                <td>정령 내성 <span class="stat-highlight">+5%</span></td>
+                <td><span class="stat-special">물리 공격 회피 (10% 확률)</span><br><span class="stat-special">마법 대미지 50% 감소 (6% 확률)</span></td>
+                <td style="color: #66ddff; font-weight: bold;">수룡 + 지룡의<br>옵션만 승계</td>
+            </tr>
+            <!-- 6. 형상의 마안 -->
+            <tr>
+                <td><img src="images/maan/shape_maan.png" alt="형상의 마안"></td>
+                <td><strong style="color: #ff55ff;">형상의 마안</strong><br><span class="badge-composite">합성 마안</span></td>
+                <td>마법 치명타 <span class="stat-highlight">+2%</span><br>정령 내성 <span class="stat-highlight">+5%</span><br>원거리 회피력 (ER) <span class="stat-highlight">+10</span></td>
+                <td><span class="stat-special">물리 공격 회피 (10% 확률)</span><br><span class="stat-special">마법 대미지 50% 감소 (6% 확률)</span></td>
+                <td>탄생의 옵션에<br><span style="color: #ff55ff;">풍룡의 ER +<br>마법 치명타</span> 추가</td>
+            </tr>
+            <!-- 7. 생명의 마안 -->
+            <tr>
+                <td><img src="images/maan/life_maan.png" alt="생명의 마안"></td>
+                <td><strong style="color: #ff6666;">생명의 마안</strong><br><span class="badge-composite" style="background: rgba(255, 68, 68, 0.15); color: #ff6666; border-color: rgba(255,68,68,0.3)">최종 합성</span></td>
+                <td>근거리 추가 대미지 <span class="stat-highlight">+2</span><br>원거리 추가 대미지 <span class="stat-highlight">+2</span><br>마법 치명타 <span class="stat-highlight">+2%</span><br>정령 내성 <span class="stat-highlight">+5%</span><br>스턴 내성 <span class="stat-highlight">+5%</span></td>
+                <td><span class="stat-special">물리 공격 회피 (10% 확률)</span><br><span class="stat-special">마법 대미지 50% 감소 (6% 확률)</span></td>
+                <td>형상의 옵션에<br><span style="color: #ff6666;">화룡의 스턴 내성 +<br>추가 대미지(근/원)</span><br>최종 합산</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div><!-- container -->
+
+<div class="footer">
+    서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
+    게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
+</div>
+</div><!-- main-content -->
+
+</body>
+</html>
