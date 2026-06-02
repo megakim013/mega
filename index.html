@@ -1,11 +1,18 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>Mega 서버에 오신것을 환영합니다.</title>
-
 <style>
-    /* ------------------------------
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #0b0f15;
+}
+/* ------------------------------
    좌측 사이드바 메뉴 스타일
 ------------------------------ */
 .sidebar {
@@ -50,7 +57,7 @@
     gap: 15px;
     border-left: 4px solid transparent;
     transition: 0.25s; }
-.sidebar-menu a:hover {
+.sidebar-menu a:hover, .sidebar-menu a.active {
     color: #33ff99;
     background: rgba(0, 255, 128, 0.08);
     border-left: 4px solid #33ff99;
@@ -63,199 +70,141 @@
     color: #666;
     border-top: 1px solid rgba(255,255,255,0.05);
 }
-/* 메인 컨텐츠 영역 (사이드바 우측) */
-.main-content {
-    margin-left: 250px;
+.sidebar-menu::-webkit-scrollbar { display: none !important; }
+.sidebar-menu { -ms-overflow-style: none !important; scrollbar-width: none !important; }
+
+/* 우측 콘텐츠 프레임 */
+#mainFrame {
+    position: absolute;
+    top: 0;
+    left: 250px;
     width: calc(100% - 250px);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
+    height: 100%;
+    border: none;
 }
 
-    /* 상단 배너 */
-    .header {
-        background-image: url('images/megamain.png'); /* 💡 여기에 새로 다운받은 파란 드래곤 이미지를 넣으시면 됩니다! */
-        background-size: cover;
-        background-position: center;
-        height: 520px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
+/* 모바일 반응형 처리 */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 55px !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(0,255,128,0.3) !important;
+        padding: 0 !important;
+        background: rgba(10,16,26,0.98) !important;
+        z-index: 9999 !important;
     }
-
-    .header::after {
-        content: "";
-        position: absolute;
-        bottom: -1px;
+    .sidebar-logo {
+        padding: 0 15px !important;
+        border-bottom: none !important;
+        border-right: 1px solid rgba(0,255,128,0.2) !important;
+        height: 55px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    .sidebar-logo h2 {
+        font-size: 20px !important;
+        margin: 0 !important;
+        letter-spacing: 2px !important;
+    }
+    .sidebar-menu {
+        flex-direction: row !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        white-space: nowrap !important;
+        align-items: center !important;
+        height: 55px !important;
+    }
+    .sidebar-menu a {
+        padding: 0 15px !important;
+        font-size: 15px !important;
+        height: 55px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        border-left: none !important;
+        border-bottom: 3px solid transparent !important;
+        box-sizing: border-box !important;
+    }
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+        background: rgba(0, 255, 128, 0.1) !important;
+        border-left: none !important;
+        border-bottom: 3px solid #33ff99 !important;
+    }
+    .sidebar-footer {
+        display: none !important;
+    }
+    #mainFrame {
+        left: 0;
         width: 100%;
-        height: 350px;
-        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(11,15,21,0.95) 100%);
+        top: 55px;
+        height: calc(100% - 55px);
     }
-
-    /* 메인 타이틀에 신비로운 푸른색 그림자 추가 */
-    .header h1 {
-        position: relative;
-        font-size: 43px;
-        font-weight: bold;
-        letter-spacing: 4px;
-        color: #fff;
-        top: 60px;
-        text-shadow: 0 0 15px #000, 0 0 25px #00cc66, 0 0 35px #006633;
-        z-index: 10;
-    }
-
-    /* 본문 컨테이너 */
-    .container {
-        width: 1000px;
-        margin: 120px auto 70px auto;
-        text-align: center;
-    }
-
-    /* 네모 박스 (중앙 버튼 - 블루 테마로 변경) */
-    .img-box {
-        width: 100%;
-        height: 100px;
-        border-radius: 10px;
-        margin-bottom: 30px;
-        background-size: cover;
-        background-position: center;
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        border: 1px solid rgba(0,255,128,0.3);
-        box-shadow: 0 0 15px rgba(0,100,255,0.15);
-        transition: 0.3s;
-    }
-
-    /* 마우스 올렸을 때 푸른색으로 발광하는 효과 */
-    .img-box:hover {
-        transform: scale(1.02);
-        box-shadow: 0 0 25px rgba(0,255,128,0.6);
-        border-color: rgba(51,255,153,0.9);
-    }
-
-    .img-box::after {
-        content:"";
-        position:absolute;
-        inset:0;
-        background:rgba(0,10,20,0.5);
-    }
-
-    .img-box span {
-        position:absolute;
-        top:50%;
-        left:50%;
-        transform:translate(-50%,-50%);
-        color:#fff;
-        font-size:22px;
-        font-weight:bold;
-        z-index:5;
-        text-shadow:0 0 8px #000, 0 0 15px #00cc66;
-    }
-
-    /* 공지사항 팝업창도 다크 블루&시안 테마로 통일 */
-    #popup {
-        width: 420px;
-        background: rgba(10,20,30,0.92);
-        border: 2px solid #00aa55;
-        box-shadow: 0 0 30px rgba(0,100,255,0.5);
-        color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 2000;
-        display: none;
-        backdrop-filter: blur(5px);
-    }
-    #popup h2 { text-align: center; color: #33ff99; text-shadow: 0 0 10px rgba(0,255,128,0.5); }
-    .close-btn { position: absolute; top: 8px; right: 12px; cursor: pointer; color: #33ff99; font-size: 22px; }
-    .close-btn:hover { color: #fff; }
+}
 </style>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="mobile.css">
 </head>
-
 <body>
-
-<script>
-window.addEventListener("load", () => { document.getElementById("popup").style.display = "block"; });
-function closePopup() { document.getElementById("popup").style.display = "none"; }
-</script>
-
-<div id="popup">
-    <div class="close-btn" onclick="closePopup()">✖</div>
-    <h2>📢📢 2.0 메가 서버 공지 📢📢</h2>
-    <p style="text-align:center; color:#ffcc00; font-size:16px; font-weight:bold; margin-top:5px;">📢 5월 17일 오후 5시부터 오픈대기 1시간 📢</p>
-    <hr style="border:0; border-top:1px solid rgba(0,255,128,0.3); margin:15px 0;">
-    <div style="line-height:2.0; font-size:15px; color:#ddd; padding:0 10px;">
-        1. 장기 노초기화 서버<br>
-        2. 클래식 감성 그대로 유지<br>
-        3. 100% 자율거래<br>
-        4. 후원 부담 제로<br>
-        5. 직장인을 위한 자동사냥 시스템
-    </div>
-    <br>
-    <p></p>
-    <br>
-    <p></p>
-    <br>
-    <p></p>
-     <br>
-    <p></p>
-</div>
 
 <div class="sidebar">
     <div class="sidebar-logo">
         <h2>MEGA</h2>
     </div>
     <div class="sidebar-menu">
-        <a href="index.html">🏠 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;홈&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-        <a href="notice.html">📢 공&nbsp;&nbsp;지&nbsp;&nbsp;사&nbsp;&nbsp;항</a>
-        <a href="info.html">📜 서&nbsp;&nbsp;버&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
-        <a href="update.html">⚡ 업&nbsp;&nbsp;데&nbsp;&nbsp;이&nbsp;&nbsp;트</a>
-        <a href="boss.html">💀 보&nbsp;&nbsp;스&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
-        <a href="doll.html">🧸 마&nbsp;&nbsp;법&nbsp;&nbsp;인&nbsp;&nbsp;형</a>
-        <a href="maan.html">👁️ 마&nbsp;&nbsp;안&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
-            <a href="item.html">💎 아&nbsp;이&nbsp;템&nbsp;정&nbsp;보</a>
-        <a href="feature.html">⚙️ 간&nbsp;&nbsp;편&nbsp;&nbsp;기&nbsp;&nbsp;능</a>
-        <a href="hunting.html">🚩 레벨별 사냥터</a>
-        <a href="promo.html">📣 홍&nbsp;&nbsp;보&nbsp;&nbsp;안&nbsp;&nbsp;내</a>
-        <a href="service.html">💬 고&nbsp;&nbsp;객&nbsp;&nbsp;센&nbsp;&nbsp;터</a>
-        <a href="security.html">🛡️ 보안 설정(필수)</a>
-        <a href="download.html">⬇ 다&nbsp;&nbsp;운&nbsp;&nbsp;로&nbsp;&nbsp;드</a>
+        <a href="home.html" target="main-frame" class="active">🏠 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;홈&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        <a href="notice.html" target="main-frame">📢 공&nbsp;&nbsp;지&nbsp;&nbsp;사&nbsp;&nbsp;항</a>
+        <a href="info.html" target="main-frame">📜 서&nbsp;&nbsp;버&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="update.html" target="main-frame">⚡ 업&nbsp;&nbsp;데&nbsp;&nbsp;이&nbsp;&nbsp;트</a>
+        <a href="boss.html" target="main-frame">💀 보&nbsp;&nbsp;스&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="doll.html" target="main-frame">🧸 마&nbsp;&nbsp;법&nbsp;&nbsp;인&nbsp;&nbsp;형</a>
+        <a href="maan.html" target="main-frame">👁️ 마&nbsp;&nbsp;안&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="item.html" target="main-frame">💎 아&nbsp;이&nbsp;템&nbsp;정&nbsp;보</a>
+        <a href="feature.html" target="main-frame">⚙️ 간&nbsp;&nbsp;편&nbsp;&nbsp;기&nbsp;&nbsp;능</a>
+        <a href="hunting.html" target="main-frame">🚩 레벨별 사냥터</a>
+        <a href="promo.html" target="main-frame">📣 홍&nbsp;&nbsp;보&nbsp;&nbsp;안&nbsp;&nbsp;내</a>
+        <a href="service.html" target="main-frame">💬 고&nbsp;&nbsp;객&nbsp;&nbsp;센&nbsp;&nbsp;터</a>
+        <a href="security.html" target="main-frame">🛡️ 보안 설정(필수)</a>
+        <a href="download.html" target="main-frame">⬇ 다&nbsp;&nbsp;운&nbsp;&nbsp;로&nbsp;&nbsp;드</a>
     </div>
     <div class="sidebar-footer">
         <span>© 2026 Mega Server</span>
     </div>
 </div>
-<div class="main-content">
 
-<div class="header">
-    <h1>Mega Server</h1>
-</div>
+<iframe name="main-frame" id="mainFrame" src="home.html"></iframe>
 
-<div class="container">
-    <div class="img-box" onclick="location.href='download.html'"
-        style="background-image:url('images/download_bg.jpg');">
-        <span>⬇ 클라이언트 다운로드</span>
-    </div>
+<script>
+    function updateActiveMenu(href) {
+        const links = document.querySelectorAll('.sidebar-menu a');
+        links.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === href) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
 
-    <div class="img-box" onclick="location.href='service.html'"
-        style="background-image:url('images/service_bg.jpg');">
-        <span>💬 1:1 고객센터 문의</span>
-    </div>
-</div>
-
-<div class="footer">
-    서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
-    게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
-</div>
-</div><!-- //main-content -->
+    // iframe 내부의 경로가 변경될 때마다 활성화 상태 싱크
+    document.addEventListener("DOMContentLoaded", () => {
+        const iframe = document.getElementById("mainFrame");
+        iframe.addEventListener("load", () => {
+            try {
+                const currentPath = iframe.contentWindow.location.pathname.split('/').pop() || 'home.html';
+                updateActiveMenu(currentPath);
+            } catch (e) {
+                // 크로스오리진 에러 무시
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

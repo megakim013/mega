@@ -1,10 +1,19 @@
 ﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>
+    if (window !== window.top) {
+        document.documentElement.classList.add('iframe-mode');
+        const style = document.createElement('style');
+        style.innerHTML = '.sidebar { display: none !important; } .main-content { margin-left: 0 !important; width: 100% !important; }';
+        document.head.appendChild(style);
+    }
+</script>
 <meta charset="UTF-8">
 <title>고객센터</title>
 
 <style>
+html { overflow-y: scroll; }
     /* ------------------------------
    좌측 사이드바 메뉴 스타일
 ------------------------------ */
@@ -50,7 +59,7 @@
     gap: 15px;
     border-left: 4px solid transparent;
     transition: 0.25s; }
-.sidebar-menu a:hover {
+.sidebar-menu a:hover, .sidebar-menu a.active {
     color: #33ff99;
     background: rgba(0, 255, 128, 0.08);
     border-left: 4px solid #33ff99;
@@ -178,6 +187,15 @@
         background: rgba(0,255,128,0.15);
         margin: 10px 0;
     }
+
+.sidebar-menu::-webkit-scrollbar { display: none !important; }
+.sidebar-menu { -ms-overflow-style: none !important; scrollbar-width: none !important; }
+
+
+@media screen and (min-width: 769px) {
+    html.iframe-mode .sidebar { display: none !important; }
+    html.iframe-mode .main-content { margin-left: 0 !important; width: 100% !important; }
+}
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="mobile.css">

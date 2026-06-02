@@ -1,10 +1,19 @@
 ﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>
+    if (window !== window.top) {
+        document.documentElement.classList.add('iframe-mode');
+        const style = document.createElement('style');
+        style.innerHTML = '.sidebar { display: none !important; } .main-content { margin-left: 0 !important; width: 100% !important; }';
+        document.head.appendChild(style);
+    }
+</script>
 <meta charset="UTF-8">
 <title>Mega Server - 서버 간편기능</title>
 
 <style>
+html { overflow-y: scroll; }
 /* ------------------------------
    좌측 사이드바 메뉴 스타일
 ------------------------------ */
@@ -259,6 +268,15 @@
     color: rgba(230,230,230,0.6);
     border-top: 1px solid rgba(255,255,255,0.05);
     background: rgba(7,12,20,0.8);
+}
+
+.sidebar-menu::-webkit-scrollbar { display: none !important; }
+.sidebar-menu { -ms-overflow-style: none !important; scrollbar-width: none !important; }
+
+
+@media screen and (min-width: 769px) {
+    html.iframe-mode .sidebar { display: none !important; }
+    html.iframe-mode .main-content { margin-left: 0 !important; width: 100% !important; }
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Mega Server</title>
+<style>
+html { overflow-y: scroll; }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0b0f15;
+    color: #ddd;
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+}
+.main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+/* 상단 배너 */
+.header {
+    background-image: url('images/megamain.png');
+    background-size: cover;
+    background-position: center;
+    height: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.header::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(11,15,21,0.95) 100%);
+}
+.header h1 {
+    position: relative;
+    font-size: 43px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: #fff;
+    top: 60px;
+    text-shadow: 0 0 15px #000, 0 0 25px #00cc66, 0 0 35px #006633;
+    z-index: 10;
+}
+/* 본문 컨테이너 */
+.container {
+    width: 1000px;
+    margin: 120px auto 70px auto;
+    text-align: center;
+}
+/* 이미지 박스 버튼 */
+.img-box {
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(0,255,128,0.3);
+    box-shadow: 0 0 15px rgba(0,100,255,0.15);
+    transition: 0.3s;
+}
+.img-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(0,255,128,0.6);
+    border-color: rgba(51,255,153,0.9);
+}
+.img-box::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,10,20,0.5);
+}
+.img-box span {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:#fff;
+    font-size:22px;
+    font-weight:bold;
+    z-index:5;
+    text-shadow:0 0 8px #000, 0 0 15px #00cc66;
+}
+/* 공지사항 팝업 */
+#popup {
+    width: 420px;
+    background: rgba(10,20,30,0.92);
+    border: 2px solid #00aa55;
+    box-shadow: 0 0 30px rgba(0,100,255,0.5);
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+    display: none;
+    backdrop-filter: blur(5px);
+}
+#popup h2 { text-align: center; color: #33ff99; text-shadow: 0 0 10px rgba(0,255,128,0.5); }
+.close-btn { position: absolute; top: 8px; right: 12px; cursor: pointer; color: #33ff99; font-size: 22px; }
+.close-btn:hover { color: #fff; }
+/* footer */
+.footer {
+    margin-top: auto;
+    padding: 25px 0;
+    font-size: 14px;
+    text-align: center;
+    color: rgba(230,230,230,0.45);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    background: rgba(7, 12, 20, 0.8);
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+
+<script>
+    // 팝업은 top window가 아닐 때(즉, iframe 내부일 때도) 쉘 페이지가 아닌 home.html 자체에서 뜨게 함
+    window.addEventListener("load", () => { document.getElementById("popup").style.display = "block"; });
+    function closePopup() { document.getElementById("popup").style.display = "none"; }
+</script>
+
+<div id="popup">
+    <div class="close-btn" onclick="closePopup()">✖</div>
+    <h2>📢📢 2.0 메가 서버 공지 📢📢</h2>
+    <p style="text-align:center; color:#ffcc00; font-size:16px; font-weight:bold; margin-top:5px;">📢 5월 17일 오후 5시부터 오픈대기 1시간 📢</p>
+    <hr style="border:0; border-top:1px solid rgba(0,255,128,0.3); margin:15px 0;">
+    <div style="line-height:2.0; font-size:15px; color:#ddd; padding:0 10px;">
+        1. 장기 노초기화 서버<br>
+        2. 클래식 감성 그대로 유지<br>
+        3. 100% 자율거래<br>
+        4. 후원 부담 제로<br>
+        5. 직장인을 위한 자동사냥 시스템
+    </div>
+    <br>
+    <p></p>
+    <br>
+    <p></p>
+    <br>
+    <p></p>
+     <br>
+    <p></p>
+</div>
+
+<div class="main-content">
+    <div class="header">
+        <h1>Mega Server</h1>
+    </div>
+
+    <div class="container">
+        <!-- 타겟 프레임 설정으로 다운로드와 문의 페이지도 부모 창을 통해 쉘로 열리도록 parent window의 주소를 변경합니다 -->
+        <div class="img-box" onclick="window.parent.location.href='download.html'"
+            style="background-image:url('images/download_bg.jpg');">
+            <span>⬇ 클라이언트 다운로드</span>
+        </div>
+
+        <div class="img-box" onclick="window.parent.location.href='service.html'"
+            style="background-image:url('images/service_bg.jpg');">
+            <span>💬 1:1 고객센터 문의</span>
+        </div>
+    </div>
+
+    <div class="footer">
+        서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
+        게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
+    </div>
+</div>
+
+</body>
+</html>
