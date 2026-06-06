@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+    if (window !== window.top) {
+        document.documentElement.classList.add('iframe-mode');
+        const style = document.createElement('style');
+        style.innerHTML = '.sidebar { display: none !important; } .main-content { margin-left: 0 !important; width: 100% !important; }';
+        document.head.appendChild(style);
+    }
+</script>
+    <meta charset="UTF-8">
+    <title>스탯 및 공식 정보</title>
+
+    <style>
+html { overflow-y: scroll; }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #070c14;
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+
+        /* ------------------------------
+        좌측 사이드바 메뉴 스타일
+        ------------------------------ */
+        .sidebar {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(10, 16, 26, 0.95) 0%, rgba(7, 12, 20, 0.95) 100%);
+            border-right: 1px solid rgba(255, 187, 0, 0.25);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-logo { box-sizing: border-box; padding: 18px 20px 12px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 187, 0, 0.15); }
+
+        .sidebar-logo h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px #ffaa00, 0 0 25px #664400;
+        }
+
+        .sidebar-menu { box-sizing: border-box; display: flex;
+            flex-direction: column;
+            padding: 5px 0;
+            flex: 1;
+            overflow-y: auto; }
+
+        .sidebar-menu a { box-sizing: border-box; color: #ccc;
+            padding: 10px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 4px solid transparent;
+            transition: 0.25s; }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            color: #ffcc00;
+            background: rgba(255, 187, 0, 0.08);
+            border-left: 4px solid #ffcc00;
+            text-shadow: 0 0 10px #ffbb00;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* 메인 컨텐츠 영역 */
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        /* 배너 */
+        .header {
+            background-image: url('images/megamain.png');
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to bottom, rgba(7, 12, 20, 0) 0%, rgba(7, 12, 20, 1) 100%);
+        }
+
+        .header h1 {
+            position: relative;
+            font-size: 40px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 0 0 15px #000, 0 0 25px #ffaa00, 0 0 35px #664400;
+            top: 20px;
+        }
+
+        /* 본문 컨테이너 */
+        .container {
+            width: 1000px;
+            margin: 40px auto 70px auto;
+            background: rgba(10, 16, 26, 0.85);
+            padding: 45px 50px;
+            border: 1px solid rgba(255, 187, 0, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(255, 187, 0, 0.15);
+            line-height: 1.7;
+            font-size: 16px;
+            color: #e0e6ed;
+            position: relative;
+            z-index: 5;
+            box-sizing: border-box;
+        }
+
+        /* 탭 스타일 */
+        .tabs-container {
+            margin-top: 10px;
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 12px;
+            border-bottom: 2px solid rgba(255, 187, 0, 0.15);
+            padding-bottom: 12px;
+            margin-bottom: 30px;
+        }
+        .tab-btn {
+            background: rgba(10, 16, 26, 0.6);
+            border: 1px solid rgba(255, 187, 0, 0.25);
+            color: #ccc;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-btn:hover {
+            color: #ffcc00;
+            border-color: #ffaa00;
+            box-shadow: 0 0 10px rgba(255, 187, 0, 0.2);
+        }
+        .tab-btn.active {
+            background: #cc8800;
+            color: #fff;
+            border-color: #ffaa00;
+            box-shadow: 0 0 15px rgba(255, 187, 0, 0.35);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 수식 카드 스타일 */
+        .formula-card {
+            background: rgba(255, 187, 0, 0.03);
+            border: 1px solid rgba(255, 187, 0, 0.20);
+            border-left: 4px solid #ffaa00;
+            border-radius: 6px;
+            padding: 18px 24px;
+            margin-bottom: 25px;
+        }
+        .formula-title {
+            color: #ffcc00;
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.2);
+        }
+        .formula-body {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #fff;
+        }
+        .formula-item {
+            margin-bottom: 6px;
+        }
+        .formula-item span {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        /* 테이블 기본 스타일 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            background: rgba(7, 12, 20, 0.6);
+        }
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 187, 0, 0.15);
+            text-align: center;
+        }
+        th {
+            background: rgba(255, 187, 0, 0.12);
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        tr:hover {
+            background: rgba(255, 187, 0, 0.05);
+        }
+
+        /* 예시 박스 */
+        .example-box {
+            background: rgba(255, 187, 0, 0.04);
+            border: 1px solid rgba(255, 187, 0, 0.18);
+            padding: 18px;
+            border-radius: 6px;
+            margin-bottom: 18px;
+        }
+        .example-box ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        .example-box li {
+            margin-bottom: 6px;
+        }
+
+        /* 스탯 3단 테이블 컬럼 */
+        .stat-tables-row {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .stat-table-card {
+            flex: 1;
+            background: rgba(10, 16, 26, 0.7);
+            border: 1px solid rgba(255, 187, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+            max-width: 33.33%;
+        }
+        .stat-table-card h3 {
+            margin-top: 0;
+            color: #ffcc00;
+            border-bottom: 1px solid rgba(255, 187, 0, 0.20);
+            padding-bottom: 8px;
+            font-size: 17px;
+            text-align: center;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.2);
+        }
+        .scrollable-table-container {
+            max-height: 520px;
+            overflow-y: auto;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 187, 0, 0.12);
+        }
+        /* Scrollbar 스킨 */
+        .scrollable-table-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollable-table-container::-webkit-scrollbar-track {
+            background: rgba(7, 12, 20, 0.5);
+        }
+        .scrollable-table-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 187, 0, 0.3);
+            border-radius: 3px;
+        }
+        .scrollable-table-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 187, 0, 0.6);
+        }
+
+        /* 색상 뱃지 */
+        .color-desc {
+            font-size: 13px;
+            color: #ccc;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+        .green-val { color: #00ffaa; font-weight: bold; }
+        .yellow-val { color: #ffcc00; font-weight: bold; }
+        .red-val { color: #ff5555; font-weight: bold; }
+
+        /* footer */
+        .footer {
+            margin-top: 60px;
+            padding: 25px 0;
+            font-size: 13px;
+            color: rgba(230, 230, 230, 0.45);
+            text-align: center;
+            line-height: 1.5;
+            background: rgba(7, 12, 20, 0.4);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        @media screen and (max-width: 900px) {
+            .stat-tables-row {
+                flex-direction: column;
+            }
+            .stat-table-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="mobile.css">
+</head>
+
+<body>
+
+    <!-- 좌측 메뉴 -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <h2>MEGA</h2>
+        </div>
+        <div class="sidebar-menu">
+            <a href="index.html">🏠 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;홈&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a href="notice.html">📢 공&nbsp;&nbsp;지&nbsp;&nbsp;사&nbsp;&nbsp;항</a>
+            <a href="info.html">📜 서&nbsp;&nbsp;버&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+            <a href="stats.html" class="active">📊 스&nbsp;탯&nbsp;&nbsp;&&nbsp;&nbsp;공&nbsp;식</a>
+            <a href="update.html">⚡ 업&nbsp;&nbsp;데&nbsp;&nbsp;이&nbsp;&nbsp;트</a>
+            <a href="boss.html">💀 보&nbsp;&nbsp;스&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+            <a href="doll.html">🧸 마&nbsp;&nbsp;법&nbsp;&nbsp;인&nbsp;&nbsp;형</a>
+            <a href="maan.html">👁️ 마&nbsp;&nbsp;안&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+            <a href="item.html">💎 아&nbsp;이&nbsp;템&nbsp;정&nbsp;보</a>
+            <a href="feature.html">⚙️ 간&nbsp;&nbsp;편&nbsp;&nbsp;기&nbsp;&nbsp;능</a>
+            <a href="hunting.html">🚩 레벨별 사냥터</a>
+            <a href="promo.html">📣 홍&nbsp;&nbsp;보&nbsp;&nbsp;안&nbsp;&nbsp;내</a>
+            <a href="service.html">💬 고&nbsp;&nbsp;객&nbsp;&nbsp;센&nbsp;&nbsp;터</a>
+            <a href="security.html">🛡️ 보안 설정(필수)</a>
+            <a href="download.html">⬇ 다&nbsp;&nbsp;운&nbsp;&nbsp;로&nbsp;&nbsp;드</a>
+        </div>
+        <div class="sidebar-footer">
+            <span>© 2026 Mega Server</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- 헤더 -->
+        <div class="header">
+            <h1>📊 스탯 및 공식 정보</h1>
+        </div>
+
+        <!-- 본문 -->
+        <div class="container">
+            <div class="tabs-container">
+                <!-- 탭 버튼 영역 -->
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="openTab(event, 'magic-accuracy')">마법명중 & 적중확률</button>
+                    <button class="tab-btn" onclick="openTab(event, 'spell-power')">SP (스펠파워)</button>
+                    <button class="tab-btn" onclick="openTab(event, 'stat-tables')">스탯별 상세 계산식</button>
+                </div>
+
+                <!-- 탭 1: 마법명중 & 적중확률 -->
+                <div id="magic-accuracy" class="tab-content active">
+                    <div class="formula-card">
+                        <div class="formula-title">🔮 마법명중 및 디버프 적중확률 공식</div>
+                        <div class="formula-body">
+                            <div class="formula-item">1. <span>INT 보정값</span> = (현재 INT - 45) × 0.5</div>
+                            <div class="formula-item">2. <span>INT 표 명중</span> = INT 레벨별 마법명중 보정값 (스탯 계산식 INT표 기준)</div>
+                            <div class="formula-item">3. <span>최종 명중%</span> = 기본 명중% + INT 보정값 + (INT 표 명중 + 아이템 마법명중 - 15)</div>
+                            <div class="formula-item">4. <span>최종 적중% (MR 보정)</span> = 최종 명중% - (대상 MR 수치 × 0.8)</div>
+                            <div class="formula-item" style="color: #ccc; margin-top: 10px; font-size: 13px;">※ 서버 기본 밸런스 설정: 대상의 마법 방어력(MR) 1당 디버프 적중확률이 0.8% 감소합니다.</div>
+                            <div class="formula-item" style="color: #ccc; font-size: 13px;">※ 아이템 마법명중 1당 최종 명중률이 1%씩 상승합니다.</div>
+                        </div>
+                    </div>
+
+                    <h2 style="color: #ffcc00; margin-top: 30px; margin-bottom: 12px; font-size: 20px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                        📊 INT별 마법명중 계산 예시표 (기본명중=100%, 아이템 마법명중=0 기준)
+                    </h2>
+                    <div class="color-desc">
+                        * 적중확률 등급: <span class="green-val">초록 = 80% 이상</span> / <span class="yellow-val">노랑 = 50% 이상</span> / <span class="red-val">빨강 = 50% 미만</span>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>INT</th>
+                                <th>INT 보정</th>
+                                <th>INT표 명중</th>
+                                <th>소계-15</th>
+                                <th>MR = 0</th>
+                                <th>MR = 30</th>
+                                <th>MR = 60</th>
+                                <th>MR = 80</th>
+                                <th>MR = 100</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>35</td>
+                                <td>+5</td>
+                                <td>+5</td>
+                                <td class="green-val">85%</td>
+                                <td class="green-val">85%</td>
+                                <td class="yellow-val">61%</td>
+                                <td class="red-val">37%</td>
+                                <td class="red-val">21%</td>
+                                <td class="red-val">5%</td>
+                            </tr>
+                            <tr>
+                                <td>40</td>
+                                <td>+2.5</td>
+                                <td>+8</td>
+                                <td class="green-val">90.5%</td>
+                                <td class="green-val">90.5%</td>
+                                <td class="yellow-val">66.5%</td>
+                                <td class="red-val">42.5%</td>
+                                <td class="red-val">26.5%</td>
+                                <td class="red-val">10.5%</td>
+                            </tr>
+                            <tr>
+                                <td>45</td>
+                                <td>0</td>
+                                <td>+10</td>
+                                <td class="green-val">95%</td>
+                                <td class="green-val">95%</td>
+                                <td class="yellow-val">71%</td>
+                                <td class="red-val">47%</td>
+                                <td class="red-val">31%</td>
+                                <td class="red-val">15%</td>
+                            </tr>
+                            <tr>
+                                <td>50</td>
+                                <td>+2.5</td>
+                                <td>+14</td>
+                                <td class="green-val">101.5%</td>
+                                <td class="green-val">101.5%</td>
+                                <td class="yellow-val">77.5%</td>
+                                <td class="yellow-val">53.5%</td>
+                                <td class="red-val">37.5%</td>
+                                <td class="red-val">21.5%</td>
+                            </tr>
+                            <tr>
+                                <td>55</td>
+                                <td>+5</td>
+                                <td>+16</td>
+                                <td class="green-val">106%</td>
+                                <td class="green-val">106%</td>
+                                <td class="green-val">82%</td>
+                                <td class="yellow-val">58%</td>
+                                <td class="red-val">42%</td>
+                                <td class="red-val">26%</td>
+                            </tr>
+                            <tr>
+                                <td>60</td>
+                                <td>+7.5</td>
+                                <td>+18</td>
+                                <td class="green-val">110.5%</td>
+                                <td class="green-val">110.5%</td>
+                                <td class="green-val">86.5%</td>
+                                <td class="yellow-val">62.5%</td>
+                                <td class="red-val">46.5%</td>
+                                <td class="red-val">30.5%</td>
+                            </tr>
+                            <tr>
+                                <td>65</td>
+                                <td>+10</td>
+                                <td>+21</td>
+                                <td class="green-val">116%</td>
+                                <td class="green-val">116%</td>
+                                <td class="green-val">92%</td>
+                                <td class="yellow-val">68%</td>
+                                <td class="yellow-val">52%</td>
+                                <td class="red-val">36%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 style="color: #ffcc00; margin-top: 35px; margin-bottom: 15px; font-size: 20px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                        💡 디버프 적중확률 상세 공식 대입 예시
+                    </h2>
+                    
+                    <div class="example-box">
+                        <div style="font-weight: bold; color: #ffcc00; margin-bottom: 8px;">[예시 1] INT 40, 대상 MR 60인 상대에게 턴언데드 등 디버프 시전 시</div>
+                        <ul>
+                            <li>INT 보정값 = (40 - 45) × 0.5 = <b>-2.5</b></li>
+                            <li>INT 표 명중 = +8 (보정 공식 적용: 8 - 15 = <b>-7</b>)</li>
+                            <li>최종 명중% = 100 + (-2.5) + (-7) = <b>90.5%</b></li>
+                            <li>상대 MR 60에 따른 감소치 = 60 × 0.8 = <b>48%</b></li>
+                            <li style="color: #ffaa00; font-weight: bold; margin-top: 6px;">★ 실제 최종 적중확률 = 90.5% - 48% = <span class="yellow-val" style="font-size: 16px;">42.5%</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <div style="font-weight: bold; color: #ffcc00; margin-bottom: 8px;">[예시 2] INT 45, 대상 MR 60인 상대에게 턴언데드 등 디버프 시전 시</div>
+                        <ul>
+                            <li>INT 보정값 = (45 - 45) × 0.5 = <b>0</b></li>
+                            <li>INT 표 명중 = +10 (보정 공식 적용: 10 - 15 = <b>-5</b>)</li>
+                            <li>최종 명중% = 100 + 0 + (-5) = <b>95%</b></li>
+                            <li>상대 MR 60에 따른 감소치 = 60 × 0.8 = <b>48%</b></li>
+                            <li style="color: #ffaa00; font-weight: bold; margin-top: 6px;">★ 실제 최종 적중확률 = 95% - 48% = <span class="yellow-val" style="font-size: 16px;">47%</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <div style="font-weight: bold; color: #ffcc00; margin-bottom: 8px;">[예시 3] INT 50, 아이템 마법명중 +10 보유, 대상 MR 60 상대에게 디버프 시전 시</div>
+                        <ul>
+                            <li>INT 보정값 = (50 - 45) × 0.5 = <b>+2.5</b></li>
+                            <li>INT 표 명중 + 아이템 마법명중 = 14 + 10 = 24 (보정 공식 적용: 24 - 15 = <b>+9</b>)</li>
+                            <li>최종 명중% = 100 + 2.5 + 9 = <b>111.5%</b></li>
+                            <li>상대 MR 60에 따른 감소치 = 60 × 0.8 = <b>48%</b></li>
+                            <li style="color: #ffaa00; font-weight: bold; margin-top: 6px;">★ 실제 최종 적중확률 = 111.5% - 48% = <span class="green-val" style="font-size: 16px;">63.5%</span></li>
+                        </ul>
+                    </div>
+
+                    <h2 style="color: #ffcc00; margin-top: 35px; margin-bottom: 12px; font-size: 20px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                        🛡️ 아이템 마법명중 추가 시 최종적중% 변화 (INT 45, 대상 MR 60 기준, 기본 47%)
+                    </h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>추가 아이템 마법명중</th>
+                                <th>최종 명중% (MR=0 상태)</th>
+                                <th>최종 적중% (MR=60 상태)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>+0</td>
+                                <td>95%</td>
+                                <td class="red-val">47%</td>
+                            </tr>
+                            <tr>
+                                <td>+5</td>
+                                <td>100%</td>
+                                <td class="green-val">52%</td>
+                            </tr>
+                            <tr>
+                                <td>+10</td>
+                                <td>105%</td>
+                                <td class="green-val">57%</td>
+                            </tr>
+                            <tr>
+                                <td>+15</td>
+                                <td>110%</td>
+                                <td class="green-val">62%</td>
+                            </tr>
+                            <tr>
+                                <td>+20</td>
+                                <td>115%</td>
+                                <td class="green-val">67%</td>
+                            </tr>
+                            <tr>
+                                <td>+30</td>
+                                <td>125%</td>
+                                <td class="green-val">77%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 탭 2: SP (스펠파워) -->
+                <div id="spell-power" class="tab-content">
+                    <div class="formula-card">
+                        <div class="formula-title">🔥 SP (스펠파워) 합산 및 마법데미지 적용 공식</div>
+                        <div class="formula-body">
+                            <div class="formula-item">1. <span>Total SP</span> = 아이템 SP + 레벨 SP + INT 보너스(magicBonus)</div>
+                            <div class="formula-item">2. <span>마법 최종 데미지</span> = INT 마법데미지(INT표 기준) + Total SP</div>
+                            <div class="formula-item" style="color: #ccc; margin-top: 10px; font-size: 13px;">※ SP는 곱연산이 아닌 <b>덧셈(Additive)</b> 연산으로 최종 마법데미지에 직접 수치만큼 더해집니다.</div>
+                        </div>
+                    </div>
+
+                    <h2 style="color: #ffcc00; margin-top: 30px; margin-bottom: 12px; font-size: 19px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                        🏹 직업별 레벨 SP 계산식 (레벨에 따른 자연 SP 증가량)
+                    </h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>클래스</th>
+                                <th>상세 공식 (레벨 대비 비례)</th>
+                                <th>Lv.10</th>
+                                <th>Lv.20</th>
+                                <th>Lv.30</th>
+                                <th>Lv.40</th>
+                                <th>Lv.50(최대)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>군주 (Royal)</td>
+                                <td>min(레벨, 20) / 10</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>기사 (Knight)</td>
+                                <td>min(레벨, 50) / 50</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>요정 (Elf)</td>
+                                <td>min(레벨, 48) / 8</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>5</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <td>마법사 (Wizard)</td>
+                                <td>min(레벨, 40) / 4</td>
+                                <td>2</td>
+                                <td>5</td>
+                                <td>7</td>
+                                <td>10</td>
+                                <td>10</td>
+                            </tr>
+                            <tr>
+                                <td>다크엘프 (DE)</td>
+                                <td>min(레벨, 24) / 12</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 13px; color: #ccc; margin-top: -10px; margin-bottom: 25px;">
+                        ※ 마법사 직업의 최대 레벨 SP는 10이며, 기사는 최대 1로 직업군 중 가장 낮게 설정되어 있습니다.
+                    </p>
+
+                    <h2 style="color: #ffcc00; margin-top: 30px; margin-bottom: 12px; font-size: 19px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                        ✨ INT 수치에 따른 마법 SP 보너스 (magicBonus) 수치표
+                    </h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>INT 범위</th>
+                                <th>마법 SP 보너스 (magicBonus)</th>
+                                <th>INT 범위</th>
+                                <th>마법 SP 보너스 (magicBonus)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1 ~ 14</td>
+                                <td>+2 ~ +3</td>
+                                <td>36 ~ 40</td>
+                                <td>+8 ~ +9</td>
+                            </tr>
+                            <tr>
+                                <td>15 ~ 19</td>
+                                <td>+3 ~ +4</td>
+                                <td>41 ~ 45</td>
+                                <td>+10 ~ +11</td>
+                            </tr>
+                            <tr>
+                                <td>20 ~ 24</td>
+                                <td>+5 ~ +6</td>
+                                <td>46 ~ 54</td>
+                                <td>+12 ~ +14</td>
+                            </tr>
+                            <tr>
+                                <td>25 ~ 29</td>
+                                <td>+6 ~ +7</td>
+                                <td>55 ~ 60</td>
+                                <td>+14 ~ +15</td>
+                            </tr>
+                            <tr>
+                                <td>30 ~ 35</td>
+                                <td>+7 ~ +8</td>
+                                <td>61 ~ 64</td>
+                                <td>+16 ~ +17</td>
+                            </tr>
+                            <tr>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>65 이상</td>
+                                <td>+18</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 style="color: #ffcc00; margin-top: 35px; margin-bottom: 12px; font-size: 19px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                        💡 Total SP 합산에 따른 최종 마법 데미지 추가 예시 (마법사 기준)
+                    </h2>
+                    <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">* 마법사 레벨 40 완성 기준 레벨 SP = 10 고정 대입</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>캐릭터 레벨</th>
+                                <th>아이템 SP</th>
+                                <th>레벨 SP</th>
+                                <th>INT 수치</th>
+                                <th>INT 보너스(magicBonus)</th>
+                                <th>Total SP</th>
+                                <th>최종 추가 마법데미지 예시</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>20</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>20</td>
+                                <td>+5</td>
+                                <td><b>10</b></td>
+                                <td>기본마법데미지(+2) + SP(10) = <b>+12</b></td>
+                            </tr>
+                            <tr>
+                                <td>30</td>
+                                <td>0</td>
+                                <td>7</td>
+                                <td>30</td>
+                                <td>+7</td>
+                                <td><b>14</b></td>
+                                <td>기본마법데미지(+4) + SP(14) = <b>+18</b></td>
+                            </tr>
+                            <tr>
+                                <td>40</td>
+                                <td>0</td>
+                                <td>10</td>
+                                <td>45</td>
+                                <td>+11</td>
+                                <td><b>21</b></td>
+                                <td>기본마법데미지(+8) + SP(21) = <b>+29</b></td>
+                            </tr>
+                            <tr>
+                                <td>40</td>
+                                <td>5</td>
+                                <td>10</td>
+                                <td>50</td>
+                                <td>+13</td>
+                                <td><b>28</b></td>
+                                <td>기본마법데미지(+12) + SP(28) = <b>+40</b></td>
+                            </tr>
+                            <tr>
+                                <td>40</td>
+                                <td>10</td>
+                                <td>10</td>
+                                <td>55</td>
+                                <td>+14</td>
+                                <td><b>34</b></td>
+                                <td>기본마법데미지(+13) + SP(34) = <b>+47</b></td>
+                            </tr>
+                            <tr>
+                                <td>40</td>
+                                <td>15</td>
+                                <td>10</td>
+                                <td>65+</td>
+                                <td>+18</td>
+                                <td><b>43</b></td>
+                                <td>기본마법데미지(+18) + SP(43) = <b>+61</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 탭 3: 스탯별 상세 계산식 -->
+                <div id="stat-tables" class="tab-content">
+                    <div class="stat-tables-row">
+                        
+                        <!-- STR 스탯표 -->
+                        <div class="stat-table-card">
+                            <h3>STR (힘)</h3>
+                            <p style="font-size:12px; color:#aaa; margin-top:-5px; text-align:center;">근접 데미지 / 명중 / 크리 / 무게</p>
+                            <div class="scrollable-table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>STR</th>
+                                            <th>뎀</th>
+                                            <th>명</th>
+                                            <th>크</th>
+                                            <th>무게</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="str-table-body">
+                                        <!-- Scripted Generation for clean output -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="font-size:11px; color:#ccc; margin-top:8px; text-align:center;">
+                                ※ 기사 클래스는 최대무게 +200 보너스
+                            </div>
+                        </div>
+
+                        <!-- DEX 스탯표 -->
+                        <div class="stat-table-card">
+                            <h3>DEX (민첩)</h3>
+                            <p style="font-size:12px; color:#aaa; margin-top:-5px; text-align:center;">활 데미지 / 활 명중 / 활 크리</p>
+                            <div class="scrollable-table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>DEX</th>
+                                            <th>뎀</th>
+                                            <th>명</th>
+                                            <th>크</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dex-table-body">
+                                        <!-- Scripted Generation for clean output -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- INT 스탯표 -->
+                        <div class="stat-table-card">
+                            <h3>INT (지능)</h3>
+                            <p style="font-size:12px; color:#aaa; margin-top:-5px; text-align:center;">마법뎀 / 마법명중 / 마법크리 / 보너스 / MP감소</p>
+                            <div class="scrollable-table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>INT</th>
+                                            <th>뎀</th>
+                                            <th>명</th>
+                                            <th>크</th>
+                                            <th>보</th>
+                                            <th>MP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="int-table-body">
+                                        <!-- Scripted Generation for clean output -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div style="font-size:11px; color:#ccc; margin-top:8px; text-align:center;">
+                                ※ MP=MP 소모감소 | 보=마법 스킬 보너스
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 푸터 -->
+        <div class="footer">
+            서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
+            게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
+        </div>
+    </div>
+
+    <!-- 스크립트: 탭 제어 및 65+ 스탯 테이블 자동 생성 -->
+    <script>
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            const tabButtons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // 스탯 수치 데이터
+        const statData = {
+            str: [],
+            dex: [],
+            int: []
+        };
+
+        // STR 데이터 생성 (1~65+)
+        for (let s = 1; s <= 65; s++) {
+            let dmg = 0, hit = 0, crit = 0, weight = 0;
+            if (s >= 1 && s <= 8)   { dmg = 2; hit = 5; crit = 0; weight = 0; }
+            else if (s === 9)       { dmg = 2; hit = 6; crit = 0; weight = 0; }
+            else if (s === 10)      { dmg = 3; hit = 6; crit = 0; weight = 100; }
+            else if (s === 11)      { dmg = 3; hit = 7; crit = 0; weight = 100; }
+            else if (s >= 12 && s <= 13) { dmg = 4; hit = 8; crit = 0; weight = 200; }
+            else if (s === 14)      { dmg = 5; hit = 9; crit = 0; weight = 300; }
+            else if (s === 15)      { dmg = 5; hit = 10; crit = 0; weight = 300; }
+            else if (s === 16)      { dmg = 6; hit = 10; crit = 0; weight = 400; }
+            else if (s === 17)      { dmg = 6; hit = 11; crit = 0; weight = 400; }
+            else if (s >= 18 && s <= 19) { dmg = 7; hit = 12; crit = 0; weight = 500; }
+            else if (s === 20)      { dmg = 8; hit = 13; crit = 0; weight = 600; }
+            else if (s === 21)      { dmg = 8; hit = 14; crit = 0; weight = 600; }
+            else if (s === 22)      { dmg = 9; hit = 14; crit = 0; weight = 700; }
+            else if (s === 23)      { dmg = 9; hit = 15; crit = 0; weight = 700; }
+            else if (s === 24)      { dmg = 10; hit = 16; crit = 0; weight = 800; }
+            else if (s === 25)      { dmg = 11; hit = 17; crit = 0; weight = 800; }
+            else if (s === 26)      { dmg = 12; hit = 18; crit = 0; weight = 900; }
+            else if (s === 27)      { dmg = 12; hit = 19; crit = 0; weight = 900; }
+            else if (s === 28)      { dmg = 13; hit = 19; crit = 0; weight = 1000; }
+            else if (s === 29)      { dmg = 13; hit = 20; crit = 0; weight = 1000; }
+            else if (s >= 30 && s <= 31) { dmg = 14; hit = 21; crit = 0; weight = 1100; }
+            else if (s === 32)      { dmg = 15; hit = 22; crit = 0; weight = 1200; }
+            else if (s === 33)      { dmg = 15; hit = 23; crit = 0; weight = 1200; }
+            else if (s === 34)      { dmg = 16; hit = 23; crit = 0; weight = 1300; }
+            else if (s === 35)      { dmg = 17; hit = 25; crit = 0; weight = 1300; }
+            else if (s >= 36 && s <= 37) { dmg = 18; hit = 26; crit = 0; weight = 1400; }
+            else if (s === 38)      { dmg = 19; hit = 27; crit = 0; weight = 1500; }
+            else if (s === 39)      { dmg = 19; hit = 28; crit = 0; weight = 1500; }
+            else if (s === 40)      { dmg = 20; hit = 28; crit = 1; weight = 1600; }
+            else if (s === 41)      { dmg = 20; hit = 29; crit = 1; weight = 1600; }
+            else if (s >= 42 && s <= 43) { dmg = 21; hit = 30; crit = 1; weight = 1700; }
+            else if (s === 44)      { dmg = 22; hit = 31; crit = 1; weight = 1800; }
+            else if (s === 45)      { dmg = 25; hit = 35; crit = 2; weight = 1800; }
+            else if (s === 46)      { dmg = 26; hit = 36; crit = 2; weight = 1900; }
+            else if (s === 47)      { dmg = 26; hit = 37; crit = 2; weight = 1900; }
+            else if (s === 48)      { dmg = 27; hit = 37; crit = 2; weight = 2000; }
+            else if (s === 49)      { dmg = 27; hit = 38; crit = 2; weight = 2000; }
+            else if (s === 50)      { dmg = 28; hit = 38; crit = 3; weight = 2100; }
+            else if (s === 51)      { dmg = 28; hit = 39; crit = 3; weight = 2100; }
+            else if (s === 52)      { dmg = 29; hit = 39; crit = 3; weight = 2200; }
+            else if (s === 53)      { dmg = 29; hit = 40; crit = 3; weight = 2200; }
+            else if (s === 54)      { dmg = 30; hit = 40; crit = 3; weight = 2300; }
+            else if (s === 55)      { dmg = 32; hit = 42; crit = 4; weight = 2400; }
+            else if (s === 56)      { dmg = 33; hit = 43; crit = 4; weight = 2500; }
+            else if (s === 57)      { dmg = 33; hit = 43; crit = 4; weight = 2500; }
+            else if (s === 58)      { dmg = 34; hit = 44; crit = 4; weight = 2600; }
+            else if (s === 59)      { dmg = 34; hit = 45; crit = 4; weight = 2600; }
+            else if (s === 60)      { dmg = 35; hit = 45; crit = 5; weight = 2700; }
+            else if (s === 61)      { dmg = 35; hit = 46; crit = 5; weight = 2700; }
+            else if (s === 62)      { dmg = 36; hit = 45; crit = 5; weight = 2800; }
+            else if (s === 63)      { dmg = 36; hit = 46; crit = 5; weight = 2800; }
+            else if (s === 64)      { dmg = 37; hit = 46; crit = 6; weight = 2900; }
+            else if (s === 65)      { dmg = 38; hit = 47; crit = 7; weight = 3000; }
+
+            statData.str.push({ val: (s === 65 ? "65+" : s), dmg: "+" + dmg, hit: "+" + hit, crit: "+" + crit, weight: "+" + weight });
+        }
+
+        // DEX 데이터 생성 (1~65+)
+        for (let d = 1; d <= 65; d++) {
+            let dmg = 0, hit = 0, crit = 0;
+            if (d >= 1 && d <= 7)   { dmg = 2; hit = -3; crit = 0; }
+            else if (d === 8)       { dmg = 2; hit = -2; crit = 0; }
+            else if (d === 9)       { dmg = 3; hit = -1; crit = 0; }
+            else if (d === 10)      { dmg = 3; hit = 0;  crit = 0; }
+            else if (d === 11)      { dmg = 3; hit = 1;  crit = 0; }
+            else if (d === 12)      { dmg = 4; hit = 2;  crit = 0; }
+            else if (d === 13)      { dmg = 4; hit = 3;  crit = 0; }
+            else if (d === 14)      { dmg = 4; hit = 4;  crit = 0; }
+            else if (d === 15)      { dmg = 5; hit = 5;  crit = 0; }
+            else if (d === 16)      { dmg = 5; hit = 6;  crit = 0; }
+            else if (d === 17)      { dmg = 5; hit = 7;  crit = 0; }
+            else if (d === 18)      { dmg = 6; hit = 8;  crit = 0; }
+            else if (d === 19)      { dmg = 6; hit = 9;  crit = 0; }
+            else if (d === 20)      { dmg = 6; hit = 10; crit = 0; }
+            else if (d === 21)      { dmg = 7; hit = 11; crit = 0; }
+            else if (d === 22)      { dmg = 7; hit = 12; crit = 0; }
+            else if (d === 23)      { dmg = 7; hit = 13; crit = 0; }
+            else if (d === 24)      { dmg = 8; hit = 14; crit = 0; }
+            else if (d === 25)      { dmg = 9; hit = 16; crit = 0; }
+            else if (d === 26)      { dmg = 9; hit = 17; crit = 0; }
+            else if (d === 27)      { dmg = 10; hit = 18; crit = 0; }
+            else if (d === 28)      { dmg = 10; hit = 19; crit = 0; }
+            else if (d === 29)      { dmg = 10; hit = 20; crit = 0; }
+            else if (d === 30)      { dmg = 11; hit = 21; crit = 0; }
+            else if (d === 31)      { dmg = 11; hit = 22; crit = 0; }
+            else if (d === 32)      { dmg = 11; hit = 23; crit = 0; }
+            else if (d === 33)      { dmg = 12; hit = 24; crit = 0; }
+            else if (d === 34)      { dmg = 12; hit = 25; crit = 0; }
+            else if (d === 35)      { dmg = 13; hit = 27; crit = 0; }
+            else if (d === 36)      { dmg = 14; hit = 28; crit = 0; }
+            else if (d === 37)      { dmg = 14; hit = 29; crit = 0; }
+            else if (d === 38)      { dmg = 14; hit = 30; crit = 0; }
+            else if (d === 39)      { dmg = 15; hit = 31; crit = 0; }
+            else if (d === 40)      { dmg = 15; hit = 32; crit = 1; }
+            else if (d === 41)      { dmg = 15; hit = 33; crit = 1; }
+            else if (d === 42)      { dmg = 16; hit = 34; crit = 1; }
+            else if (d === 43)      { dmg = 16; hit = 35; crit = 1; }
+            else if (d === 44)      { dmg = 16; hit = 36; crit = 1; }
+            else if (d === 45)      { dmg = 20; hit = 40; crit = 2; }
+            else if (d === 46)      { dmg = 21; hit = 41; crit = 2; }
+            else if (d === 47)      { dmg = 21; hit = 42; crit = 2; }
+            else if (d === 48)      { dmg = 22; hit = 43; crit = 2; }
+            else if (d === 49)      { dmg = 22; hit = 43; crit = 2; }
+            else if (d === 50)      { dmg = 23; hit = 44; crit = 3; }
+            else if (d === 51)      { dmg = 23; hit = 44; crit = 3; }
+            else if (d === 52)      { dmg = 24; hit = 45; crit = 3; }
+            else if (d === 53)      { dmg = 24; hit = 45; crit = 3; }
+            else if (d === 54)      { dmg = 25; hit = 46; crit = 3; }
+            else if (d === 55)      { dmg = 27; hit = 48; crit = 4; }
+            else if (d === 56)      { dmg = 28; hit = 48; crit = 4; }
+            else if (d === 57)      { dmg = 28; hit = 50; crit = 4; }
+            else if (d === 58)      { dmg = 29; hit = 50; crit = 4; }
+            else if (d === 59)      { dmg = 29; hit = 51; crit = 4; }
+            else if (d === 60)      { dmg = 30; hit = 51; crit = 4; }
+            else if (d === 61)      { dmg = 30; hit = 52; crit = 5; }
+            else if (d === 62)      { dmg = 31; hit = 52; crit = 5; }
+            else if (d === 63)      { dmg = 31; hit = 53; crit = 5; }
+            else if (d === 64)      { dmg = 32; hit = 53; crit = 5; }
+            else if (d === 65)      { dmg = 33; hit = 54; crit = 6; }
+
+            statData.dex.push({ val: (d === 65 ? "65+" : d), dmg: "+" + dmg, hit: (hit >= 0 ? "+" + hit : hit), crit: "+" + crit });
+        }
+
+        // INT 데이터 생성 (1~65+)
+        for (let i = 1; i <= 65; i++) {
+            let dmg = 0, hit = 0, crit = 0, bonus = 0, mp = 0;
+            if (i >= 1 && i <= 8)   { dmg = 0; hit = -4; crit = 0; bonus = 2; mp = 5; }
+            else if (i >= 9 && i <= 10) { dmg = 0; hit = -3; crit = 0; bonus = 2; mp = 6; }
+            else if (i === 11)      { dmg = 0; hit = -3; crit = 0; bonus = 2; mp = 7; }
+            else if (i >= 12 && i <= 13) { dmg = 0; hit = -2; crit = 0; bonus = 3; mp = 8; }
+            else if (i === 14)      { dmg = 0; hit = -2; crit = 0; bonus = 3; mp = 9; }
+            else if (i === 15)      { dmg = 1; hit = -1; crit = 0; bonus = 3; mp = 10; }
+            else if (i === 16)      { dmg = 1; hit = -1; crit = 0; bonus = 4; mp = 10; }
+            else if (i === 17)      { dmg = 1; hit = -1; crit = 0; bonus = 4; mp = 11; }
+            else if (i >= 18 && i <= 19) { dmg = 1; hit = 0;  crit = 0; bonus = 4; mp = 12; }
+            else if (i === 20)      { dmg = 2; hit = 0;  crit = 0; bonus = 5; mp = 13; }
+            else if (i >= 21 && i <= 22) { dmg = 2; hit = 0;  crit = 0; bonus = 5; mp = 14; }
+            else if (i === 23)      { dmg = 2; hit = 1;  crit = 0; bonus = 5; mp = 15; }
+            else if (i === 24)      { dmg = 2; hit = 1;  crit = 0; bonus = 6; mp = 16; }
+            else if (i === 25)      { dmg = 4; hit = 2;  crit = 0; bonus = 6; mp = 16; }
+            else if (i === 26)      { dmg = 4; hit = 3;  crit = 0; bonus = 6; mp = 17; }
+            else if (i >= 27 && i <= 28) { dmg = 4; hit = 3;  crit = 0; bonus = 6; mp = 18; }
+            else if (i === 29)      { dmg = 4; hit = 3;  crit = 0; bonus = 7; mp = 19; }
+            else if (i === 30)      { dmg = 4; hit = 4;  crit = 0; bonus = 7; mp = 19; }
+            else if (i >= 31 && i <= 32) { dmg = 5; hit = 4;  crit = 0; bonus = 7; mp = 20; }
+            else if (i === 33)      { dmg = 5; hit = 5;  crit = 0; bonus = 8; mp = 21; }
+            else if (i >= 34 && i <= 35) { dmg = 5; hit = 5;  crit = 0; bonus = 8; mp = 22; }
+            else if (i === 36)      { dmg = 7; hit = 7;  crit = 1; bonus = 8; mp = 23; }
+            else if (i >= 37 && i <= 38) { dmg = 7; hit = 7;  crit = 1; bonus = 9; mp = 24; }
+            else if (i === 39)      { dmg = 7; hit = 8;  crit = 1; bonus = 9; mp = 25; }
+            else if (i === 40)      { dmg = 7; hit = 8;  crit = 1; bonus = 9; mp = 26; }
+            else if (i === 41)      { dmg = 8; hit = 8;  crit = 2; bonus = 10; mp = 26; }
+            else if (i === 42)      { dmg = 8; hit = 9;  crit = 2; bonus = 10; mp = 27; }
+            else if (i >= 43 && i <= 44) { dmg = 8; hit = 9;  crit = 2; bonus = 10; mp = 28; }
+            else if (i === 45)      { dmg = 8; hit = 10; crit = 2; bonus = 11; mp = 29; }
+            else if (i === 46)      { dmg = 12; hit = 13; crit = 4; bonus = 12; mp = 30; }
+            else if (i === 47)      { dmg = 12; hit = 13; crit = 4; bonus = 12; mp = 30; }
+            else if (i === 48)      { dmg = 12; hit = 14; crit = 4; bonus = 12; mp = 31; }
+            else if (i === 49)      { dmg = 12; hit = 14; crit = 4; bonus = 13; mp = 31; }
+            else if (i === 50)      { dmg = 12; hit = 14; crit = 4; bonus = 13; mp = 32; }
+            else if (i === 51)      { dmg = 13; hit = 15; crit = 5; bonus = 13; mp = 32; }
+            else if (i === 52)      { dmg = 13; hit = 15; crit = 5; bonus = 13; mp = 33; }
+            else if (i === 53)      { dmg = 13; hit = 15; crit = 5; bonus = 14; mp = 34; }
+            else if (i === 54)      { dmg = 13; hit = 16; crit = 5; bonus = 14; mp = 34; }
+            else if (i === 55)      { dmg = 13; hit = 16; crit = 5; bonus = 14; mp = 35; }
+            else if (i === 56)      { dmg = 14; hit = 16; crit = 6; bonus = 14; mp = 36; }
+            else if (i === 57)      { dmg = 14; hit = 17; crit = 6; bonus = 15; mp = 36; }
+            else if (i === 58)      { dmg = 14; hit = 17; crit = 6; bonus = 15; mp = 37; }
+            else if (i === 59)      { dmg = 14; hit = 17; crit = 6; bonus = 15; mp = 38; }
+            else if (i === 60)      { dmg = 14; hit = 18; crit = 6; bonus = 15; mp = 38; }
+            else if (i === 61)      { dmg = 15; hit = 18; crit = 6; bonus = 15; mp = 39; }
+            else if (i === 62)      { dmg = 16; hit = 18; crit = 6; bonus = 16; mp = 39; }
+            else if (i === 63)      { dmg = 16; hit = 19; crit = 6; bonus = 16; mp = 39; }
+            else if (i === 64)      { dmg = 17; hit = 19; crit = 6; bonus = 17; mp = 40; }
+            else if (i === 65)      { dmg = 18; hit = 21; crit = 7; bonus = 18; mp = 45; }
+
+            statData.int.push({ val: (i === 65 ? "65+" : i), dmg: "+" + dmg, hit: (hit >= 0 ? "+" + hit : hit), crit: "+" + crit, bonus: "+" + bonus, mp: "+" + mp });
+        }
+
+        // DOM 렌더링
+        const strBody = document.getElementById("str-table-body");
+        statData.str.forEach(row => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td><b>${row.val}</b></td><td>${row.dmg}</td><td>${row.hit}</td><td>${row.crit}</td><td>${row.weight}</td>`;
+            strBody.appendChild(tr);
+        });
+
+        const dexBody = document.getElementById("dex-table-body");
+        statData.dex.forEach(row => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td><b>${row.val}</b></td><td>${row.dmg}</td><td>${row.hit}</td><td>${row.crit}</td>`;
+            dexBody.appendChild(tr);
+        });
+
+        const intBody = document.getElementById("int-table-body");
+        statData.int.forEach(row => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td><b>${row.val}</b></td><td>${row.dmg}</td><td>${row.hit}</td><td>${row.crit}</td><td>${row.bonus}</td><td>${row.mp}</td>`;
+            intBody.appendChild(tr);
+        });
+    </script>
+
+</body>
+</html>
