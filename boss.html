@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -27,7 +27,7 @@ html { overflow-y: scroll; }
             width: 250px;
             height: 100vh;
             background: linear-gradient(180deg, rgba(10, 16, 26, 0.95) 0%, rgba(7, 12, 20, 0.95) 100%);
-            border-right: 1px solid rgba(0, 255, 128, 0.25);
+            border-right: 1px solid rgba(255, 187, 0, 0.25);
             z-index: 2000;
             display: flex;
             flex-direction: column;
@@ -37,7 +37,7 @@ html { overflow-y: scroll; }
 
         .sidebar-logo { box-sizing: border-box; padding: 18px 20px 12px 20px;
             text-align: center;
-            border-bottom: 1px solid rgba(0, 255, 128, 0.15); }
+            border-bottom: 1px solid rgba(255, 187, 0, 0.15); }
 
         .sidebar-logo h2 {
             margin: 0;
@@ -45,7 +45,7 @@ html { overflow-y: scroll; }
             font-size: 26px;
             font-weight: 900;
             letter-spacing: 3px;
-            text-shadow: 0 0 15px #00cc66, 0 0 25px #006633;
+            text-shadow: 0 0 15px #ffaa00, 0 0 25px #664400;
         }
 
         .sidebar-menu { box-sizing: border-box; display: flex;
@@ -66,10 +66,10 @@ html { overflow-y: scroll; }
             transition: 0.25s; }
 
         .sidebar-menu a:hover, .sidebar-menu a.active {
-    color: #33ff99;
-    background: rgba(0, 255, 128, 0.08);
-    border-left: 4px solid #33ff99;
-    text-shadow: 0 0 10px #00ee77;
+    color: #ffcc00;
+    background: rgba(255, 187, 0, 0.08);
+    border-left: 4px solid #ffcc00;
+    text-shadow: 0 0 10px #ffbb00;
 }
 
         .sidebar-footer {
@@ -117,7 +117,7 @@ html { overflow-y: scroll; }
             font-weight: bold;
             letter-spacing: 4px;
             color: #fff;
-            text-shadow: 0 0 15px #000, 0 0 25px #00cc66, 0 0 35px #006633;
+            text-shadow: 0 0 15px #000, 0 0 25px #ffaa00, 0 0 35px #664400;
             top: 60px;
             z-index: 10;
         }
@@ -128,8 +128,8 @@ html { overflow-y: scroll; }
             margin: 120px auto 80px auto;
             background: rgba(10, 16, 26, 0.78);
             padding: 40px;
-            border: 1px solid rgba(0, 255, 128, 0.35);
-            box-shadow: 0 0 20px rgba(0, 255, 128, 0.25);
+            border: 1px solid rgba(255, 187, 0, 0.35);
+            box-shadow: 0 0 20px rgba(255, 187, 0, 0.25);
             border-radius: 10px;
             position: relative;
             z-index: 5;
@@ -146,14 +146,14 @@ html { overflow-y: scroll; }
         thead th {
             background: rgba(0, 30, 60, 0.8);
             padding: 12px;
-            border: 1px solid rgba(0, 255, 128, 0.3);
-            color: #33ff99;
+            border: 1px solid rgba(255, 187, 0, 0.3);
+            color: #ffcc00;
             font-size: 18px;
         }
 
         tbody td {
             padding: 12px;
-            border: 1px solid rgba(0, 255, 128, 0.2);
+            border: 1px solid rgba(255, 187, 0, 0.2);
             text-align: center;
         }
 
@@ -167,7 +167,7 @@ html { overflow-y: scroll; }
         }
 
         tbody tr:hover {
-            background: rgba(0, 255, 128, 0.1);
+            background: rgba(255, 187, 0, 0.1);
         }
 
         td img {
@@ -176,7 +176,7 @@ html { overflow-y: scroll; }
             object-fit: cover;
             border-radius: 6px;
             border: 1px solid #0055ff;
-            box-shadow: 0 0 8px rgba(0, 255, 128, 0.3);
+            box-shadow: 0 0 8px rgba(255, 187, 0, 0.3);
         }
 
         /* 🔥 미공개 보스 스타일 */
@@ -208,7 +208,7 @@ html { overflow-y: scroll; }
         }
         .feature-card {
             background: rgba(15, 23, 36, 0.75);
-            border: 1px solid rgba(0, 255, 128, 0.3);
+            border: 1px solid rgba(255, 187, 0, 0.3);
             border-radius: 14px;
             padding: 25px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.5);
@@ -220,14 +220,14 @@ html { overflow-y: scroll; }
         }
         .feature-card:hover {
             transform: translateY(-6px);
-            border-color: #33ff99;
-            box-shadow: 0 15px 35px rgba(0, 255, 128, 0.25);
+            border-color: #ffcc00;
+            box-shadow: 0 15px 35px rgba(255, 187, 0, 0.25);
         }
         .video-box {
             width: 100%;
             aspect-ratio: 16 / 9;
             background: #070c14;
-            border: 1px solid rgba(0,255,128,0.2);
+            border: 1px solid rgba(255,187,0,0.2);
             border-radius: 10px;
             overflow: hidden;
             position: relative;
@@ -283,19 +283,19 @@ html { overflow-y: scroll; }
             width: 65px;
             height: 65px;
             background: rgba(0, 100, 255, 0.8);
-            border: 2px solid #33ff99;
+            border: 2px solid #ffcc00;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 20px rgba(0,255,128,0.6);
+            box-shadow: 0 0 20px rgba(255,187,0,0.6);
             transition: 0.2s;
             margin-bottom: 15px;
         }
         .video-box:hover .play-btn {
             transform: scale(1.1);
-            background: #00cc66;
-            box-shadow: 0 0 30px #33ff99;
+            background: #ffaa00;
+            box-shadow: 0 0 30px #ffcc00;
         }
         .play-btn::after {
             content: "";
@@ -308,8 +308,8 @@ html { overflow-y: scroll; }
         .overlay-text {
             font-size: 16px;
             font-weight: bold;
-            color: #33ff99;
-            text-shadow: 0 0 10px rgba(51,255,153,0.5);
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
         }
         .overlay-subtext {
             font-size: 13px;
@@ -352,13 +352,13 @@ html { overflow-y: scroll; }
             align-items: center;
         }
         .status-badge {
-            background: rgba(0,255,128,0.15);
-            color: #33ff99;
+            background: rgba(255,187,0,0.15);
+            color: #ffcc00;
             padding: 4px 10px;
             border-radius: 6px;
             font-size: 13px;
             font-weight: bold;
-            border: 1px solid rgba(0,255,128,0.3);
+            border: 1px solid rgba(255,187,0,0.3);
         }
     
 .sidebar-menu::-webkit-scrollbar { display: none !important; }
@@ -422,7 +422,7 @@ html { overflow-y: scroll; }
                         </div>
                     </div>
                     <div class="feature-info">
-                        <div class="feature-title" style="color: #33ff99;">🔥 보스 레이드 하이라이트 영상</div>
+                        <div class="feature-title" style="color: #ffcc00;">🔥 보스 레이드 하이라이트 영상</div>
                         <div class="feature-desc">
                             메가 서버에서 펼쳐지는 치열하고 긴장감 넘치는 보스 사냥(레이드) 하이라이트 영상입니다. 보스의 강력한 패턴 공략과 레이드 진행 방식을 세로 화면으로 생생하게 감상해 보세요.
                         </div>

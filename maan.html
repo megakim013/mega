@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
 <script>
@@ -22,7 +22,7 @@ html { overflow-y: scroll; }
     width: 250px;
     height: 100vh;
     background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
-    border-right: 1px solid rgba(0,255,128,0.25);
+    border-right: 1px solid rgba(255,187,0,0.25);
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -31,14 +31,14 @@ html { overflow-y: scroll; }
 }
 .sidebar-logo { box-sizing: border-box; padding: 18px 20px 12px 20px;
     text-align: center;
-    border-bottom: 1px solid rgba(0,255,128,0.15); }
+    border-bottom: 1px solid rgba(255,187,0,0.15); }
 .sidebar-logo h2 {
     margin: 0;
     color: #fff;
     font-size: 26px;
     font-weight: 900;
     letter-spacing: 3px;
-    text-shadow: 0 0 15px #00cc66, 0 0 25px #006633;
+    text-shadow: 0 0 15px #ffaa00, 0 0 25px #664400;
 }
 .sidebar-menu { box-sizing: border-box; display: flex;
     flex-direction: column;
@@ -56,10 +56,10 @@ html { overflow-y: scroll; }
     border-left: 4px solid transparent;
     transition: 0.25s; }
 .sidebar-menu a:hover, .sidebar-menu a.active {
-    color: #33ff99;
-    background: rgba(0, 255, 128, 0.08);
-    border-left: 4px solid #33ff99;
-    text-shadow: 0 0 10px #00ee77;
+    color: #ffcc00;
+    background: rgba(255, 187, 0, 0.08);
+    border-left: 4px solid #ffcc00;
+    text-shadow: 0 0 10px #ffbb00;
 }
 .sidebar-footer {
     padding: 20px;
@@ -103,7 +103,7 @@ html { overflow-y: scroll; }
     font-weight: bold;
     letter-spacing: 4px;
     color: #fff;
-    text-shadow: 0 0 15px #000, 0 0 25px #00cc66, 0 0 35px #006633;
+    text-shadow: 0 0 15px #000, 0 0 25px #ffaa00, 0 0 35px #664400;
     top: 60px;
     z-index: 10;
 }
@@ -113,8 +113,8 @@ html { overflow-y: scroll; }
     margin: 120px auto 80px auto;
     background: rgba(10, 16, 26, 0.78);
     padding: 40px;
-    border: 1px solid rgba(0, 255, 128, 0.35);
-    box-shadow: 0 0 20px rgba(0, 255, 128, 0.25);
+    border: 1px solid rgba(255, 187, 0, 0.35);
+    box-shadow: 0 0 20px rgba(255, 187, 0, 0.25);
     border-radius: 10px;
     position: relative;
     z-index: 5;
@@ -125,11 +125,11 @@ html { overflow-y: scroll; }
 .section-title {
     font-size: 28px;
     font-weight: bold;
-    color: #33ff99;
+    color: #ffcc00;
     margin: 50px 0 20px 0;
     padding-bottom: 10px;
-    border-bottom: 2px solid rgba(0, 255, 128, 0.3);
-    text-shadow: 0 0 10px rgba(51, 255, 153, 0.4);
+    border-bottom: 2px solid rgba(255, 187, 0, 0.3);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -144,7 +144,7 @@ html { overflow-y: scroll; }
     flex-direction: column;
     gap: 20px;
     background: rgba(0, 10, 25, 0.5);
-    border: 1px dashed rgba(0, 255, 128, 0.3);
+    border: 1px dashed rgba(255, 187, 0, 0.3);
     padding: 30px;
     border-radius: 10px;
     margin-bottom: 50px;
@@ -152,9 +152,9 @@ html { overflow-y: scroll; }
 .flow-title {
     font-size: 18px;
     font-weight: bold;
-    color: #33ff99;
+    color: #ffcc00;
     margin-bottom: 5px;
-    text-shadow: 0 0 8px rgba(51, 255, 153, 0.3);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -171,15 +171,15 @@ html { overflow-y: scroll; }
     align-items: center;
     gap: 12px;
     background: rgba(15, 23, 36, 0.85);
-    border: 1px solid rgba(0, 255, 128, 0.25);
+    border: 1px solid rgba(255, 187, 0, 0.25);
     padding: 12px 20px;
     border-radius: 8px;
     transition: 0.3s;
     min-width: 150px;
 }
 .flow-step:hover {
-    border-color: #33ff99;
-    box-shadow: 0 0 15px rgba(0, 255, 128, 0.3);
+    border-color: #ffcc00;
+    box-shadow: 0 0 15px rgba(255, 187, 0, 0.3);
     transform: translateY(-2px);
 }
 .flow-step img {
@@ -201,10 +201,10 @@ html { overflow-y: scroll; }
     text-shadow: 0 0 5px rgba(255,255,255,0.1);
 }
 .flow-arrow {
-    color: #33ff99;
+    color: #ffcc00;
     font-size: 24px;
     font-weight: bold;
-    text-shadow: 0 0 8px #00ff80;
+    text-shadow: 0 0 8px #ffbb00;
     margin: 0 5px;
     animation: pulse 1.5s infinite;
 }
@@ -226,15 +226,15 @@ table {
 thead th {
     background: rgba(0, 30, 60, 0.8);
     padding: 15px;
-    border: 1px solid rgba(0, 255, 128, 0.3);
-    color: #33ff99;
+    border: 1px solid rgba(255, 187, 0, 0.3);
+    color: #ffcc00;
     font-size: 17px;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(51, 255, 153, 0.4);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 tbody td {
     padding: 15px;
-    border: 1px solid rgba(0, 255, 128, 0.2);
+    border: 1px solid rgba(255, 187, 0, 0.2);
     text-align: center;
     vertical-align: middle;
     line-height: 1.6;
@@ -247,15 +247,15 @@ tbody tr:nth-child(even) {
     background: rgba(0, 10, 20, 0.5);
 }
 tbody tr:hover {
-    background: rgba(0, 255, 128, 0.1);
+    background: rgba(255, 187, 0, 0.1);
 }
 td img {
     width: 50px;
     height: 50px;
     object-fit: contain;
     border-radius: 6px;
-    border: 1px solid rgba(0, 255, 128, 0.35);
-    box-shadow: 0 0 8px rgba(0, 255, 128, 0.25);
+    border: 1px solid rgba(255, 187, 0, 0.35);
+    box-shadow: 0 0 8px rgba(255, 187, 0, 0.25);
     background: rgba(0,0,0,0.5);
 }
 
@@ -300,9 +300,9 @@ td img {
     font-weight: bold;
 }
 .badge-safe {
-    background: rgba(0, 255, 128, 0.15);
-    color: #33ff99;
-    border: 1px solid rgba(0, 255, 128, 0.3);
+    background: rgba(255, 187, 0, 0.15);
+    color: #ffcc00;
+    border: 1px solid rgba(255, 187, 0, 0.3);
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 12px;
@@ -378,7 +378,7 @@ td img {
             </div>
         </div>
         
-        <hr style="border:0; border-top:1px solid rgba(0,255,128,0.15); margin: 25px 0;">
+        <hr style="border:0; border-top:1px solid rgba(255,187,0,0.15); margin: 25px 0;">
         
         <!-- 1. 탄생의 마안 제작 -->
         <div class="flow-title">⭐ 탄생의 마안 제작 <span class="badge-danger" style="margin-left: 10px;">⚠️ 실패 시 재료 마안 4종 소멸(증발)</span></div>
@@ -414,7 +414,7 @@ td img {
             </div>
         </div>
         
-        <hr style="border:0; border-top:1px solid rgba(0,255,128,0.15); margin: 25px 0;">
+        <hr style="border:0; border-top:1px solid rgba(255,187,0,0.15); margin: 25px 0;">
         
         <!-- 2. 형상의 마안 제작 -->
         <div class="flow-title">⭐ 형상의 마안 제작 <span class="badge-safe" style="margin-left: 10px;">🛡️ 실패 시 아데나만 소모 (마안 보존)</span></div>
@@ -435,7 +435,7 @@ td img {
             </div>
         </div>
         
-        <hr style="border:0; border-top:1px solid rgba(0,255,128,0.15); margin: 25px 0;">
+        <hr style="border:0; border-top:1px solid rgba(255,187,0,0.15); margin: 25px 0;">
         
         <!-- 3. 생명의 마안 제작 -->
         <div class="flow-title">⭐ 생명의 마안 제작 (최종) <span class="badge-safe" style="margin-left: 10px;">🛡️ 실패 시 아데나만 소모 (마안 보존)</span></div>
@@ -541,3 +541,4 @@ td img {
 
 </body>
 </html>
+

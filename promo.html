@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
 <script>
@@ -26,7 +26,7 @@ html { overflow-y: scroll; }
     width: 250px;
     height: 100vh;
     background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
-    border-right: 1px solid rgba(0,255,128,0.25);
+    border-right: 1px solid rgba(255,187,0,0.25);
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -35,14 +35,14 @@ html { overflow-y: scroll; }
 }
 .sidebar-logo { box-sizing: border-box; padding: 18px 20px 12px 20px;
     text-align: center;
-    border-bottom: 1px solid rgba(0,255,128,0.15); }
+    border-bottom: 1px solid rgba(255,187,0,0.15); }
 .sidebar-logo h2 {
     margin: 0;
     color: #fff;
     font-size: 26px;
     font-weight: 900;
     letter-spacing: 3px;
-    text-shadow: 0 0 15px #00cc66, 0 0 25px #006633;
+    text-shadow: 0 0 15px #ffaa00, 0 0 25px #664400;
 }
 .sidebar-menu { box-sizing: border-box; display: flex;
     flex-direction: column;
@@ -60,10 +60,10 @@ html { overflow-y: scroll; }
     border-left: 4px solid transparent;
     transition: 0.25s; }
 .sidebar-menu a:hover, .sidebar-menu a.active {
-    color: #33ff99;
-    background: rgba(0, 255, 128, 0.08);
-    border-left: 4px solid #33ff99;
-    text-shadow: 0 0 10px #00ee77;
+    color: #ffcc00;
+    background: rgba(255, 187, 0, 0.08);
+    border-left: 4px solid #ffcc00;
+    text-shadow: 0 0 10px #ffbb00;
 }
 .sidebar-footer {
     padding: 20px;
@@ -159,9 +159,9 @@ body::before {
     margin: 120px auto 70px auto;
     background: rgba(10,16,26,0.78);
     padding: 45px 50px;
-    border: 1px solid rgba(0,255,128,0.35);
+    border: 1px solid rgba(255,187,0,0.35);
     border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,255,128,0.25);
+    box-shadow: 0 0 20px rgba(255,187,0,0.25);
     line-height: 1.65;
     font-size: 18px;
     position: relative;
@@ -171,10 +171,10 @@ body::before {
 h2 {
     margin-top: 35px;
     margin-bottom: 15px;
-    color: #33ff99;
+    color: #ffcc00;
     font-size: 26px;
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba(0, 255, 128, 0.28);
+    border-bottom: 1px solid rgba(255, 187, 0, 0.28);
 }
 
 /* -------------------------
@@ -206,9 +206,9 @@ h2 {
 
 .site-btn:hover {
     background: #2d2d2d;
-    border-color: #33ff99;
+    border-color: #ffcc00;
     transform: translateY(-2px);
-    box-shadow: 0 0 12px rgba(0, 255, 128, 0.35);
+    box-shadow: 0 0 12px rgba(255, 187, 0, 0.35);
 }
 
 /* -------------------------
@@ -229,8 +229,8 @@ h2 {
 
 .copy-btn:hover {
     background: #2f2f2f;
-    border-color: #33ff99;
-    box-shadow: 0 0 12px rgba(0,255,128,0.35);
+    border-color: #ffcc00;
+    box-shadow: 0 0 12px rgba(255,187,0,0.35);
 }
 
 /* 🔥 홍보글 박스 */
@@ -238,7 +238,7 @@ h2 {
     margin-top: 20px;
     padding: 20px;
     background: rgba(30, 30, 30, 0.8);
-    border: 1px solid rgba(0,255,128,0.3);
+    border: 1px solid rgba(255,187,0,0.3);
     border-radius: 10px;
     line-height: 1.7;
     white-space: pre-line;
@@ -250,7 +250,7 @@ h2 {
 
 .promo-box:hover {
     background: rgba(40,40,40,0.85);
-    box-shadow: 0 0 12px rgba(0,255,128,0.35);
+    box-shadow: 0 0 12px rgba(255,187,0,0.35);
 }
 
 /* -------------------------
@@ -351,7 +351,7 @@ h2 {
 
     <!-- 관리자 홍보글 편집 영역 -->
     <div id="adminEditor" style="display:none; margin-top:40px;">
-        <h2 style="color:#33ff99;">🔧 관리자 전용 홍보글 편집</h2>
+        <h2 style="color:#ffcc00;">🔧 관리자 전용 홍보글 편집</h2>
         <textarea id="promoEditor" style="width:100%; height:300px; font-size:16px; padding:10px;"></textarea>
 
         <button onclick="savePromo()" style="margin-top:10px; padding:10px 20px; font-size:16px;">화면에 적용</button>
@@ -478,3 +478,4 @@ async function saveToGithub() {
 
 </body>
 </html>
+
