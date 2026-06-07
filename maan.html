@@ -22,7 +22,7 @@ html { overflow-y: scroll; }
     width: 250px;
     height: 100vh;
     background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
-    border-right: 1px solid rgba(255,187,0,0.25);
+    border-right: 1px solid rgba(51, 163, 255,0.25);
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -31,14 +31,14 @@ html { overflow-y: scroll; }
 }
 .sidebar-logo { box-sizing: border-box; padding: 18px 20px 12px 20px;
     text-align: center;
-    border-bottom: 1px solid rgba(255,187,0,0.15); }
+    border-bottom: 1px solid rgba(51, 163, 255,0.15); }
 .sidebar-logo h2 {
     margin: 0;
     color: #fff;
     font-size: 26px;
     font-weight: 900;
     letter-spacing: 3px;
-    text-shadow: 0 0 15px #ffaa00, 0 0 25px #664400;
+    text-shadow: 0 0 15px #0080ff, 0 0 25px #003366;
 }
 .sidebar-menu { box-sizing: border-box; display: flex;
     flex-direction: column;
@@ -56,10 +56,10 @@ html { overflow-y: scroll; }
     border-left: 4px solid transparent;
     transition: 0.25s; }
 .sidebar-menu a:hover, .sidebar-menu a.active {
-    color: #ffcc00;
-    background: rgba(255, 187, 0, 0.08);
-    border-left: 4px solid #ffcc00;
-    text-shadow: 0 0 10px #ffbb00;
+    color: #4da6ff;
+    background: rgba(51, 163, 255, 0.08);
+    border-left: 4px solid #4da6ff;
+    text-shadow: 0 0 10px #33b3ff;
 }
 .sidebar-footer {
     padding: 20px;
@@ -103,7 +103,7 @@ html { overflow-y: scroll; }
     font-weight: bold;
     letter-spacing: 4px;
     color: #fff;
-    text-shadow: 0 0 15px #000, 0 0 25px #ffaa00, 0 0 35px #664400;
+    text-shadow: 0 0 15px #000, 0 0 25px #0080ff, 0 0 35px #003366;
     top: 60px;
     z-index: 10;
 }
@@ -113,8 +113,8 @@ html { overflow-y: scroll; }
     margin: 120px auto 80px auto;
     background: rgba(10, 16, 26, 0.78);
     padding: 40px;
-    border: 1px solid rgba(255, 187, 0, 0.35);
-    box-shadow: 0 0 20px rgba(255, 187, 0, 0.25);
+    border: 1px solid rgba(51, 163, 255, 0.35);
+    box-shadow: 0 0 20px rgba(51, 163, 255, 0.25);
     border-radius: 10px;
     position: relative;
     z-index: 5;
@@ -125,11 +125,11 @@ html { overflow-y: scroll; }
 .section-title {
     font-size: 28px;
     font-weight: bold;
-    color: #ffcc00;
+    color: #4da6ff;
     margin: 50px 0 20px 0;
     padding-bottom: 10px;
-    border-bottom: 2px solid rgba(255, 187, 0, 0.3);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    border-bottom: 2px solid rgba(51, 163, 255, 0.3);
+    text-shadow: 0 0 10px rgba(51, 204, 255, 0.4);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -144,7 +144,7 @@ html { overflow-y: scroll; }
     flex-direction: column;
     gap: 20px;
     background: rgba(0, 10, 25, 0.5);
-    border: 1px dashed rgba(255, 187, 0, 0.3);
+    border: 1px dashed rgba(51, 163, 255, 0.3);
     padding: 30px;
     border-radius: 10px;
     margin-bottom: 50px;
@@ -152,9 +152,9 @@ html { overflow-y: scroll; }
 .flow-title {
     font-size: 18px;
     font-weight: bold;
-    color: #ffcc00;
+    color: #4da6ff;
     margin-bottom: 5px;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+    text-shadow: 0 0 8px rgba(51, 204, 255, 0.3);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -171,15 +171,15 @@ html { overflow-y: scroll; }
     align-items: center;
     gap: 12px;
     background: rgba(15, 23, 36, 0.85);
-    border: 1px solid rgba(255, 187, 0, 0.25);
+    border: 1px solid rgba(51, 163, 255, 0.25);
     padding: 12px 20px;
     border-radius: 8px;
     transition: 0.3s;
     min-width: 150px;
 }
 .flow-step:hover {
-    border-color: #ffcc00;
-    box-shadow: 0 0 15px rgba(255, 187, 0, 0.3);
+    border-color: #4da6ff;
+    box-shadow: 0 0 15px rgba(51, 163, 255, 0.3);
     transform: translateY(-2px);
 }
 .flow-step img {
@@ -201,10 +201,10 @@ html { overflow-y: scroll; }
     text-shadow: 0 0 5px rgba(255,255,255,0.1);
 }
 .flow-arrow {
-    color: #ffcc00;
+    color: #4da6ff;
     font-size: 24px;
     font-weight: bold;
-    text-shadow: 0 0 8px #ffbb00;
+    text-shadow: 0 0 8px #33b3ff;
     margin: 0 5px;
     animation: pulse 1.5s infinite;
 }
@@ -226,15 +226,15 @@ table {
 thead th {
     background: rgba(0, 30, 60, 0.8);
     padding: 15px;
-    border: 1px solid rgba(255, 187, 0, 0.3);
-    color: #ffcc00;
+    border: 1px solid rgba(51, 163, 255, 0.3);
+    color: #4da6ff;
     font-size: 17px;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    text-shadow: 0 0 10px rgba(51, 204, 255, 0.4);
 }
 tbody td {
     padding: 15px;
-    border: 1px solid rgba(255, 187, 0, 0.2);
+    border: 1px solid rgba(51, 163, 255, 0.2);
     text-align: center;
     vertical-align: middle;
     line-height: 1.6;
@@ -247,21 +247,21 @@ tbody tr:nth-child(even) {
     background: rgba(0, 10, 20, 0.5);
 }
 tbody tr:hover {
-    background: rgba(255, 187, 0, 0.1);
+    background: rgba(51, 163, 255, 0.1);
 }
 td img {
     width: 50px;
     height: 50px;
     object-fit: contain;
     border-radius: 6px;
-    border: 1px solid rgba(255, 187, 0, 0.35);
-    box-shadow: 0 0 8px rgba(255, 187, 0, 0.25);
+    border: 1px solid rgba(51, 163, 255, 0.35);
+    box-shadow: 0 0 8px rgba(51, 163, 255, 0.25);
     background: rgba(0,0,0,0.5);
 }
 
 /* 유틸리티 텍스트 스타일 */
 .stat-highlight {
-    color: #ffcc00;
+    color: #4da6ff;
     font-weight: bold;
 }
 .stat-special {
@@ -300,9 +300,9 @@ td img {
     font-weight: bold;
 }
 .badge-safe {
-    background: rgba(255, 187, 0, 0.15);
-    color: #ffcc00;
-    border: 1px solid rgba(255, 187, 0, 0.3);
+    background: rgba(51, 163, 255, 0.15);
+    color: #4da6ff;
+    border: 1px solid rgba(51, 163, 255, 0.3);
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 12px;
@@ -368,7 +368,7 @@ td img {
         <!-- 0. 사대 용의 마안 제작 -->
         <div class="flow-title">⭐ 사대 용의 마안 제작 (지룡/수룡/풍룡/화룡)</div>
         <div class="flow-row">
-            <div class="flow-step" style="border-color: #ffaa00; min-width: 110px;">
+            <div class="flow-step" style="border-color: #0080ff; min-width: 110px;">
                 <span style="font-size: 18px; margin-right: 5px;">🪙</span>
                 <span>아데나 소모</span>
             </div>
@@ -379,7 +379,7 @@ td img {
             </div>
         </div>
         
-        <hr style="border:0; border-top:1px solid rgba(255,187,0,0.15); margin: 25px 0;">
+        <hr style="border:0; border-top:1px solid rgba(51, 163, 255,0.15); margin: 25px 0;">
         
         <!-- 1. 탄생의 마안 제작 -->
         <div class="flow-title">⭐ 탄생의 마안 제작 <span class="badge-danger" style="margin-left: 10px;">⚠️ 실패 시 재료 마안 4종 소멸(증발)</span></div>
@@ -404,28 +404,28 @@ td img {
                 <span>화룡의 마안</span>
             </div>
             <div class="flow-operator">+</div>
-            <div class="flow-step" style="border-color: #ffaa00; min-width: 110px;">
+            <div class="flow-step" style="border-color: #0080ff; min-width: 110px;">
                 <span style="font-size: 18px; margin-right: 5px;">🪙</span>
                 <span>아데나 소모</span>
             </div>
             <div class="flow-arrow">➔</div>
-            <div class="flow-step" style="border-color: #ffcc00;">
+            <div class="flow-step" style="border-color: #4da6ff;">
                 <img src="images/maan/birth_maan.png" alt="탄생의 마안">
-                <span style="color: #ffcc00;">탄생의 마안</span>
+                <span style="color: #4da6ff;">탄생의 마안</span>
             </div>
         </div>
         
-        <hr style="border:0; border-top:1px solid rgba(255,187,0,0.15); margin: 25px 0;">
+        <hr style="border:0; border-top:1px solid rgba(51, 163, 255,0.15); margin: 25px 0;">
         
         <!-- 2. 형상의 마안 제작 -->
         <div class="flow-title">⭐ 형상의 마안 제작 <span class="badge-safe" style="margin-left: 10px;">🛡️ 실패 시 아데나만 소모 (마안 보존)</span></div>
         <div class="flow-row">
-            <div class="flow-step" style="border-color: #ffcc00;">
+            <div class="flow-step" style="border-color: #4da6ff;">
                 <img src="images/maan/birth_maan.png" alt="탄생의 마안">
-                <span style="color: #ffcc00;">탄생의 마안 (1개)</span>
+                <span style="color: #4da6ff;">탄생의 마안 (1개)</span>
             </div>
             <div class="flow-operator">+</div>
-            <div class="flow-step" style="border-color: #ffaa00; min-width: 110px;">
+            <div class="flow-step" style="border-color: #0080ff; min-width: 110px;">
                 <span style="font-size: 18px; margin-right: 5px;">🪙</span>
                 <span>아데나 소모</span>
             </div>
@@ -436,7 +436,7 @@ td img {
             </div>
         </div>
         
-        <hr style="border:0; border-top:1px solid rgba(255,187,0,0.15); margin: 25px 0;">
+        <hr style="border:0; border-top:1px solid rgba(51, 163, 255,0.15); margin: 25px 0;">
         
         <!-- 3. 생명의 마안 제작 -->
         <div class="flow-title">⭐ 생명의 마안 제작 (최종) <span class="badge-safe" style="margin-left: 10px;">🛡️ 실패 시 아데나만 소모 (마안 보존)</span></div>
@@ -446,7 +446,7 @@ td img {
                 <span style="color: #ff55ff;">형상의 마안 (1개)</span>
             </div>
             <div class="flow-operator">+</div>
-            <div class="flow-step" style="border-color: #ffaa00; min-width: 110px;">
+            <div class="flow-step" style="border-color: #0080ff; min-width: 110px;">
                 <span style="font-size: 18px; margin-right: 5px;">🪙</span>
                 <span>아데나 소모</span>
             </div>
@@ -508,7 +508,7 @@ td img {
             <!-- 5. 탄생의 마안 -->
             <tr>
                 <td><img src="images/maan/birth_maan.png" alt="탄생의 마안"></td>
-                <td><strong style="color: #ffcc00;">탄생의 마안</strong><br><span class="badge-composite">합성 마안</span></td>
+                <td><strong style="color: #4da6ff;">탄생의 마안</strong><br><span class="badge-composite">합성 마안</span></td>
                 <td>정령 내성 <span class="stat-highlight">+5%</span></td>
                 <td><span class="stat-special">물리 공격 회피 (10% 확률)</span><br><span class="stat-special">마법 대미지 50% 감소 (6% 확률)</span></td>
                 <td style="color: #66ddff; font-weight: bold;">수룡 + 지룡의<br>옵션만 승계</td>

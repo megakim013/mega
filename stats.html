@@ -33,7 +33,7 @@ html { overflow-y: scroll; }
             width: 250px;
             height: 100vh;
             background: linear-gradient(180deg, rgba(10, 16, 26, 0.95) 0%, rgba(7, 12, 20, 0.95) 100%);
-            border-right: 1px solid rgba(255, 187, 0, 0.25);
+            border-right: 1px solid rgba(51, 163, 255, 0.25);
             z-index: 2000;
             display: flex;
             flex-direction: column;
@@ -43,7 +43,7 @@ html { overflow-y: scroll; }
 
         .sidebar-logo { box-sizing: border-box; padding: 18px 20px 12px 20px;
             text-align: center;
-            border-bottom: 1px solid rgba(255, 187, 0, 0.15); }
+            border-bottom: 1px solid rgba(51, 163, 255, 0.15); }
 
         .sidebar-logo h2 {
             margin: 0;
@@ -51,7 +51,7 @@ html { overflow-y: scroll; }
             font-size: 26px;
             font-weight: 900;
             letter-spacing: 3px;
-            text-shadow: 0 0 15px #ffaa00, 0 0 25px #664400;
+            text-shadow: 0 0 15px #0080ff, 0 0 25px #003366;
         }
 
         .sidebar-menu { box-sizing: border-box; display: flex;
@@ -72,10 +72,10 @@ html { overflow-y: scroll; }
             transition: 0.25s; }
 
         .sidebar-menu a:hover, .sidebar-menu a.active {
-            color: #ffcc00;
-            background: rgba(255, 187, 0, 0.08);
-            border-left: 4px solid #ffcc00;
-            text-shadow: 0 0 10px #ffbb00;
+            color: #4da6ff;
+            background: rgba(51, 163, 255, 0.08);
+            border-left: 4px solid #4da6ff;
+            text-shadow: 0 0 10px #33b3ff;
         }
 
         .sidebar-footer {
@@ -131,7 +131,7 @@ html { overflow-y: scroll; }
             font-weight: bold;
             letter-spacing: 4px;
             color: #fff;
-            text-shadow: 0 0 15px #000, 0 0 25px #ffaa00, 0 0 35px #664400;
+            text-shadow: 0 0 15px #000, 0 0 25px #0080ff, 0 0 35px #003366;
             top: 20px;
         }
 
@@ -141,9 +141,9 @@ html { overflow-y: scroll; }
             margin: 40px auto 70px auto;
             background: rgba(10, 16, 26, 0.85);
             padding: 45px 50px;
-            border: 1px solid rgba(255, 187, 0, 0.25);
+            border: 1px solid rgba(51, 163, 255, 0.25);
             border-radius: 12px;
-            box-shadow: 0 0 25px rgba(255, 187, 0, 0.15);
+            box-shadow: 0 0 25px rgba(51, 163, 255, 0.15);
             line-height: 1.7;
             font-size: 16px;
             color: #e0e6ed;
@@ -159,13 +159,13 @@ html { overflow-y: scroll; }
         .tab-buttons {
             display: flex;
             gap: 12px;
-            border-bottom: 2px solid rgba(255, 187, 0, 0.15);
+            border-bottom: 2px solid rgba(51, 163, 255, 0.15);
             padding-bottom: 12px;
             margin-bottom: 30px;
         }
         .tab-btn {
             background: rgba(10, 16, 26, 0.6);
-            border: 1px solid rgba(255, 187, 0, 0.25);
+            border: 1px solid rgba(51, 163, 255, 0.25);
             color: #ccc;
             padding: 12px 24px;
             font-size: 16px;
@@ -175,15 +175,15 @@ html { overflow-y: scroll; }
             transition: all 0.3s ease;
         }
         .tab-btn:hover {
-            color: #ffcc00;
-            border-color: #ffaa00;
-            box-shadow: 0 0 10px rgba(255, 187, 0, 0.2);
+            color: #4da6ff;
+            border-color: #0080ff;
+            box-shadow: 0 0 10px rgba(51, 163, 255, 0.2);
         }
         .tab-btn.active {
-            background: #cc8800;
+            background: #0066cc;
             color: #fff;
-            border-color: #ffaa00;
-            box-shadow: 0 0 15px rgba(255, 187, 0, 0.35);
+            border-color: #0080ff;
+            box-shadow: 0 0 15px rgba(51, 163, 255, 0.35);
         }
         .tab-content {
             display: none;
@@ -200,15 +200,15 @@ html { overflow-y: scroll; }
 
         /* 수식 카드 스타일 */
         .formula-card {
-            background: rgba(255, 187, 0, 0.03);
-            border: 1px solid rgba(255, 187, 0, 0.20);
-            border-left: 4px solid #ffaa00;
+            background: rgba(51, 163, 255, 0.03);
+            border: 1px solid rgba(51, 163, 255, 0.20);
+            border-left: 4px solid #0080ff;
             border-radius: 6px;
             padding: 18px 24px;
             margin-bottom: 25px;
         }
         .formula-title {
-            color: #ffcc00;
+            color: #4da6ff;
             font-size: 17px;
             font-weight: bold;
             margin-bottom: 10px;
@@ -224,7 +224,7 @@ html { overflow-y: scroll; }
             margin-bottom: 6px;
         }
         .formula-item span {
-            color: #ffcc00;
+            color: #4da6ff;
             font-weight: bold;
         }
 
@@ -239,25 +239,25 @@ html { overflow-y: scroll; }
         }
         th, td {
             padding: 10px 12px;
-            border: 1px solid rgba(255, 187, 0, 0.15);
+            border: 1px solid rgba(51, 163, 255, 0.15);
             text-align: center;
         }
         th {
-            background: rgba(255, 187, 0, 0.12);
-            color: #ffcc00;
+            background: rgba(51, 163, 255, 0.12);
+            color: #4da6ff;
             font-weight: bold;
         }
         tr:nth-child(even) {
             background: rgba(255, 255, 255, 0.02);
         }
         tr:hover {
-            background: rgba(255, 187, 0, 0.05);
+            background: rgba(51, 163, 255, 0.05);
         }
 
         /* 예시 박스 */
         .example-box {
-            background: rgba(255, 187, 0, 0.04);
-            border: 1px solid rgba(255, 187, 0, 0.18);
+            background: rgba(51, 163, 255, 0.04);
+            border: 1px solid rgba(51, 163, 255, 0.18);
             padding: 18px;
             border-radius: 6px;
             margin-bottom: 18px;
@@ -281,7 +281,7 @@ html { overflow-y: scroll; }
         .stat-table-card {
             flex: 1;
             background: rgba(10, 16, 26, 0.7);
-            border: 1px solid rgba(255, 187, 0, 0.2);
+            border: 1px solid rgba(51, 163, 255, 0.2);
             border-radius: 8px;
             padding: 15px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -290,8 +290,8 @@ html { overflow-y: scroll; }
         }
         .stat-table-card h3 {
             margin-top: 0;
-            color: #ffcc00;
-            border-bottom: 1px solid rgba(255, 187, 0, 0.20);
+            color: #4da6ff;
+            border-bottom: 1px solid rgba(51, 163, 255, 0.20);
             padding-bottom: 8px;
             font-size: 17px;
             text-align: center;
@@ -301,7 +301,7 @@ html { overflow-y: scroll; }
             max-height: 520px;
             overflow-y: auto;
             border-radius: 4px;
-            border: 1px solid rgba(255, 187, 0, 0.12);
+            border: 1px solid rgba(51, 163, 255, 0.12);
         }
         /* Scrollbar 스킨 */
         .scrollable-table-container::-webkit-scrollbar {
@@ -311,11 +311,11 @@ html { overflow-y: scroll; }
             background: rgba(7, 12, 20, 0.5);
         }
         .scrollable-table-container::-webkit-scrollbar-thumb {
-            background: rgba(255, 187, 0, 0.3);
+            background: rgba(51, 163, 255, 0.3);
             border-radius: 3px;
         }
         .scrollable-table-container::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 187, 0, 0.6);
+            background: rgba(51, 163, 255, 0.6);
         }
 
         /* 색상 뱃지 */
@@ -326,7 +326,7 @@ html { overflow-y: scroll; }
             margin-bottom: 15px;
         }
         .green-val { color: #00ffaa; font-weight: bold; }
-        .yellow-val { color: #ffcc00; font-weight: bold; }
+        .yellow-val { color: #4da6ff; font-weight: bold; }
         .red-val { color: #ff5555; font-weight: bold; }
 
         /* footer */
@@ -413,7 +413,7 @@ html { overflow-y: scroll; }
                         </div>
                     </div>
 
-                    <h2 style="color: #ffcc00; margin-top: 30px; margin-bottom: 12px; font-size: 20px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                    <h2 style="color: #4da6ff; margin-top: 30px; margin-bottom: 12px; font-size: 20px; border-bottom: 1px solid rgba(51, 163, 255,0.25); padding-bottom: 6px;">
                         📊 INT별 마법명중 계산 예시표 (기본명중=100%, 아이템 마법명중=0 기준)
                     </h2>
                     <div class="color-desc">
@@ -515,44 +515,44 @@ html { overflow-y: scroll; }
                         </tbody>
                     </table>
 
-                    <h2 style="color: #ffcc00; margin-top: 35px; margin-bottom: 15px; font-size: 20px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                    <h2 style="color: #4da6ff; margin-top: 35px; margin-bottom: 15px; font-size: 20px; border-bottom: 1px solid rgba(51, 163, 255,0.25); padding-bottom: 6px;">
                         💡 디버프 적중확률 상세 공식 대입 예시
                     </h2>
                     
                     <div class="example-box">
-                        <div style="font-weight: bold; color: #ffcc00; margin-bottom: 8px;">[예시 1] INT 40, 대상 MR 60인 상대에게 턴언데드 등 디버프 시전 시</div>
+                        <div style="font-weight: bold; color: #4da6ff; margin-bottom: 8px;">[예시 1] INT 40, 대상 MR 60인 상대에게 턴언데드 등 디버프 시전 시</div>
                         <ul>
                             <li>INT 보정값 = (40 - 45) × 0.5 = <b>-2.5</b></li>
                             <li>INT 표 명중 = +8 (보정 공식 적용: 8 - 15 = <b>-7</b>)</li>
                             <li>최종 명중% = 100 + (-2.5) + (-7) = <b>90.5%</b></li>
                             <li>상대 MR 60에 따른 감소치 = 60 × 0.8 = <b>48%</b></li>
-                            <li style="color: #ffaa00; font-weight: bold; margin-top: 6px;">★ 실제 최종 적중확률 = 90.5% - 48% = <span class="yellow-val" style="font-size: 16px;">42.5%</span></li>
+                            <li style="color: #0080ff; font-weight: bold; margin-top: 6px;">★ 실제 최종 적중확률 = 90.5% - 48% = <span class="yellow-val" style="font-size: 16px;">42.5%</span></li>
                         </ul>
                     </div>
 
                     <div class="example-box">
-                        <div style="font-weight: bold; color: #ffcc00; margin-bottom: 8px;">[예시 2] INT 45, 대상 MR 60인 상대에게 턴언데드 등 디버프 시전 시</div>
+                        <div style="font-weight: bold; color: #4da6ff; margin-bottom: 8px;">[예시 2] INT 45, 대상 MR 60인 상대에게 턴언데드 등 디버프 시전 시</div>
                         <ul>
                             <li>INT 보정값 = (45 - 45) × 0.5 = <b>0</b></li>
                             <li>INT 표 명중 = +10 (보정 공식 적용: 10 - 15 = <b>-5</b>)</li>
                             <li>최종 명중% = 100 + 0 + (-5) = <b>95%</b></li>
                             <li>상대 MR 60에 따른 감소치 = 60 × 0.8 = <b>48%</b></li>
-                            <li style="color: #ffaa00; font-weight: bold; margin-top: 6px;">★ 실제 최종 적중확률 = 95% - 48% = <span class="yellow-val" style="font-size: 16px;">47%</span></li>
+                            <li style="color: #0080ff; font-weight: bold; margin-top: 6px;">★ 실제 최종 적중확률 = 95% - 48% = <span class="yellow-val" style="font-size: 16px;">47%</span></li>
                         </ul>
                     </div>
 
                     <div class="example-box">
-                        <div style="font-weight: bold; color: #ffcc00; margin-bottom: 8px;">[예시 3] INT 50, 아이템 마법명중 +10 보유, 대상 MR 60 상대에게 디버프 시전 시</div>
+                        <div style="font-weight: bold; color: #4da6ff; margin-bottom: 8px;">[예시 3] INT 50, 아이템 마법명중 +10 보유, 대상 MR 60 상대에게 디버프 시전 시</div>
                         <ul>
                             <li>INT 보정값 = (50 - 45) × 0.5 = <b>+2.5</b></li>
                             <li>INT 표 명중 + 아이템 마법명중 = 14 + 10 = 24 (보정 공식 적용: 24 - 15 = <b>+9</b>)</li>
                             <li>최종 명중% = 100 + 2.5 + 9 = <b>111.5%</b></li>
                             <li>상대 MR 60에 따른 감소치 = 60 × 0.8 = <b>48%</b></li>
-                            <li style="color: #ffaa00; font-weight: bold; margin-top: 6px;">★ 실제 최종 적중확률 = 111.5% - 48% = <span class="green-val" style="font-size: 16px;">63.5%</span></li>
+                            <li style="color: #0080ff; font-weight: bold; margin-top: 6px;">★ 실제 최종 적중확률 = 111.5% - 48% = <span class="green-val" style="font-size: 16px;">63.5%</span></li>
                         </ul>
                     </div>
 
-                    <h2 style="color: #ffcc00; margin-top: 35px; margin-bottom: 12px; font-size: 20px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                    <h2 style="color: #4da6ff; margin-top: 35px; margin-bottom: 12px; font-size: 20px; border-bottom: 1px solid rgba(51, 163, 255,0.25); padding-bottom: 6px;">
                         🛡️ 아이템 마법명중 추가 시 최종적중% 변화 (INT 45, 대상 MR 60 기준, 기본 47%)
                     </h2>
                     <table>
@@ -609,7 +609,7 @@ html { overflow-y: scroll; }
                         </div>
                     </div>
 
-                    <h2 style="color: #ffcc00; margin-top: 30px; margin-bottom: 12px; font-size: 19px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                    <h2 style="color: #4da6ff; margin-top: 30px; margin-bottom: 12px; font-size: 19px; border-bottom: 1px solid rgba(51, 163, 255,0.25); padding-bottom: 6px;">
                         🏹 직업별 레벨 SP 계산식 (레벨에 따른 자연 SP 증가량)
                     </h2>
                     <table>
@@ -676,7 +676,7 @@ html { overflow-y: scroll; }
                         ※ 마법사 직업의 최대 레벨 SP는 10이며, 기사는 최대 1로 직업군 중 가장 낮게 설정되어 있습니다.
                     </p>
 
-                    <h2 style="color: #ffcc00; margin-top: 30px; margin-bottom: 12px; font-size: 19px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                    <h2 style="color: #4da6ff; margin-top: 30px; margin-bottom: 12px; font-size: 19px; border-bottom: 1px solid rgba(51, 163, 255,0.25); padding-bottom: 6px;">
                         ✨ INT 수치에 따른 마법 SP 보너스 (magicBonus) 수치표
                     </h2>
                     <table>
@@ -728,7 +728,7 @@ html { overflow-y: scroll; }
                         </tbody>
                     </table>
 
-                    <h2 style="color: #ffcc00; margin-top: 35px; margin-bottom: 12px; font-size: 19px; border-bottom: 1px solid rgba(255,187,0,0.25); padding-bottom: 6px;">
+                    <h2 style="color: #4da6ff; margin-top: 35px; margin-bottom: 12px; font-size: 19px; border-bottom: 1px solid rgba(51, 163, 255,0.25); padding-bottom: 6px;">
                         💡 Total SP 합산에 따른 최종 마법 데미지 추가 예시 (마법사 기준)
                     </h2>
                     <p style="font-size: 13px; color: #ccc; margin-bottom: 15px;">* 마법사 레벨 40 완성 기준 레벨 SP = 10 고정 대입</p>

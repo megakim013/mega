@@ -26,7 +26,7 @@ html { overflow-y: scroll; }
     width: 250px;
     height: 100vh;
     background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
-    border-right: 1px solid rgba(255,187,0,0.25);
+    border-right: 1px solid rgba(51, 163, 255,0.25);
     z-index: 2000;
     display: flex;
     flex-direction: column;
@@ -35,14 +35,14 @@ html { overflow-y: scroll; }
 }
 .sidebar-logo { box-sizing: border-box; padding: 18px 20px 12px 20px;
     text-align: center;
-    border-bottom: 1px solid rgba(255,187,0,0.15); }
+    border-bottom: 1px solid rgba(51, 163, 255,0.15); }
 .sidebar-logo h2 {
     margin: 0;
     color: #fff;
     font-size: 26px;
     font-weight: 900;
     letter-spacing: 3px;
-    text-shadow: 0 0 15px #ffaa00, 0 0 25px #664400;
+    text-shadow: 0 0 15px #0080ff, 0 0 25px #003366;
 }
 .sidebar-menu { box-sizing: border-box; display: flex;
     flex-direction: column;
@@ -60,10 +60,10 @@ html { overflow-y: scroll; }
     border-left: 4px solid transparent;
     transition: 0.25s; }
 .sidebar-menu a:hover, .sidebar-menu a.active {
-    color: #ffcc00;
-    background: rgba(255, 187, 0, 0.08);
-    border-left: 4px solid #ffcc00;
-    text-shadow: 0 0 10px #ffbb00;
+    color: #4da6ff;
+    background: rgba(51, 163, 255, 0.08);
+    border-left: 4px solid #4da6ff;
+    text-shadow: 0 0 10px #33b3ff;
 }
 .sidebar-footer {
     padding: 20px;
@@ -91,7 +91,7 @@ html { overflow-y: scroll; }
 ------------------------------ */
 .mini-header {
     padding: 60px 60px 20px 60px;
-    border-bottom: 1px solid rgba(255,187,0,0.15);
+    border-bottom: 1px solid rgba(51, 163, 255,0.15);
     background: rgba(10,16,26,0.4);
 }
 .mini-header h1 {
@@ -99,7 +99,7 @@ html { overflow-y: scroll; }
     font-size: 38px;
     font-weight: bold;
     color: #fff;
-    text-shadow: 0 0 15px #ffaa00, 0 0 25px #664400;
+    text-shadow: 0 0 15px #0080ff, 0 0 25px #003366;
     letter-spacing: 2px;
 }
 .mini-header p {
@@ -122,7 +122,7 @@ html { overflow-y: scroll; }
 /* 개별 카드 스타일 */
 .feature-card {
     background: rgba(15, 23, 36, 0.75);
-    border: 1px solid rgba(255, 187, 0, 0.3);
+    border: 1px solid rgba(51, 163, 255, 0.3);
     border-radius: 14px;
     padding: 25px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.5);
@@ -133,8 +133,8 @@ html { overflow-y: scroll; }
 }
 .feature-card:hover {
     transform: translateY(-6px);
-    border-color: #ffcc00;
-    box-shadow: 0 15px 35px rgba(255, 187, 0, 0.25);
+    border-color: #4da6ff;
+    box-shadow: 0 15px 35px rgba(51, 163, 255, 0.25);
 }
 
 /* 동영상 영역 (16:9 비율 네모칸) */
@@ -142,7 +142,7 @@ html { overflow-y: scroll; }
     width: 100%;
     aspect-ratio: 16 / 9;
     background: #070c14;
-    border: 1px solid rgba(255,187,0,0.2);
+    border: 1px solid rgba(51, 163, 255,0.2);
     border-radius: 10px;
     overflow: hidden;
     position: relative;
@@ -179,19 +179,19 @@ html { overflow-y: scroll; }
     width: 65px;
     height: 65px;
     background: rgba(0, 100, 255, 0.8);
-    border: 2px solid #ffcc00;
+    border: 2px solid #4da6ff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 20px rgba(255,187,0,0.6);
+    box-shadow: 0 0 20px rgba(51, 163, 255,0.6);
     transition: 0.2s;
     margin-bottom: 15px;
 }
 .video-box:hover .play-btn {
     transform: scale(1.1);
-    background: #ffaa00;
-    box-shadow: 0 0 30px #ffcc00;
+    background: #0080ff;
+    box-shadow: 0 0 30px #4da6ff;
 }
 .play-btn::after {
     content: "";
@@ -204,8 +204,8 @@ html { overflow-y: scroll; }
 .overlay-text {
     font-size: 16px;
     font-weight: bold;
-    color: #ffcc00;
-    text-shadow: 0 0 10px rgba(255,215,0,0.5);
+    color: #4da6ff;
+    text-shadow: 0 0 10px rgba(51, 204, 255,0.5);
 }
 .overlay-subtext {
     font-size: 13px;
@@ -250,13 +250,13 @@ html { overflow-y: scroll; }
     align-items: center;
 }
 .status-badge {
-    background: rgba(255,187,0,0.15);
-    color: #ffcc00;
+    background: rgba(51, 163, 255,0.15);
+    color: #4da6ff;
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 13px;
     font-weight: bold;
-    border: 1px solid rgba(255,187,0,0.3);
+    border: 1px solid rgba(51, 163, 255,0.3);
 }
 
 /* 푸터 */
@@ -337,8 +337,8 @@ html { overflow-y: scroll; }
             <div class="feature-info">
                 <div class="feature-title">인벤 기억 막대</div>
                 <div class="feature-desc">
-                    자주 사용하는 인벤토리 아이템 배치와 장비 슬롯 상태를 기억 막대에 저장하고, 원할 때 <b style="color:#ffcc00;">.인벤</b> 명령어로 즉시 불러오는 편리한 인벤토리 순서저장 기능입니다.<br>
-                    순서를 재지정하고 싶으면 <b style="color:#ffcc00;">.인벤기억초기화</b> 명령어, 정렬은 <b style="color:#ffcc00;">.인벤</b> 명령어입니다.
+                    자주 사용하는 인벤토리 아이템 배치와 장비 슬롯 상태를 기억 막대에 저장하고, 원할 때 <b style="color:#4da6ff;">.인벤</b> 명령어로 즉시 불러오는 편리한 인벤토리 순서저장 기능입니다.<br>
+                    순서를 재지정하고 싶으면 <b style="color:#4da6ff;">.인벤기억초기화</b> 명령어, 정렬은 <b style="color:#4da6ff;">.인벤</b> 명령어입니다.
                 </div>
                 <div class="feature-footer">
                     <span>#인벤저장 #세팅불러오기</span>

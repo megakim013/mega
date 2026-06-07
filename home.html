@@ -59,14 +59,14 @@ body {
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    border: 1px solid rgba(255,187,0,0.3);
+    border: 1px solid rgba(51, 163, 255,0.3);
     box-shadow: 0 0 15px rgba(0,100,255,0.15);
     transition: 0.3s;
 }
 .img-box:hover {
     transform: scale(1.02);
-    box-shadow: 0 0 25px rgba(255,187,0,0.6);
-    border-color: rgba(255,215,0,0.9);
+    box-shadow: 0 0 25px rgba(51, 163, 255,0.6);
+    border-color: rgba(51, 204, 255,0.9);
 }
 .img-box::after {
     content:"";
@@ -83,13 +83,13 @@ body {
     font-size:22px;
     font-weight:bold;
     z-index:5;
-    text-shadow:0 0 8px #000, 0 0 15px #ffaa00;
+    text-shadow:0 0 8px #000, 0 0 15px #0080ff;
 }
 /* 공지사항 팝업 */
 #popup {
     width: 420px;
     background: rgba(10,20,30,0.92);
-    border: 2px solid #cc8800;
+    border: 2px solid #0066cc;
     box-shadow: 0 0 30px rgba(0,100,255,0.5);
     color: #fff;
     padding: 20px;
@@ -102,8 +102,8 @@ body {
     display: none;
     backdrop-filter: blur(5px);
 }
-#popup h2 { text-align: center; color: #ffcc00; text-shadow: 0 0 10px rgba(255,187,0,0.5); }
-.close-btn { position: absolute; top: 8px; right: 12px; cursor: pointer; color: #ffcc00; font-size: 22px; }
+#popup h2 { text-align: center; color: #4da6ff; text-shadow: 0 0 10px rgba(51, 163, 255,0.5); }
+.close-btn { position: absolute; top: 8px; right: 12px; cursor: pointer; color: #4da6ff; font-size: 22px; }
 .close-btn:hover { color: #fff; }
 /* footer */
 .footer {
@@ -130,8 +130,8 @@ body {
 <div id="popup">
     <div class="close-btn" onclick="closePopup()">✖</div>
     <h2>📢📢 2.0 메가 서버 공지 📢📢</h2>
-    <p style="text-align:center; color:#ffcc00; font-size:16px; font-weight:bold; margin-top:5px;">📢 6월 12일 오후 5시부터 오픈대기 1시간 📢</p>
-    <hr style="border:0; border-top:1px solid rgba(255,187,0,0.3); margin:15px 0;">
+    <p style="text-align:center; color:#4da6ff; font-size:16px; font-weight:bold; margin-top:5px;">📢 6월 12일 오후 5시부터 오픈대기 1시간 📢</p>
+    <hr style="border:0; border-top:1px solid rgba(51, 163, 255,0.3); margin:15px 0;">
     <div style="line-height:2.0; font-size:15px; color:#ddd; padding:0 10px;">
         1. 장기 노초기화 서버<br>
         2. 클래식 감성 그대로 유지<br>
@@ -143,9 +143,7 @@ body {
 
 <div class="main-content">
     <div class="header">
-        <video class="header-banner-img" autoplay loop muted playsinline>
-            <source src="images/main.mp4" type="video/mp4">
-        </video>
+        <img src="images/megamain.png" class="header-banner-img" alt="Mega Server Banner">
     </div>
 
     <div class="container">
