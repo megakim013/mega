@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+    if (window !== window.top) {
+        document.documentElement.classList.add('iframe-mode');
+        const style = document.createElement('style');
+        style.innerHTML = '.sidebar { display: none !important; } .main-content { margin-left: 0 !important; width: 100% !important; }';
+        document.head.appendChild(style);
+    }
+</script>
+<meta charset="UTF-8">
+<title>신규가이드 - Mega Server</title>
+
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/packages/pretendard-jp/dist/web/static/pretendard-dynamic-subset.css');
+html { overflow-y: scroll; }
+/* ------------------------------
+   좌측 사이드바 메뉴 스타일
+------------------------------ */
+.sidebar {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(10,16,26,0.95) 0%, rgba(7,12,20,0.95) 100%);
+    border-right: 1px solid rgba(51, 163, 255,0.25);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+}
+.sidebar-logo { box-sizing: border-box; padding: 18px 20px 12px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(51, 163, 255,0.15); }
+.sidebar-logo h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px #0080ff, 0 0 25px #003366;
+}
+.sidebar-menu { box-sizing: border-box; display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+    flex: 1;
+    overflow-y: auto; }
+.sidebar-menu a { box-sizing: border-box; color: #ccc;
+    padding: 10px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 4px solid transparent;
+    transition: 0.25s; }
+.sidebar-menu a:hover, .sidebar-menu a.active {
+    color: #4da6ff;
+    background: rgba(51, 163, 255, 0.08);
+    border-left: 4px solid #4da6ff;
+    text-shadow: 0 0 10px #33b3ff;
+}
+.sidebar-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+/* 메인 컨텐츠 영역 (사이드바 우측) */
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* 상단 배너 */
+.header {
+    background-image: url('images/megamain.png');
+    background-size: cover;
+    background-position: center;
+    height: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.header::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    width: 100%;
+    height: 350px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.90) 100%);
+}
+.header h1 {
+    position: relative;
+    font-size: 43px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: #fff;
+    top: 60px;
+    text-shadow: 0 0 15px #000, 0 0 25px #0080ff, 0 0 35px #003366;
+    z-index: 10;
+}
+
+/* 본문 영역 */
+.container {
+    width: 860px;
+    margin: 120px auto 70px auto;
+    background: rgba(10,16,26,0.78);
+    padding: 45px 50px;
+    border: 1px solid rgba(51, 163, 255,0.35);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(51, 163, 255,0.25);
+    line-height: 1.65;
+    font-size: 18px;
+    position: relative;
+    z-index: 2;
+}
+
+/* 가이드 카드 스타일 */
+.guide-title {
+    font-size: 28px;
+    color: #4da6ff;
+    border-bottom: 2px solid rgba(51, 163, 255, 0.4);
+    padding-bottom: 12px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.guide-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+.guide-item:hover {
+    border-color: rgba(51, 163, 255, 0.3);
+    background: rgba(51, 163, 255, 0.02);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(51, 163, 255, 0.15);
+}
+.guide-num {
+    display: inline-block;
+    background: #0080ff;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-weight: bold;
+    margin-right: 12px;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+.guide-header {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+.guide-content {
+    color: #ccc;
+    font-size: 16px;
+    line-height: 1.7;
+    padding-left: 40px;
+}
+.highlight {
+    color: #4da6ff;
+    font-weight: bold;
+}
+.badge-gold {
+    background: #eab308;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.badge-blue {
+    background: #0080ff;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+.tip-box {
+    background: rgba(234, 179, 8, 0.06);
+    border-left: 4px solid #eab308;
+    padding: 15px 20px;
+    margin-top: 15px;
+    border-radius: 0 8px 8px 0;
+    color: #e2e8f0;
+    font-size: 15px;
+}
+.tip-box strong {
+    color: #eab308;
+}
+.info-box {
+    background: rgba(59, 130, 246, 0.06);
+    border-left: 4px solid #3b82f6;
+    padding: 15px 20px;
+    margin-top: 15px;
+    border-radius: 0 8px 8px 0;
+    color: #e2e8f0;
+    font-size: 15px;
+}
+.info-box strong {
+    color: #3b82f6;
+}
+.etc-box {
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-top: 25px;
+    margin-top: 40px;
+}
+.etc-item {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    color: #ddd;
+}
+.etc-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.sidebar-menu::-webkit-scrollbar { display: none !important; }
+.sidebar-menu { -ms-overflow-style: none !important; scrollbar-width: none !important; }
+
+@media screen and (min-width: 769px) {
+    html.iframe-mode .sidebar { display: none !important; }
+    html.iframe-mode .main-content { margin-left: 0 !important; width: 100% !important; }
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="mobile.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+    <div class="sidebar-logo">
+        <h2>MEGA</h2>
+    </div>
+    <div class="sidebar-menu">
+        <a href="index.html">🏠 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;홈&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        <a href="guide.html" class="active">🛡️ 신&nbsp;&nbsp;규&nbsp;&nbsp;가&nbsp;&nbsp;이&nbsp;&nbsp;드</a>
+        <a href="notice.html">📢 공&nbsp;&nbsp;지&nbsp;&nbsp;사&nbsp;&nbsp;항</a>
+        <a href="info.html">📜 서&nbsp;&nbsp;버&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="stats.html">📊 스&nbsp;탯&nbsp;&nbsp;&&nbsp;&nbsp;공&nbsp;식</a>
+        <a href="commands.html">⌨️ 명&nbsp;&nbsp;령&nbsp;&nbsp;어&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="update.html">⚡ 업&nbsp;&nbsp;데&nbsp;&nbsp;이&nbsp;&nbsp;트</a>
+        <a href="boss.html">💀 보&nbsp;&nbsp;스&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="doll.html">🧸 마&nbsp;&nbsp;법&nbsp;&nbsp;인&nbsp;&nbsp;형</a>
+        <a href="maan.html">👁️ 마&nbsp;&nbsp;안&nbsp;&nbsp;정&nbsp;&nbsp;보</a>
+        <a href="item.html">💎 아&nbsp;이&nbsp;템&nbsp;정&nbsp;보</a>
+        <a href="feature.html">⚙️ 간&nbsp;&nbsp;편&nbsp;&nbsp;기&nbsp;&nbsp;능</a>
+        <a href="hunting.html">🚩 레벨별 사냥터</a>
+        <a href="promo.html">📣 홍&nbsp;&nbsp;보&nbsp;&nbsp;안&nbsp;&nbsp;내</a>
+        <a href="service.html">💬 고&nbsp;&nbsp;객&nbsp;&nbsp;센&nbsp;&nbsp;터</a>
+        <a href="security.html">🛡️ 보안 설정(필수)</a>
+        <a href="download.html">⬇ 다&nbsp;&nbsp;운&nbsp;&nbsp;로&nbsp;&nbsp;드</a>
+    </div>
+    <div class="sidebar-footer">
+        <span>© 2026 Mega Server</span>
+    </div>
+</div>
+
+<div class="main-content">
+
+<div class="header">
+    <h1>NEWBIE GUIDE</h1>
+</div>
+
+<div class="container">
+
+    <div class="guide-title">
+        <span>🛡️ 신규 모험가를 위한 가이드</span>
+    </div>
+
+    <!-- 1번 -->
+    <div class="guide-item">
+        <div class="guide-header">
+            <span class="guide-num">1</span> 초반 홍보 세팅 & 개미굴 자동사냥
+        </div>
+        <div class="guide-content">
+            홍보 10회 완료 후(홈페이지 메뉴의 <strong>[홍보안내]</strong>에서 문구 및 홍보인증을 확인하실 수 있습니다),<br>
+            본캐릭터로 5홍보보상 / 부캐릭터로 5홍보보상을 각각 획득하신 다음<br>
+            부캐릭터는 <strong>개미굴 1층 ~ 4층</strong>에서 자동사냥을 풀(Full)로 돌리시기 바랍니다.<br>
+            <span class="highlight">(F3 키를 누르면 자동사냥 설정이 가능하며, 상세 사용법은 홈페이지 [간편기능]에 나와 있습니다.)</span>
+            
+            <div class="tip-box">
+                <strong>💡 초반 상자 귀걸이 꿀팁</strong><br>
+                초반 상자에 룸티스 귀걸이가 2개씩 지급되는 이유는 마을 내에 있는 <strong>축룸티스 제작 NPC</strong>를 통해 
+                축복(축) 아이템으로 제작하여 효율적으로 사용하실 수 있도록 동봉된 것입니다.
+            </div>
+        </div>
+    </div>
+
+    <!-- 2번 -->
+    <div class="guide-item">
+        <div class="guide-header">
+            <span class="guide-num">2</span> 기란 감옥 사냥 & 오림 장비 수급 <span class="badge-gold">추천 ★★★★★</span>
+        </div>
+        <div class="guide-content">
+            하루 1시간 제공되는 기감(기란 감옥) 사냥은 <strong>경험치 특화 및 마나 회복제 수급</strong>에 매우 유리합니다.<br>
+            특히 <span class="highlight">오림의 갑옷, 오림의 무기</span> 획득처로서 매우 중요하므로 절대 놓치지 마세요!<br>
+            <div class="info-box">
+                <strong>💎 유료 자동사냥 혜택 안내</strong><br>
+                유료 자동사냥 30일권을 구매하시면 기란 감옥에서도 자동사냥을 지원하며, 보상이 더욱 강화됩니다.
+            </div>
+        </div>
+    </div>
+
+    <!-- 3번 -->
+    <div class="guide-item">
+        <div class="guide-header">
+            <span class="guide-num">3</span> 잊혀진 섬 파밍 (순수 아데나 1등 사냥터)
+        </div>
+        <div class="guide-content">
+            잊혀진 섬(잊섬)에서 <strong>멸마의 반지 및 고대 주문서(고줌)</strong>를 파밍할 수 있습니다.<br>
+            잊혀진 장비 시리즈는 획득 시 자동 판매되므로, <strong>순수 아데나를 벌기에는 잊섬이 가장 뛰어난 효율</strong>을 보입니다.
+        </div>
+    </div>
+
+    <!-- 4번 -->
+    <div class="guide-item">
+        <div class="guide-header">
+            <span class="guide-num">4</span> 오만의 탑 악세서리 파밍 가이드
+        </div>
+        <div class="guide-content">
+            오만의 탑에서 드랍 아이템을 미리 체크하고 본인에게 필요한 악세서리 파밍을 계획해 보세요.<br>
+            <strong>5층은 목걸이류를 드랍하므로 필수 코스</strong>입니다. (신성한 목걸이 제작에 성공할 때까지 파밍 권장)<br>
+            <span class="highlight">예시 테크트리: 완력의 목걸이 ➔ 빛나는 고대의 목걸이 ➔ 신성한 완력의 목걸이</span>
+        </div>
+    </div>
+
+    <!-- 5번 -->
+    <div class="guide-item">
+        <div class="guide-header">
+            <span class="guide-num">5</span> 버림받은 자들의 땅(버땅) vs 용의 던전(용던)
+        </div>
+        <div class="guide-content">
+            버땅은 경험치 효율이 훌륭한 자동사냥 전용 맵이지만 아데나 수급은 어렵습니다.<br>
+            경험치를 조금 양보하더라도 자동사냥을 돌려 <strong>아데나 수급을 극대화하려면 용던 5층~6층</strong> 사냥을 적극 권장합니다.
+        </div>
+    </div>
+
+    <!-- 6번 -->
+    <div class="guide-item">
+        <div class="guide-header">
+            <span class="guide-num">6</span> 시간대별 베리던전 파밍 <span class="badge-blue">필수</span>
+        </div>
+        <div class="guide-content">
+            시간별로 열리는 베리던전은 반드시 가야 하는 핵심 사냥터입니다.<br>
+            사냥 중 등장하는 <strong>호랑이</strong>를 잡다 보면 <strong>던전 보스</strong>로 변신하므로 무조건 처치해야 합니다.<br>
+            또한, 판다곰은 각종 베리 템과 <strong>퓨어 엘릭서</strong>를 드랍하니 필수로 잡으셔야 합니다.<br>
+            <span class="highlight">(※ 베리는 메가서버의 메인 재화입니다!)</span>
+        </div>
+    </div>
+
+    <!-- 7번 -->
+    <div class="guide-item">
+        <div class="guide-header">
+            <span class="guide-num">7</span> 얼음던전 파밍
+        </div>
+        <div class="guide-content">
+            얼음던전은 메인급 검, 활, 지팡이 무기와 함께 <strong>희귀 제작 비법서 조각</strong>이 드랍됩니다.<br>
+            베리가 어느 정도 여유로워지면 러쉬용 무기 파밍 및 비법서 조각을 획득하기 위해 방문하는 필수 사냥터 중 하나입니다.
+        </div>
+    </div>
+
+    <!-- 8번 -->
+    <div class="guide-item">
+        <div class="guide-header">
+            <span class="guide-num">8</span> 초반 마법사(법사) 플레이 꿀팁
+        </div>
+        <div class="guide-content">
+            이 서버는 초반에 법사의 <strong>파이어볼 마법이 대단히 강력</strong>하게 설정되어 있습니다.<br>
+            따라서 법사 클래스로 플레이하실 경우, 어느 사냥터에서든 <strong>흑기사 변신 후 몰이사냥</strong>을 하시는 것을 추천해 드립니다.
+        </div>
+    </div>
+
+    <!-- 9번 -->
+    <div class="guide-item">
+        <div class="guide-header">
+            <span class="guide-num">9</span> 서버 플레이의 핵심: 혈맹 가입 & 보스 레이드 분배 <span class="badge-blue">중요</span>
+        </div>
+        <div class="guide-content">
+            이 서버의 핵심 공략은 <strong>시작하자마자 혈맹에 가입</strong>하여, 비록 내 캐릭터가 약하더라도 보스 탐(레이드)에 꾸준히 동참하여 분배를 받아 성장하는 것입니다.<br>
+            꼭 혈맹에 가입해 다른 유저들과 원활히 소통하며 플레이하시길 권장합니다.<br>
+            모르는 점이 있으시다면 언제든지 게임 내에서 <span class="highlight">카시오페아</span> 또는 <span class="highlight">메티스</span> 캐릭터로 귓속말을 주시면 아주 친절하게 답변해 드립니다.
+        </div>
+    </div>
+
+    <!-- 추가 안내 영역 -->
+    <div class="etc-box">
+        <div class="guide-title">
+            <span>💡 추가 플레이 정보</span>
+        </div>
+
+        <div class="etc-item">
+            <div class="etc-title">🔍 마법/기술 및 장비 드랍 검색 기능</div>
+            채팅창에 <span class="highlight">.몹드랍 몬스터이름</span> 또는 <span class="highlight">.드랍 아이템이름</span> 명령어를 사용해, 
+            획득하고자 하는 스킬 및 장비들의 정확한 파밍처를 간편하게 검색하여 진행하실 수 있습니다.
+        </div>
+
+        <div class="etc-item">
+            <div class="etc-title">⌨️ 단축키 모드 <span class="badge-blue">필수 설정</span></div>
+            단축키 모드는 편안한 플레이를 위해 필수적입니다.<br>
+            홈페이지의 <strong>[간편기능]</strong> 탭에 단축키 모드 세부 사용법이 등록되어 있으며, 게임 내 기란 마을의 <strong>기초상점</strong>에서 구매하실 수 있습니다.<br>
+            설정에 어려움이 있으신 경우 언제든지 운영자에게 귓속말을 보내 주세요!
+        </div>
+
+        <div class="etc-item">
+            <div class="etc-title">✨ 서버 전용 축복 안내</div>
+            <ul>
+                <li style="margin-bottom: 8px;"><strong>메가의 축복:</strong> 사용 시 강력한 가호 효과가 영구 혹은 일정 시간 부여됩니다.</li>
+                <li><strong>병오년의 축복상자:</strong> 획득 시 버프 효과의 시간이 누적되지 않습니다. <u>반드시 1개씩 순서대로 사용</u>하여 소중한 유물 효과를 모두 누리시기 바랍니다.</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer" style="margin-top: 60px; padding: 15px 0; font-size: 14px; text-align: center; color: rgba(230,230,230,0.75); line-height: 1.4;">
+    서버의 모든 저작권은 NCSoft에 있으며, 본 서버는 커뮤니티 및 개발 연구 목적입니다.<br>
+    게임사의 요청 시 서버는 언제든지 중단될 수 있습니다.
+</div>
+</div><!-- //main-content -->
+
+</body>
+</html>
