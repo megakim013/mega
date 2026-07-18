@@ -237,22 +237,28 @@ h2 {
     transform: translateY(-2px);
     box-shadow: 0 0 12px rgba(51, 163, 255, 0.35);
 }
-
-.site-btn.logo-btn {
-    display: inline-flex;
-    align-items: center;
+.featured-site {
+    text-align: center;
+    margin: 25px auto 15px auto;
+    display: flex;
     justify-content: center;
+    align-items: center;
 }
-.site-btn.logo-btn a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+.featured-site a {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+.featured-site img {
+    max-width: 320px;
     width: 100%;
-}
-.site-btn.logo-btn img {
-    height: 20px;
-    width: auto;
+    height: auto;
     display: block;
+    filter: drop-shadow(0 0 8px rgba(51, 163, 255, 0.25));
+    transition: all 0.3s ease;
+}
+.featured-site a:hover img {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(51, 163, 255, 0.75));
 }
 
 
@@ -369,8 +375,13 @@ h2 {
 
     <h2>홍보 사이트</h2>
 
+    <div class="featured-site">
+        <a href="https://onetooday.com/" target="_blank">
+            <img src="images/onetooday.png" alt="원투데이">
+        </a>
+    </div>
+
     <div class="site-buttons">
-        <div class="site-btn logo-btn"><a href="https://onetooday.com/" target="_blank"><img src="images/onetooday.png" alt="원투데이"></a></div>
         <div class="site-btn"><a href="https://todaycp.com/" target="_blank">투데이</a></div>
         <div class="site-btn"><a href="https://todaync.com/" target="_blank">투데이2</a></div>
         <div class="site-btn"><a href="https://lineagefree.com/" target="_blank">린프리</a></div>
